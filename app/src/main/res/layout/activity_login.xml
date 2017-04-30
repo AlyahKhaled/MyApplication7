@@ -1,0 +1,150 @@
+
+
+
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/activity_MainActivity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:background="@drawable/background"
+            tools:context="com.example.acer.myapplication.LoginActivity">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:background="@drawable/zwarahlogo"
+                android:id="@+id/imageView"
+                android:layout_marginRight="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_above="@+id/radioGroup"
+                android:layout_alignParentTop="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/passicon"
+                android:id="@+id/imageView3"
+                android:layout_alignBottom="@+id/etPassword"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/etUsername" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/usericon"
+                android:id="@+id/imageView2"
+                android:layout_alignTop="@+id/etUsername"
+                android:layout_above="@+id/imageView3"
+                android:layout_alignEnd="@+id/imageView"
+                android:layout_toEndOf="@+id/etUsername" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:layout_marginLeft="35dp"
+                android:id="@+id/etUsername"
+                android:textAlignment="center"
+                android:hint="اسم المستخدم"
+                android:layout_above="@+id/etPassword"
+                android:layout_alignEnd="@+id/btnLogin"
+                android:layout_marginEnd="13dp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/etPassword"
+                android:textAlignment="center"
+                android:hint="كلمة المرور"
+                android:layout_above="@+id/checkBox"
+                android:layout_alignStart="@+id/etUsername" />
+
+            <Button
+                android:id="@+id/btnLogin"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="200dp"
+                android:background="@android:color/holo_orange_light"
+
+                android:elevation="0dp"
+                android:fontFamily="sans-serif"
+                android:text="تسجيل الدخول"
+                android:textColor="#ffffffff"
+                android:textSize="30dp"
+                tools:style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_above="@+id/textView"
+                android:layout_toStartOf="@+id/imageView3"
+                android:layout_marginBottom="36dp" />
+
+            <TextView
+
+                android:text="نسيت كلمة المرور؟"
+                android:textColor="#6c481d"
+                android:onClick="forgetPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_marginStart="13dp"
+                android:id="@+id/textView"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                />
+
+            <TextView
+                android:text="مستخدم جديد"
+                android:onClick="newUser"
+                android:textColor="#6c481d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@+id/imageView"
+                android:layout_alignEnd="@+id/imageView"
+                android:layout_below="@+id/btnLogin" />
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="تذكرني"
+                android:layout_above="@+id/btnLogin"
+                android:layout_alignStart="@+id/textView" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:id="@+id/radioGroup"
+                android:layout_marginBottom="19dp"
+                android:layout_above="@+id/imageView3"
+                android:layout_alignParentStart="true"
+                android:weightSum="1">>
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:layout_above="@+id/radioButton3"
+                    android:layout_alignStart="@+id/radioButton3"
+                    android:text="Admin"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/etUsername"
+                    android:layout_alignEnd="@+id/etUsername"
+                    android:layout_alignStart="@+id/etUsername"
+                    android:text="User"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+            </RadioGroup>
+
+        </RelativeLayout>
