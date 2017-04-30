@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context="com.example.acer.myapplication.adminListOfUsers">
+
+
+
+    <TextView
+
+        android:text=""
+        android:background="@drawable/arow"
+        android:layout_width="40sp"
+        android:layout_height="35sp"
+        android:id="@+id/textView30"
+        android:layout_weight="0.75"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="26dp" />
+
+    <TextView
+        android:text=""
+        android:layout_width="200sp"
+        android:layout_height="50sp"
+        android:background="@drawable/zwara_word"
+        android:id="@+id/textView34"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text=""
+        android:onClick="register"
+        android:background="@drawable/add_user"
+        android:layout_width="wrap_content"
+        android:layout_height="60sp"
+        android:id="@+id/button15"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+
+    <TextView
+
+        android:text=""
+        android:layout_width="40sp"
+        android:background="@drawable/person"
+        android:layout_height="35sp"
+        android:id="@+id/textView29"
+        android:layout_weight="1"
+        android:layout_marginRight="17dp"
+        android:layout_marginStart="26dp"
+        android:layout_toEndOf="@+id/textView34" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textSearch"
+        android:background="@android:color/transparent" />
+
+    <EditText
+        android:id="@+id/textSearch"
+        android:layout_width="270dp"
+        android:layout_height="55dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textView34"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="بحــث"
+        android:textColorHint="#916a26"
+        android:inputType="textPersonName"
+        android:textColor="#916a26"
+        tools:layout_editor_absoluteX="173dp"
+        tools:layout_editor_absoluteY="238dp" />
+
+</RelativeLayout>
