@@ -4,30 +4,42 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class admienprofile extends AppCompatActivity implements View.OnClickListener {
     final String TAG = this.getClass().getName();
 
     SharedPreferences pref;
     SharedPreferences.Editor editor;
-
+    String UserName;
     ImageButton logoutBtn;
     public InputStream is ;
-    String UserName = pref.getString("UserName", "");
-   // ListView lv ;
-   // String line = null;
-    //String result = null;
-   // String [] arr ;
+    ListView lv ;
+    String line = null;
+    String result = null;
+    String [] arr ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admienprofile);
+
 
         logoutBtn = (ImageButton) findViewById(R.id.logoutBtn);
         pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
@@ -35,9 +47,12 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
         Log.d(TAG, pref.getString("UserName", ""));
         Log.d(TAG, pref.getString("PassWord", ""));
 
-        logoutBtn.setOnClickListener(this);
-      /*  lv = (ListView) findViewById(R.id.listV1);
+         UserName = pref.getString("UserName", "");
 
+        logoutBtn.setOnClickListener(this);
+        lv = (ListView) findViewById(R.id.listV1);
+
+        System.out.println("******************************************* UserName "+UserName+"*********************");
 
         StrictMode.ThreadPolicy policy = new  StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -90,7 +105,7 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
 
 
 
-    }*/
+
 
     }
     public void onClick(View view) {

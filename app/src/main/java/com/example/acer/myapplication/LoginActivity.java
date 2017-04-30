@@ -54,7 +54,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLogin.setOnClickListener(this);
         pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
         editor = pref.edit();
-
+        editor.clear();
+        editor.commit();
 
       String username = pref.getString("UserName", "");
         String password = pref.getString("PassWord", "");
