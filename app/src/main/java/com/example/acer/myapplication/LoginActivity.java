@@ -207,10 +207,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    public void forgetPass(View view){
-        Intent in = new Intent(LoginActivity.this, forgetpasswored.class);
-        startActivity(in);
-    }
+   // public void forgetPass(View view){
+      //  Intent in = new Intent(LoginActivity.this, forgetpasswored.class);
+       // startActivity(in);
+   // }
 
     public void newUser(View view){
         //Intent in = new Intent(LoginActivity.this, admin.class);
