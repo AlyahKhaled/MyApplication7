@@ -25,7 +25,14 @@
         <activity android:name=".admin" />
         <activity android:name=".admienprofile" />
         <activity android:name=".adminListOfUsers" />
-        <activity android:name=".registerUser"></activity>
+        <activity android:name=".registerUser" />
+        <activity android:name=".notification" />
+        <activity android:name=".invitations" />
+        <activity android:name=".FriendsRequests" />
+        <activity android:name=".invitation_info" />
+        <activity android:name=".sugg" />
+        <activity android:name=".apologiz" />
+        <activity android:name=".coordenation"></activity>
     </application>
 
 </manifest>
