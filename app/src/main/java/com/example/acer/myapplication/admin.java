@@ -31,10 +31,11 @@ public class admin extends AppCompatActivity implements View.OnClickListener {
         profileBtn.setOnClickListener(this);
     }
 
+
+
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(admin.this,admienprofile.class);
+        Intent intent = new Intent(admin.this,adminListOfUsers.class);
         startActivity(intent);
-
     }
 }

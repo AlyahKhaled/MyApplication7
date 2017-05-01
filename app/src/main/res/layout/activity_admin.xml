@@ -44,17 +44,14 @@
 
     <Button
         android:text=""
-        android:onClick="useres"
+        android:onClick="onClick"
         android:background="@drawable/users"
-        android:layout_width="180sp"
+        android:layout_width="300sp"
         android:layout_height="300sp"
         android:id="@+id/button18"
+        android:layout_marginBottom="28dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="30dp"
-        android:layout_toLeftOf="@+id/button19"
-        android:layout_toStartOf="@+id/button19" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:text=""
@@ -67,17 +64,5 @@
         android:layout_alignParentStart="true"
         android:layout_above="@+id/button18" />
 
-
-    <Button
-        android:text=""
-        android:onClick="restaurants"
-        android:background="@drawable/restaurants"
-        android:layout_width="180sp"
-        android:layout_height="300sp"
-        android:id="@+id/button19"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/button18"
-        android:layout_alignTop="@+id/button18" />
 
 </RelativeLayout>

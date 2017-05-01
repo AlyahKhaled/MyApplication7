@@ -28,7 +28,7 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
 
     SharedPreferences pref;
     SharedPreferences.Editor editor;
-    String UserName;
+    String UserName;//1 taka it and assaigne the user name to it and send it in php file
     ImageButton logoutBtn;
     public InputStream is ;
     ListView lv ;
@@ -42,12 +42,12 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
 
 
         logoutBtn = (ImageButton) findViewById(R.id.logoutBtn);
-        pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
+        pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE); // 2 creat file
 
-        Log.d(TAG, pref.getString("UserName", ""));
-        Log.d(TAG, pref.getString("PassWord", ""));
+        Log.d(TAG, pref.getString("UserName", ""));// 3
+        Log.d(TAG, pref.getString("PassWord", ""));// 4
 
-         UserName = pref.getString("UserName", "");
+         UserName = pref.getString("UserName", ""); // 5 after intilisatien
 
         logoutBtn.setOnClickListener(this);
         lv = (ListView) findViewById(R.id.listV1);
