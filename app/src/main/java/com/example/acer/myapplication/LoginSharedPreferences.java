@@ -22,18 +22,6 @@ public class LoginSharedPreferences extends AppCompatActivity {
         Log.d(TAG, pref.getString("UserName", ""));
         Log.d(TAG, pref.getString("PassWord", ""));
 
-   /*     FloatingActionButton fabLogout = (FloatingActionButton) findViewById(R.id.fabLogout);
-        fabLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editor = pref.edit();
-                editor.clear();
-                editor.commit();
-                Intent in = new Intent(SubActivity.this, MainActivity.class);
-                startActivity(in);
-            }
-        });  for logout */
-
 
 
     }
