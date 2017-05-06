@@ -30,9 +30,11 @@
         <activity android:name=".invitations" />
         <activity android:name=".FriendsRequests" />
         <activity android:name=".invitation_info" />
+        <activity android:name=".forgetpasswored" />
         <activity android:name=".sugg" />
         <activity android:name=".apologiz" />
-        <activity android:name=".coordenation"></activity>
+        <activity android:name=".coordenation" />
+        <activity android:name=".restrictions"></activity>
     </application>
 
 </manifest>
