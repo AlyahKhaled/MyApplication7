@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             HashMap postData = new HashMap();
 
             postData.put("txtUsername", etUsername.getText().toString());
-            postData.put("txtPassword", etPassword.getText().toString());
+            postData.put("txtPassword",  etPassword.getText().toString());
 
 
             PostResponseAsyncTask task1 = new PostResponseAsyncTask(LoginActivity.this, postData,

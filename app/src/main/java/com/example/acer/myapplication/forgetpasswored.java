@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.kosalgeek.android.md5simply.MD5;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
@@ -36,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class forgetpasswored extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+
 
     final String TAG = this.getClass().getName();
     Button button3,button;
@@ -187,7 +189,7 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onClick(View v) {
-        newPass = editText11.getText().toString();
+        newPass = MD5.encrypt(editText11.getText().toString());
 
         if(flag){
 
