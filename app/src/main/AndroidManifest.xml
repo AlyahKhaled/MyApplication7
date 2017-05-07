@@ -34,7 +34,8 @@
         <activity android:name=".sugg" />
         <activity android:name=".apologiz" />
         <activity android:name=".coordenation" />
-        <activity android:name=".restrictions"></activity>
+        <activity android:name=".restrictions" />
+        <activity android:name=".editProfile"></activity>
     </application>
 
 </manifest>
