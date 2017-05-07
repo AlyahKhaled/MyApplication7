@@ -25,6 +25,7 @@ public class editProfile extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     String UserName;
+String birth;
 
     public EditText nameUs , msg ;
      Button editB;
@@ -80,10 +81,13 @@ ImageButton dat;
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+                Log.d(TAG, "onDateSet: mm-dd-yyy: " + month + "-" + day + "-" + year);
 
-                String date = month + "/" + day + "/" + year;
+                String date = month + "-" + day + "-" + year;
                 mDisplayDate.setText(date);
+
+                birth=mDisplayDate.getText().toString();
+
             }
         };
     }
