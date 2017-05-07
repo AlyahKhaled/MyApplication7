@@ -1,9 +1,14 @@
 package com.example.acer.myapplication;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,6 +22,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,7 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class invitation_info extends AppCompatActivity {
-
+    final String TAG = this.getClass().getName();
+    SharedPreferences pref;
+    String UserName;
     public Button sug,ignor,accept ;
     ListView lv ;
     String line = null;
@@ -41,6 +49,13 @@ public class invitation_info extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation_info);
 
+
+        pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
+        Log.d(TAG, pref.getString("UserName", ""));// 3
+        Log.d(TAG, pref.getString("PassWord", ""));// 4
+
+        UserName = pref.getString("UserName", ""); // 5
+
         lv = (ListView) findViewById(R.id.list);
         map = (Button) findViewById(R.id.button2);
         sug= (Button)findViewById(R.id.sug);
@@ -50,11 +65,12 @@ public class invitation_info extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new  StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-
+       // List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
+        //nameValuePair.add(new BasicNameValuePair("ID", invitations.ID));
 
         try {
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/invitation_info.php?selectedFromList="+invitations.selectedFromList);
+            HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/invitation_info.php?ID=" + invitations.ID);
             HttpResponse response = httpClient.execute(httpPost);
             HttpEntity entity = response.getEntity();
 
@@ -99,20 +115,21 @@ public class invitation_info extends AppCompatActivity {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String selectedFromList= invitations.selectedFromList;
 
                 List<NameValuePair> nameValuePair =new ArrayList<NameValuePair>(1);
 
-
-
+                nameValuePair.add(new BasicNameValuePair("UserName", UserName));
+                nameValuePair.add(new BasicNameValuePair("selectedFromList",selectedFromList));
 
                 try{
                     HttpClient httpClient = new DefaultHttpClient();
-                    HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/come.php");
+                    HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/come.php?ID=" + invitations.ID);
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
                     HttpResponse response = httpClient.execute(httpPost);
                     HttpEntity entity = response.getEntity();
                     is=entity.getContent();
-                    String msg = "Acepptance sent succefully";
+                    String msg = "Acceptance sent successfully";
                     Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
@@ -123,17 +140,72 @@ public class invitation_info extends AppCompatActivity {
             }
         });
 
+        ignor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                List<NameValuePair> nameValuePair =new ArrayList<NameValuePair>(1);
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(invitation_info.this);
+                builder.setMessage("Are you sure you want to apologize ");
+                builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+
+
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        //do things
+                    }
+                });
+
+
+                        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            String selectedFromList= invitations.selectedFromList;
+                            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
+                            nameValuePair.add(new BasicNameValuePair("selectedFromList",selectedFromList));
+
+                        try{
+                            HttpClient httpClient = new DefaultHttpClient();
+                            HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/apo.php?ID=" + invitations.ID);
+                            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+                            HttpResponse response = httpClient.execute(httpPost);
+                            HttpEntity entity = response.getEntity();
+                            is=entity.getContent();
+                            String msg = "apologize sent successfully";
+                            Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
     public void sugg (View view)
     {
         Intent intent = new Intent(invitation_info.this, sugg.class);
-        startActivity(intent);
-    }
-    public void ignor (View view)
-    {
-        Intent intent = new Intent(invitation_info.this, apologiz.class);
         startActivity(intent);
     }
 

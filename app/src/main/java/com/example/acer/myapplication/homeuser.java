@@ -25,7 +25,7 @@ public class homeuser extends AppCompatActivity implements View.OnClickListener 
 
         pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
 
-String UserName=pref.getString("UserName", "");
+      String UserName=pref.getString("UserName", "");
 
         Log.d(TAG, pref.getString("UserName", ""));
         Log.d(TAG, pref.getString("PassWord", ""));
@@ -37,33 +37,35 @@ String UserName=pref.getString("UserName", "");
 
     public void onClick(View v) {
         Intent intent = new Intent(homeuser.this,profileuser.class);
-        startActivity(intent);
+        startActivity(intent);}
 
+    public void notifications(View view)
+    {
+        Intent intent = new Intent(homeuser.this,notification.class);
+        startActivity(intent);
     }
-/*
+
+ /*
+
     public void friends (View view)
     {
         Intent intent = new Intent(homeuser.this,frind.class);
         startActivity(intent);
     }
+*/
 
-    public void notifications(View view)
-    {
-        Intent intent = new Intent(homeuser.this,notifocations.class);
-        startActivity(intent);
-    }
 
-    public void invitation (View view)
+   /* public void invitation (View view)
     {
         Intent intent = new Intent(homeuser.this,invitationpage.class);
         startActivity(intent);
-    }
+   } */
 
-    public void rest (View view)
-    {
-        Intent intent = new Intent(homeuser.this,restorantlist.class);
-        startActivity(intent);
-    }*/
+   // public void rest (View view)
+   // {
+       // Intent intent = new Intent(homeuser.this,restorantlist.class);
+        //startActivity(intent);
+   // }
 
 
 
