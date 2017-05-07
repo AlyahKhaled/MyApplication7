@@ -74,11 +74,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             public void processFinish(String s) {
                                 Log.d(TAG, s);
                                 if (s.contains("success")) {
-                                    Toast.makeText(LoginActivity.this, "Sucessfully Login", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginActivity.this, "تم تسجيل دخولك بنجاح ", Toast.LENGTH_LONG).show();
                                     Intent in = new Intent(LoginActivity.this, admin.class);
                                     startActivity(in);
                                 } else {
-                                    Toast.makeText(LoginActivity.this, " Wrong password or username Try Again", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginActivity.this, " خطأ في كلمة المرور او اسم المستخدم ", Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
@@ -97,11 +97,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             public void processFinish(String s) {
                                 Log.d(TAG, s);
                                 if (s.contains("success")) {
-                                    Toast.makeText(LoginActivity.this, "Sucessfully Login", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginActivity.this, "تم تسجيل دخولك بنجاح", Toast.LENGTH_LONG).show();
                                     Intent in = new Intent(LoginActivity.this, homeuser.class);
                                     startActivity(in);
                                 } else {
-                                    Toast.makeText(LoginActivity.this, " Wrong password or username Try Again", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginActivity.this, " خطأ في كلمة المرور او اسم المستخدم", Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             HashMap postData = new HashMap();
 
             postData.put("txtUsername", etUsername.getText().toString());
-            postData.put("txtPassword", etPassword.getText().toString());
+            postData.put("txtPassword",  etPassword.getText().toString());
 
 
             PostResponseAsyncTask task1 = new PostResponseAsyncTask(LoginActivity.this, postData,
@@ -145,12 +145,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Log.d(TAG, pref.getString("PassWord", ""));
                                 }
 
-                                Toast.makeText(LoginActivity.this, "Sucessfully Login", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, "تم تسجيل دخولك بنجاح", Toast.LENGTH_LONG).show();
                                 Intent in = new Intent(LoginActivity.this, homeuser.class);
                                 startActivity(in);
                             }
                             else{
-                                Toast.makeText(LoginActivity.this, " Wrong password or username Try Again", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, " خطأ في كلمة المرور او اسم المستخدم", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -181,12 +181,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Log.d(TAG, pref.getString("PassWord", ""));
                                 }
 
-                                Toast.makeText(LoginActivity.this, "Sucessfully Login", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, "تم تسجيل دخولك بنجاح", Toast.LENGTH_LONG).show();
                                 Intent in = new Intent(LoginActivity.this, admin.class);
                                 startActivity(in);
                             }
                             else{
-                                Toast.makeText(LoginActivity.this, " Wrong password or username Try Again", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, " خطأ في كلمة المرور او اسم المستخدم", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -207,14 +207,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    public void forgetPass(View view){
-        Intent in = new Intent(LoginActivity.this, forgetpasswored.class);
-        startActivity(in);
+   public void forgetPass(View view){
+       Intent in = new Intent(LoginActivity.this, forgetpasswored.class);
+       startActivity(in);
     }
 
     public void newUser(View view){
-        //Intent in = new Intent(LoginActivity.this, admin.class);
-       // startActivity(in);
+        Intent in = new Intent(LoginActivity.this, registerUser.class);
+        startActivity(in);
     }
 
 }

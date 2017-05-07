@@ -35,4 +35,5 @@ dependencies {
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'com.google.android.gms:play-services-maps:10.2.4'
     testCompile 'junit:junit:4.12'
+    compile files('libs/MD5Simply.jar')
 }

@@ -1,5 +1,6 @@
 package com.example.acer.myapplication;
 
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -229,5 +230,14 @@ public void onSignUpSuccess() {
 
         return valiedNum;
 
+    }
+    public void restri(View view){
+        Intent in = new Intent(registerUser.this, restrictions.class);
+        startActivity(in);
+    }
+
+    public void loginA(View view){
+        Intent in = new Intent(registerUser.this, LoginActivity.class);
+        startActivity(in);
     }
 }
