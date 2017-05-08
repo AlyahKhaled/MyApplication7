@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -25,7 +24,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,12 +59,12 @@ public class FriendsRequests extends AppCompatActivity {
         Log.d(TAG, pref.getString("PassWord", ""));// 4
         UserName = pref.getString("UserName", ""); // 5
 
+//==============================================================================================================
         ArrayList<String> listitems;
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-
+//==============================================================================================================
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/Friends_req.php?UserName=" + UserName);
@@ -81,26 +79,23 @@ public class FriendsRequests extends AppCompatActivity {
             result = result.replace('"', ' ');
             int length = result.length();
             String sreOne = result.substring(1, length - 2);
-
+//==============================================================================================================
             //use toString() to get the data result
+
             result = sb.toString();
             arr = sreOne.split(",");
-
             listitems = new ArrayList<>(Arrays.asList(arr));
             CustomAdapter Adapter = new CustomAdapter(listitems);
             ListView lv = (ListView) findViewById(R.id.list);
             lv.setAdapter(Adapter);
-
+//==============================================================================================================
 
         } catch (Exception e) {
             System.out.print("exception 1 caught");
             //exception handel code
         }
-
-
-
     }
-
+//============================================================================================================== Class adapter
 
     public class CustomAdapter extends BaseAdapter {
 
@@ -129,20 +124,23 @@ public class FriendsRequests extends AppCompatActivity {
 
             LayoutInflater lineflater = getLayoutInflater();
             View view1 = lineflater.inflate(R.layout.button_fri, null);
+
             Button Accept = (Button) view1.findViewById(R.id.button7);
             Button ignor = (Button) view1.findViewById(R.id.button8);
             TextView textView = (TextView) view1.findViewById(R.id.textView4);
             textView.setText(Items.get(position).toString());
+
             final String name = Items.get(position).toString();
             final int pos = position;
+
             view2 = lineflater.inflate(R.layout.empty_list, null);
             TextView textView2 = (TextView) view2.findViewById(R.id.textView4);
             textView2.setText(" لا توجد طلبات صداقة جديدة :(");
             // if there is no thing in the array
             if (!arr[0].equals("ul")) {
 
-
-                Accept.setOnClickListener(new View.OnClickListener() {
+//==============================================================================================================
+                        Accept.setOnClickListener(new View.OnClickListener() {
                     @Override
                         public void onClick(View v) {
                         selectedFromList = name.toString();
@@ -200,6 +198,7 @@ public class FriendsRequests extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
+//==============================================================================================================
                         try {
                             HttpClient httpClient = new DefaultHttpClient();
                             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/delete_frie_req.php?selectedFromList=" + selectedFromList);

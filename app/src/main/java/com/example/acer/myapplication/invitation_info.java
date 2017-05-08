@@ -45,7 +45,7 @@ public class invitation_info extends AppCompatActivity {
     Button map;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation_info);
 
@@ -53,25 +53,25 @@ public class invitation_info extends AppCompatActivity {
         pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
         Log.d(TAG, pref.getString("UserName", ""));// 3
         Log.d(TAG, pref.getString("PassWord", ""));// 4
-
         UserName = pref.getString("UserName", ""); // 5
-
         lv = (ListView) findViewById(R.id.list);
         map = (Button) findViewById(R.id.button2);
         sug= (Button)findViewById(R.id.sug);
         ignor= (Button)findViewById(R.id.ignor);
         accept= (Button)findViewById(R.id.accept);
 
+ //==============================================================================================================
+
         StrictMode.ThreadPolicy policy = new  StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
+//==============================================================================================================
 
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/invitation_info.php?ID=" + invitations.ID);
             HttpResponse response = httpClient.execute(httpPost);
             HttpEntity entity = response.getEntity();
-
+//==============================================================================================================
 
             is = entity.getContent();
 
@@ -80,13 +80,13 @@ public class invitation_info extends AppCompatActivity {
             System.out.print("exception 1 caught");
             //exception handel code
         }
-
+//==============================================================================================================
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
 
             StringBuilder sb = new StringBuilder();
             while ((line=reader.readLine())!=null)
-                sb.append(line+"\n");
+            sb.append(line+"\n");
 
             result=sb.toString();
             result=result.replace('"',' ');
@@ -98,11 +98,9 @@ public class invitation_info extends AppCompatActivity {
             // check the data
             System.out.println(sreOne);
             arr= sreOne.split(",");
-            int arrLength = arr.length ;
 
+//==============================================================================================================
             lv.setAdapter(new ArrayAdapter<String>(invitation_info.this,android.R.layout.simple_list_item_1,arr));
-
-
 
 
         }  catch (IOException e) {
@@ -110,15 +108,15 @@ public class invitation_info extends AppCompatActivity {
         }
 
 
-        accept.setOnClickListener(new View.OnClickListener() {
+                accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String selectedFromList= invitations.selectedFromList;
-
                 List<NameValuePair> nameValuePair =new ArrayList<NameValuePair>(1);
 
                 nameValuePair.add(new BasicNameValuePair("UserName", UserName));
                 nameValuePair.add(new BasicNameValuePair("selectedFromList",selectedFromList));
+//==============================================================================================================
 
                 try{
                     HttpClient httpClient = new DefaultHttpClient();
@@ -137,14 +135,12 @@ public class invitation_info extends AppCompatActivity {
 
             }
         });
-
-        ignor.setOnClickListener(new View.OnClickListener() {
+//==============================================================================================================
+                ignor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 List<NameValuePair> nameValuePair =new ArrayList<NameValuePair>(1);
-
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(invitation_info.this);
                 builder.setMessage("هل انت متاكد انك تريد الاعتذار عن هذه الدعوة ");
                 builder.setPositiveButton("لا", new DialogInterface.OnClickListener() {
@@ -157,11 +153,12 @@ public class invitation_info extends AppCompatActivity {
                 });
 
 
-                        builder.setNegativeButton("نعم", new DialogInterface.OnClickListener() {
+                            builder.setNegativeButton("نعم", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             String selectedFromList= invitations.selectedFromList;
                             List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
                             nameValuePair.add(new BasicNameValuePair("selectedFromList",selectedFromList));
+//==============================================================================================================
 
                         try{
                             HttpClient httpClient = new DefaultHttpClient();
@@ -189,24 +186,26 @@ public class invitation_info extends AppCompatActivity {
 
     }
 
+    //============================================================================================================== To go Back
+
     public void Back (View view)
     {
         onBackPressed();
     }
 
-
+// to go to the profile
     public void profile (View view)
     {
         Intent intent = new Intent(invitation_info.this, profileuser.class);
         startActivity(intent);
     }
-
+// To enrt sugg
     public void sugg (View view)
     {
         Intent intent = new Intent(invitation_info.this, sugg.class);
         startActivity(intent);
     }
-
+//to go to the map
     public void map (View view)
     {
         Intent intent = new Intent(invitation_info.this,coordenation.class);

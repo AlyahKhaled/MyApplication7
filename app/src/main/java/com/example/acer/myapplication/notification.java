@@ -11,25 +11,19 @@ import android.widget.Button;
 
 public class notification extends AppCompatActivity {
     final String TAG = this.getClass().getName();
-
     public Button inc, frie;
     SharedPreferences pref;
     String UserName;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
 
         inc = (Button) findViewById(R.id.button6);
         frie = (Button) findViewById(R.id.button4);
-
-
-    pref =getSharedPreferences("login.conf",Context.MODE_PRIVATE);
-
-
-
+        pref =getSharedPreferences("login.conf",Context.MODE_PRIVATE);
         Log.d(TAG,pref.getString("UserName",""));
         Log.d(TAG,pref.getString("PassWord",""));
         UserName =pref.getString("UserName","");}

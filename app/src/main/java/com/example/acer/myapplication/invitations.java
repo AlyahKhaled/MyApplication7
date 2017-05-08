@@ -56,7 +56,7 @@ public class invitations extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitations);
 
@@ -69,7 +69,7 @@ public class invitations extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-
+//==============================================================================================================
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/invitations.php?UserName=" + UserName);
@@ -102,7 +102,7 @@ public class invitations extends AppCompatActivity {
             //exception handel code
         }
 
-
+//==============================================================================================================
 
         try {
             HttpClient httpClient = new DefaultHttpClient();
@@ -128,14 +128,14 @@ public class invitations extends AppCompatActivity {
         }
     }
 
-
+    //==============================================================================================================
     public void display(String  text ){
 
         Toast toast= Toast.makeText(this,text,Toast.LENGTH_LONG);
         toast.show();
 
     }
-
+    //==============================================================================================================
     public class CustomAdapter extends BaseAdapter {
 
 

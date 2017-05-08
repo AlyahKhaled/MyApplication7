@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class coordenation extends AppCompatActivity {
+
     public static String selectedFromList;
     ListView lv ;
     InputStream is ;
@@ -45,16 +46,14 @@ public class coordenation extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.list);
         map = (Button) findViewById(R.id.button2);
 
-
+//==============================================================================================================
         StrictMode.ThreadPolicy policy = new  StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
         String selectedFromList =invitations.selectedFromList;
-
-
         List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
         nameValuePair.add(new BasicNameValuePair("selectedFromList", selectedFromList));
 
+//==============================================================================================================
 
         try {
             HttpClient httpClient = new DefaultHttpClient();
@@ -64,6 +63,7 @@ public class coordenation extends AppCompatActivity {
             HttpEntity entity = response.getEntity();
 
 
+//==============================================================================================================
             is = entity.getContent();
 
 
@@ -72,13 +72,13 @@ public class coordenation extends AppCompatActivity {
             //exception handel code
         }
 
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+        try { BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
 
+//==============================================================================================================
 
             StringBuilder sb = new StringBuilder();
             while ((line=reader.readLine())!=null)
-                sb.append(line+"\n");
+            sb.append(line+"\n");
 
             result=sb.toString();
             result=result.replace('"',' ');
@@ -86,9 +86,11 @@ public class coordenation extends AppCompatActivity {
             String sreOne =result.substring(1,length-2);
             //use toString() to get the data result
             result=sb.toString();
+
+
+
+//==============================================================================================================
             // check the data
-
-
             System.out.println(sreOne);
             arr= sreOne.split(",");
             int arrLength = arr.length ;
@@ -99,7 +101,7 @@ public class coordenation extends AppCompatActivity {
             String input2=arr[1];
             loni=Double.parseDouble(input2.replaceAll("\\s+",""));
 
-
+//==============================================================================================================
 
             lv.setAdapter(new ArrayAdapter<String>(coordenation.this,android.R.layout.simple_list_item_1,arr));
 
@@ -107,9 +109,11 @@ public class coordenation extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
+//==============================================================================================================
 
     }
+
+    //=========================== to see the map
     public void map (View view)
     {
 
@@ -117,7 +121,7 @@ public class coordenation extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    //=========================== to go Back
     public void Back (View view)
     {
         onBackPressed();
