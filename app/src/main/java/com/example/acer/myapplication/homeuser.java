@@ -14,6 +14,7 @@ public class homeuser extends AppCompatActivity implements View.OnClickListener 
 
     SharedPreferences pref;
     SharedPreferences.Editor editor;
+    String UserName ;//1
 
     ImageButton profileBtn;
     @Override
@@ -22,49 +23,27 @@ public class homeuser extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.activity_homeuser);
 
         profileBtn = (ImageButton) findViewById(R.id.profileBtn1);
+        pref       = getSharedPreferences("login.conf", Context.MODE_PRIVATE);//2 the user name and pass are here
+        UserName   = pref.getString("UserName", "");//5
 
-        pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
-
-String UserName=pref.getString("UserName", "");
-
-        Log.d(TAG, pref.getString("UserName", ""));
-        Log.d(TAG, pref.getString("PassWord", ""));
+        Log.d(TAG, pref.getString("UserName", ""));//3
+        Log.d(TAG, pref.getString("PassWord", ""));//4
 
         profileBtn.setOnClickListener(this);
-
     }
 
 
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         Intent intent = new Intent(homeuser.this,profileuser.class);
-        startActivity(intent);
-
-    }
-/*
-    public void friends (View view)
-    {
-        Intent intent = new Intent(homeuser.this,frind.class);
-        startActivity(intent);
-    }
-
-    public void notifications(View view)
-    {
-        Intent intent = new Intent(homeuser.this,notifocations.class);
         startActivity(intent);
     }
 
     public void invitation (View view)
     {
-        Intent intent = new Intent(homeuser.this,invitationpage.class);
+        Intent intent = new Intent(homeuser.this,invitationOptiens.class);
         startActivity(intent);
     }
-
-    public void rest (View view)
-    {
-        Intent intent = new Intent(homeuser.this,restorantlist.class);
-        startActivity(intent);
-    }*/
-
 
 
 }

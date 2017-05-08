@@ -19,6 +19,7 @@
     <ImageButton
 
         android:layout_width="80dp"
+        android:onClick="onClick"
         android:layout_height="71dp"
         tools:layout_editor_absoluteY="71dp"
         tools:layout_editor_absoluteX="0dp"
@@ -28,7 +29,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/imageView" />
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_toEndOf="@+id/imageView" />
 
 
     <ImageButton
@@ -39,55 +41,45 @@
         android:layout_height="215dp"
         android:background="@drawable/frieds"
         android:layout_width="162dp"
-        android:layout_toLeftOf="@+id/imageButton10"
-        android:layout_toStartOf="@+id/imageButton10"
-        android:layout_below="@+id/imageView" />
+        android:layout_alignTop="@+id/imageButton10"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="21dp" />
 
     <ImageButton
         android:onClick="notifications"
         android:id="@+id/imageButton10"
         android:elevation="0dp"
-        android:layout_height="255dp"
+        android:layout_height="215dp"
         android:layout_width="162dp"
         android:scaleType="fitXY"
         android:background="@drawable/alerts"
         tools:layout_editor_absoluteY="57dp"
         tools:layout_editor_absoluteX="192dp"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_marginRight="14dp"
-        android:layout_marginEnd="14dp"
-        android:layout_above="@+id/imageButton9" />
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="12dp" />
 
     <ImageButton
         android:onClick="invitation"
         android:id="@+id/imageButton9"
         android:scaleType="fitXY"
         android:background="@drawable/createin"
-        android:layout_height="255dp"
-        android:layout_width="192dp"
-        android:layout_alignLeft="@+id/imageButton6"
-        android:layout_alignStart="@+id/imageButton6"
-        android:layout_toStartOf="@+id/imageButton10"
-        android:layout_below="@+id/imageButton6"
-        android:layout_alignRight="@+id/imageButton6"
-        android:layout_alignEnd="@+id/imageButton6" />
+        android:layout_height="215dp"
+        android:layout_width="162dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/imageButton6" />
 
     <ImageButton
         android:onClick="rest"
         android:id="@+id/imageButton11"
         android:scaleType="fitXY"
-        android:layout_height="255dp"
+        android:layout_height="215dp"
         android:background="@drawable/book"
-        android:layout_width="192dp"
+        android:layout_width="162dp"
         tools:layout_editor_absoluteY="312dp"
         tools:layout_editor_absoluteX="192dp"
-        android:layout_alignRight="@+id/imageButton10"
-        android:layout_alignEnd="@+id/imageButton10"
-        android:layout_toEndOf="@+id/imageButton6"
-        android:layout_below="@+id/imageButton6"
-        android:layout_toRightOf="@+id/imageButton6"
-        android:layout_alignBottom="@+id/imageButton9" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/imageButton10" />
 
 </RelativeLayout>

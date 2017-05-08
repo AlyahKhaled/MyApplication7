@@ -35,7 +35,12 @@
         <activity android:name=".apologiz" />
         <activity android:name=".coordenation" />
         <activity android:name=".restrictions" />
-        <activity android:name=".editProfile"></activity>
+        <activity android:name=".editProfile" />
+        <activity android:name=".invitationOptiens" />
+        <activity android:name=".sentInviitations" />
+        <activity android:name=".sentInveDetales" />
+        <activity android:name=".resevedInvitatio" />
+        <activity android:name=".resevedInvitationDeatales"></activity>
     </application>
 
 </manifest>
