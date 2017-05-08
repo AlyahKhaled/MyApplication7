@@ -17,6 +17,16 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="57dp" />
 
+    <ImageButton
+        android:id="@+id/imageButton12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/kshk"
+        android:onClick="homee"
+        app:srcCompat="@drawable/kshk" />
+
     <ImageView
         android:layout_width="200sp"
         android:layout_height="50sp"
@@ -33,9 +43,8 @@
         tools:layout_editor_absoluteY="57dp"
         tools:layout_editor_absoluteX="176dp"
         android:id="@+id/imageView5"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/imageButton5"
+        android:layout_alignEnd="@+id/imageView12" />
 
     <ImageView
         android:layout_width="68dp"
@@ -44,9 +53,9 @@
         tools:layout_editor_absoluteX="316dp"
         android:layout_height="68dp"
         android:id="@+id/imageView8"
-        android:layout_marginBottom="27dp"
         android:layout_above="@+id/imageView12"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignEnd="@+id/imageView5"
+        android:layout_marginBottom="13dp" />
 
 
     <ImageView
@@ -54,8 +63,9 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/birth"
         android:id="@+id/imageView12"
-        android:layout_above="@+id/imageView9"
-        android:layout_alignStart="@+id/imageView9" />
+        android:layout_above="@+id/logoutBtn1"
+        android:layout_alignStart="@+id/imageView9"
+        android:layout_marginBottom="54dp" />
 
 
     <ImageView
@@ -76,9 +86,8 @@
         tools:layout_editor_absoluteX="312dp"
         android:id="@+id/imageView7"
         android:layout_height="68dp"
-        android:layout_above="@+id/imageView9"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="65dp" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageButton
         android:layout_width="240dp"
@@ -115,14 +124,17 @@
         android:layout_below="@+id/imageView5" />
 
     <ImageButton
-        android:onClick="homee"
         android:id="@+id/imageButton5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/kshk"
-        app:srcCompat="@drawable/kshk" />
+        android:layout_alignStart="@+id/imageView8"
+        android:layout_toEndOf="@+id/imageView"
+        android:background="@android:color/transparent"
+        android:onClick="editP"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/sett"
+        android:layout_alignBottom="@+id/imageButton12" />
 
 </RelativeLayout>
 

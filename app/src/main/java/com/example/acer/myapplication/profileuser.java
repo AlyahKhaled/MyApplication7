@@ -133,7 +133,12 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
 
 
     public void homee(View view){
-        Intent in = new Intent(profileuser.this, admin.class);
+        Intent in = new Intent(profileuser.this, homeuser.class);
+        startActivity(in);
+    }
+
+    public void editP(View view){
+        Intent in = new Intent(profileuser.this, editProfile.class);
         startActivity(in);
     }
 

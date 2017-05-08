@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context="com.example.acer.myapplication.invitationOptiens">
+
+
+    <TextView
+        android:text=""
+        android:onClick="Back"
+        android:background="@drawable/arow"
+        android:layout_width="40sp"
+        android:layout_height="35sp"
+        android:id="@+id/textView27"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/textView26"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/textView26" />
+
+    <TextView
+        android:text=""
+        android:background="@drawable/zwara_word"
+        android:layout_width="200sp"
+        android:layout_height="50sp"
+        android:id="@+id/textView26"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text=""
+        android:onClick="toProfile"
+        android:layout_width="40sp"
+        android:background="@drawable/person"
+        android:layout_height="35sp"
+        android:id="@+id/textView28"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/textView26"
+        android:layout_alignTop="@+id/textView27"
+        android:layout_toEndOf="@+id/textView26" />
+
+    <TextView
+        android:onClick="sentInv"
+        android:text=""
+        android:background="@drawable/sendinv"
+        android:layout_width="1000sp"
+        android:layout_height="100sp"
+        android:id="@+id/textView24"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text=""
+        android:onClick="resevedINV"
+        android:background="@drawable/receved"
+        android:layout_width="1000sp"
+        android:layout_height="100sp"
+        android:id="@+id/textView16"
+        android:layout_below="@+id/textView22"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="17dp" />
+
+    <TextView
+        android:text=""
+        android:background="@drawable/myinitations"
+        android:layout_width="1000sp"
+        android:layout_height="100sp"
+        android:id="@+id/textView23"
+        android:textStyle="normal|bold"
+        android:layout_below="@+id/textView27"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="11dp" />
+
+    <TextView
+        android:text=""
+        android:background="@drawable/create"
+        android:layout_width="1000sp"
+        android:layout_height="100sp"
+        android:id="@+id/textView22"
+        android:textStyle="normal|bold"
+        android:layout_below="@+id/textView23"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="21dp" />
+
+</RelativeLayout>
