@@ -137,5 +137,5 @@ public class resevedInvitatio extends AppCompatActivity {
         catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }//end
 }
