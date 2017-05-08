@@ -39,7 +39,7 @@ public class invitationOptiens extends AppCompatActivity {
 
     public void Back ()
     {
-
+        onBackPressed();
     }
 
     public void toProfile ()
@@ -56,7 +56,7 @@ public class invitationOptiens extends AppCompatActivity {
 
     public void resevedINV (View view)
     {
-        Intent intent = new Intent(invitationOptiens.this,resevedInvitatio.class);
+        Intent intent = new Intent(invitationOptiens.this,invitations.class);
         startActivity(intent);
     }
 

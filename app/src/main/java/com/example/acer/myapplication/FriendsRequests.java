@@ -101,12 +101,7 @@ public class FriendsRequests extends AppCompatActivity {
 
     }
 
-    public void display(String  text ){
 
-        Toast toast= Toast.makeText(this,text,Toast.LENGTH_LONG);
-        toast.show();
-
-    }
     public class CustomAdapter extends BaseAdapter {
 
 
@@ -142,7 +137,7 @@ public class FriendsRequests extends AppCompatActivity {
             final int pos = position;
             view2 = lineflater.inflate(R.layout.empty_list, null);
             TextView textView2 = (TextView) view2.findViewById(R.id.textView4);
-            textView2.setText("No Friend requests found :(");
+            textView2.setText(" لا توجد طلبات صداقة جديدة :(");
             // if there is no thing in the array
             if (!arr[0].equals("ul")) {
 
@@ -176,14 +171,13 @@ public class FriendsRequests extends AppCompatActivity {
                             int length = result2.length();
                             String sreOne2 = result2.substring(1, length - 2);
 
-
                             //use toString() to get the data result
                             result2 = sb.toString();
                             arr2 = sreOne2.split(",");
                             listitems2 = new ArrayList<>(Arrays.asList(arr2));
                             name1= listitems2.get(pos);
                             name1=name1.replaceAll("\\s+", "");
-                            display(name1);
+
 
                         }   catch (Exception e) {
                             System.out.print("exception 1 caught");
@@ -198,7 +192,7 @@ public class FriendsRequests extends AppCompatActivity {
                             HttpResponse response = httpClient.execute(httpPost);
                             HttpEntity entity = response.getEntity();
                             is = entity.getContent();
-                            String msg = "You and  " + selectedFromList + "  are now Friends";
+                            String msg ="you and "+selectedFromList+" become friends";
                             Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
                         }   catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
@@ -233,16 +227,15 @@ public class FriendsRequests extends AppCompatActivity {
                         public void onClick(View v) {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(FriendsRequests.this);
-                        builder.setMessage("Are you sure you wants to ignore this Friend request");
-                        builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+                        builder.setMessage("هل انت متاكد انك تريد رفض هذه الدعوة");
+                        builder.setPositiveButton("لا", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             //do nothing
                             }
                         });
 
-                        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                        builder.setNegativeButton("نعم", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                        display(selectedFromList);
                         List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
 
                         try {
@@ -254,6 +247,8 @@ public class FriendsRequests extends AppCompatActivity {
                             is = entity.getContent();
                             Items.remove(Items.get(ID));
                             notifyDataSetChanged();
+                            String msg = " تم رفض طلب الصداقة بنجاح" ;
+                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
                         } catch (IOException e) {

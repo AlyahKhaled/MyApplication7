@@ -65,8 +65,6 @@ public class invitation_info extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new  StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-       // List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
-        //nameValuePair.add(new BasicNameValuePair("ID", invitations.ID));
 
         try {
             HttpClient httpClient = new DefaultHttpClient();
@@ -129,7 +127,7 @@ public class invitation_info extends AppCompatActivity {
                     HttpResponse response = httpClient.execute(httpPost);
                     HttpEntity entity = response.getEntity();
                     is=entity.getContent();
-                    String msg = "Acceptance sent successfully";
+                    String msg = "تم ارسال الموافقة بنجاح";
                     Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
@@ -148,8 +146,8 @@ public class invitation_info extends AppCompatActivity {
 
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(invitation_info.this);
-                builder.setMessage("Are you sure you want to apologize ");
-                builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+                builder.setMessage("هل انت متاكد انك تريد الاعتذار عن هذه الدعوة ");
+                builder.setPositiveButton("لا", new DialogInterface.OnClickListener() {
 
 
                     public void onClick(DialogInterface dialog, int id) {
@@ -159,7 +157,7 @@ public class invitation_info extends AppCompatActivity {
                 });
 
 
-                        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                        builder.setNegativeButton("نعم", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             String selectedFromList= invitations.selectedFromList;
                             List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
@@ -172,7 +170,7 @@ public class invitation_info extends AppCompatActivity {
                             HttpResponse response = httpClient.execute(httpPost);
                             HttpEntity entity = response.getEntity();
                             is=entity.getContent();
-                            String msg = "apologize sent successfully";
+                            String msg = "تم ارسال الاعتذار بنجاح ";
                             Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
@@ -189,18 +187,18 @@ public class invitation_info extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void Back (View view)
+    {
+        onBackPressed();
+    }
 
 
-
-
-
-
-
-
-
-
-
-
+    public void profile (View view)
+    {
+        Intent intent = new Intent(invitation_info.this, profileuser.class);
+        startActivity(intent);
     }
 
     public void sugg (View view)

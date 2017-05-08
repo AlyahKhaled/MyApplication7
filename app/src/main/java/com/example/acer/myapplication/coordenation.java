@@ -115,7 +115,12 @@ public class coordenation extends AppCompatActivity {
 
         Intent intent = new Intent(coordenation.this, MapsActivity.class);
         startActivity(intent);
-
-
     }
+
+
+    public void Back (View view)
+    {
+        onBackPressed();
+    }
+
 }

@@ -189,7 +189,7 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onClick(View v) {
-        newPass = MD5.encrypt(editText11.getText().toString());
+        //newPass = MD5.encrypt(editText11.getText().toString());
 
         if(flag){
 

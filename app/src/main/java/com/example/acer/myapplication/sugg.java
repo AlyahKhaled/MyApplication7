@@ -1,5 +1,6 @@
 package com.example.acer.myapplication;
 
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -54,9 +55,9 @@ public class sugg extends AppCompatActivity {
             public void onClick(View view) {
                  sug = sugg.getText().toString();
 
-                if(sug.length() == 0) {sugg.setError("please enter suggestion ");return; }
+                if(sug.length() == 0) {sugg.setError("الاقتراح لا يمكن ان يكون فارغ ");return; }
 
-                if (sug.matches(".*[^a-z^A-Z].*")){sugg.setError("please enter valid suggestion "); return;}
+                if (sug.matches(".*[^a-z^A-Z].*")){sugg.setError(" الاقتراح لا يمكن ان يحتوي رموز او ارقام  "); return;}
 
 
 
@@ -74,7 +75,7 @@ public class sugg extends AppCompatActivity {
                         HttpResponse response = httpClient.execute(httpPost);
                         HttpEntity entity = response.getEntity();
                         is = entity.getContent();
-                        String msg = "Message send succefully";
+                        String msg = " تم ارسال الاقتراح بنجاح ";
                         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
@@ -86,4 +87,17 @@ public class sugg extends AppCompatActivity {
         });
 
     }
+    public void Back (View view)
+    {
+        onBackPressed();
+    }
+
+    public void profile (View view)
+    {
+        Intent intent = new Intent(sugg.this, profileuser.class);
+        startActivity(intent);
+    }
+
+
+
 }

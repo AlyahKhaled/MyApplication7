@@ -25,6 +25,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -78,8 +79,7 @@ public class invitations extends AppCompatActivity {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
             StringBuilder sb = new StringBuilder();
             while ((line = reader.readLine()) != null)
-                sb.append(line + "\n");
-
+            sb.append(line + "\n");
             result = sb.toString();
             result = result.replace('"',' ');
 
@@ -88,10 +88,7 @@ public class invitations extends AppCompatActivity {
 
             //use toString() to get the data result
             result = sb.toString();
-            //sreOne = sreOne .replace("[^A-Z]","");
             arr = sreOne.split(",");
-
-
 
 
             listitems = new ArrayList<>(Arrays.asList(arr));
@@ -100,7 +97,7 @@ public class invitations extends AppCompatActivity {
             lv.setAdapter(Adapter);
 
 
-        } catch (Exception e) {
+        }   catch (Exception e) {
             System.out.print("exception 1 caught");
             //exception handel code
         }
@@ -123,10 +120,9 @@ public class invitations extends AppCompatActivity {
             String sreOne = result2.substring(1, length - 2);
             //use toString() to get the data result
             result2 = sb.toString();
-            //sreOne = sreOne .replace("[^A-Z]","");
             arr2 = sreOne.split(",");
             listitems2 = new ArrayList<>(Arrays.asList(arr2));
-        } catch (Exception e) {
+        }    catch (Exception e) {
             System.out.print("exception 1 caught");
             //exception handel code
         }
@@ -176,7 +172,7 @@ public class invitations extends AppCompatActivity {
 
             View view2 = lineflater.inflate(R.layout.empty_list, null);
             TextView textView2 = (TextView) view2.findViewById(R.id.textView4);
-            textView2.setText("No invitations found:(");
+            textView2.setText(" لا توجد دعوات مستقبلة :(");
 
             if(!arr[0].equals("ul")) {
 
@@ -188,10 +184,9 @@ public class invitations extends AppCompatActivity {
                         ID1=listitems2.get(pos);
                         ID1 =ID1.replaceAll("\\s+", "");
                         ID=Integer.parseInt(ID1);
-                        display(ID1);
+                        //display(ID1);
 
                         ID2 = pos;
-
 
                         List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
                         Intent intent = new Intent(invitations.this, invitation_info.class);
@@ -205,7 +200,7 @@ public class invitations extends AppCompatActivity {
                 });
 
 
-                Delete.setOnClickListener(new View.OnClickListener() {
+                    Delete.setOnClickListener(new View.OnClickListener() {
 
 
                     @Override
@@ -213,8 +208,8 @@ public class invitations extends AppCompatActivity {
 
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(invitations.this);
-                        builder.setMessage("Are you sure you wants to delete this invitation");
-                        builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+                        builder.setMessage("هل انت متاكد انك تريد مسح الدعوة");
+                        builder.setPositiveButton("لا", new DialogInterface.OnClickListener() {
 
 
                             public void onClick(DialogInterface dialog, int id) {
@@ -224,21 +219,28 @@ public class invitations extends AppCompatActivity {
                         });
 
 
-                        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                        builder.setNegativeButton("نعم", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
                                 List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
                                 selectedFromList = name.toString();
                                 selectedFromList = selectedFromList.replaceAll("\\s+", "");
 
+                                nameValuePair.add(new BasicNameValuePair("UserName",UserName));
+
+
                                 try {
+                                    ID1=listitems2.get(pos);
+                                    ID1 =ID1.replaceAll("\\s+", "");
+                                    int ID=Integer.parseInt(ID1);
                                     HttpClient httpClient = new DefaultHttpClient();
-                                    HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/delet_inv.php?selectedFromList=" + selectedFromList);
+                                    HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/delet_inv.php?ID=" +ID);
                                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
                                     HttpResponse response = httpClient.execute(httpPost);
                                     HttpEntity entity = response.getEntity();
                                     is = entity.getContent();
-                                    String msg = "Deleted succefully :) ";
+                                    display(ID1);
+                                    String msg = " تم المسح بنجاح :) ";
                                     Items.remove(Items.get(ID2));
                                     notifyDataSetChanged();
                                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
@@ -263,5 +265,18 @@ public class invitations extends AppCompatActivity {
         }
 
 
+    }
+
+
+    public void Back (View view)
+    {
+        onBackPressed();
+
+    }
+
+    public void profile (View view)
+    {
+        Intent intent = new Intent(invitations.this, profileuser.class);
+        startActivity(intent);
     }
 }
