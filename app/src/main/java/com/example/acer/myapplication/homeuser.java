@@ -53,12 +53,11 @@ public class homeuser extends AppCompatActivity implements View.OnClickListener 
     }
 
 
-
-   /* public void invitation (View view)
+   public void invitation (View view)
     {
-        Intent intent = new Intent(homeuser.this,invitationpage.class);
+        Intent intent = new Intent(homeuser.this,invitationOptiens.class);
         startActivity(intent);
-   } */
+   }
 
    // public void rest (View view)
    // {

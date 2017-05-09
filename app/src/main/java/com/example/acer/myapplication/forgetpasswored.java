@@ -60,22 +60,15 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.activity_forgetpasswored);
 
         spinner = (Spinner) findViewById(R.id.spinner);
-
         editText10 = (EditText) findViewById(R.id.editText10);
         editText11 = (EditText) findViewById(R.id.editText11);
         editText12 = (EditText) findViewById(R.id.editText12);
-
         button3 = (Button) findViewById(R.id.button3);
-
         button = (Button) findViewById(R.id.button);
-
         button3.setOnClickListener(this);
-
         spinner.setOnItemSelectedListener(this);
-
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,quest);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         spinner.setAdapter(aa);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -83,14 +76,12 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
 
     }
 
-
+//==============================================================================================================
 
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
         if(position==0){
-
             que=0;
-
         }else if(position==1){
             que=1;
         }else if(position==2){
@@ -119,21 +110,19 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
                         public void processFinish(String s) {
                             Log.d(TAG, s);
                             if (s.contains("success")) {
-                                flag=true;
-                                Toast.makeText(forgetpasswored.this, "تم التحقق بنجاح ", Toast.LENGTH_LONG).show();
+                            flag=true;
+                            Toast.makeText(forgetpasswored.this, "تم التحقق بنجاح ", Toast.LENGTH_LONG).show();
 
 
                             } else {
-                                Toast.makeText(forgetpasswored.this, " خطأ في اسم المستخدم أو اجابتك اعد الكرة", Toast.LENGTH_LONG).show();
+                              Toast.makeText(forgetpasswored.this, " خطأ في اسم المستخدم أو اجابتك اعد الكرة", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
 
 
             task1.execute("http://zwarh.net/zwarhapp/Alyah/teacher.php");
-        }
-            else if(que==1){
-
+        }   else if(que==1){
             HashMap postData = new HashMap();
 
             postData.put("editText10", editText10.getText().toString());
@@ -141,9 +130,9 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
 
 
             PostResponseAsyncTask task1 = new PostResponseAsyncTask(forgetpasswored.this, postData,
-                    new AsyncResponse() {
+                        new AsyncResponse() {
                         @Override
-                        public void processFinish(String s) {
+                            public void processFinish(String s) {
                             Log.d(TAG, s);
                             if (s.contains("success")) {
                             flag=true;
@@ -151,14 +140,14 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
 
 
                             } else {
-                                Toast.makeText(forgetpasswored.this, " خطأ في اسم المستخدم أو اجابتك اعد الكرة", Toast.LENGTH_LONG).show();
+                              Toast.makeText(forgetpasswored.this, " خطأ في اسم المستخدم أو اجابتك اعد الكرة", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
 
 
             task1.execute("http://zwarh.net/zwarhapp/Alyah/bestFriend.php");
-        }else if(que==2){
+        }   else if(que==2){
             HashMap postData = new HashMap();
 
             postData.put("editText10", editText10.getText().toString());
@@ -174,8 +163,7 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
                                 flag=true;
                                 Toast.makeText(forgetpasswored.this, "تم التحقق بنجاح", Toast.LENGTH_LONG).show();
 
-
-                            } else {
+                            }else {
                                 Toast.makeText(forgetpasswored.this, " خطأ في اسم المستخدم أو اجابتك اعد الكرة", Toast.LENGTH_LONG).show();
                             }
                         }
@@ -187,8 +175,9 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
     }
 
     @Override
-    public void onClick(View v) {
-        //newPass = MD5.encrypt(editText11.getText().toString());
+    //==============================================================================================================
+        public void onClick(View v) {
+        newPass = MD5.encrypt(editText11.getText().toString());
 
         if(flag){
 
@@ -212,8 +201,8 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-
             }
+            //==============================================================================================================
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
                 StringBuilder sb = new StringBuilder();
@@ -237,7 +226,7 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
                 }
 
             }
-            catch(Exception e)
+                catch(Exception e)
             {
                 Log.e("Fail 2", e.toString());
             }
