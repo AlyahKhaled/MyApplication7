@@ -25,7 +25,7 @@ public class editProfile extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     String UserName;
-String birth;
+public static String birth;
 
     public EditText nameUs , msg ;
      Button editB;
