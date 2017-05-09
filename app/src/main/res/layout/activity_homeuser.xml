@@ -13,11 +13,21 @@
         android:background="@drawable/zwara_word"
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_toStartOf="@+id/profileBtn1" />
+
+    <ImageButton
+        android:onClick="Back"
+        android:layout_width="50dp"
+        android:layout_height="70dp"
+        android:background="@drawable/arow"
+        android:id="@+id/imageButton2"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
     <ImageButton
-
+        android:onClick="profile"
         android:layout_width="80dp"
         android:layout_height="71dp"
         tools:layout_editor_absoluteY="71dp"
@@ -26,9 +36,8 @@
         android:scaleType="fitXY"
         android:background="@drawable/pers"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/imageView" />
+        android:layout_alignEnd="@+id/imageButton10"
+        android:layout_above="@+id/imageButton10" />
 
 
     <ImageButton
@@ -39,9 +48,8 @@
         android:layout_height="215dp"
         android:background="@drawable/frieds"
         android:layout_width="162dp"
-        android:layout_toLeftOf="@+id/imageButton10"
-        android:layout_toStartOf="@+id/imageButton10"
-        android:layout_below="@+id/imageView" />
+        android:layout_below="@+id/imageView"
+        android:layout_toStartOf="@+id/imageButton10" />
 
     <ImageButton
         android:onClick="notifications"
@@ -53,11 +61,10 @@
         android:background="@drawable/alerts"
         tools:layout_editor_absoluteY="57dp"
         tools:layout_editor_absoluteX="192dp"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_marginRight="14dp"
-        android:layout_marginEnd="14dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="27dp"
         android:layout_above="@+id/imageButton9" />
 
     <ImageButton
@@ -67,12 +74,10 @@
         android:background="@drawable/createin"
         android:layout_height="255dp"
         android:layout_width="192dp"
-        android:layout_alignLeft="@+id/imageButton6"
+        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/imageButton6"
-        android:layout_toStartOf="@+id/imageButton10"
         android:layout_below="@+id/imageButton6"
-        android:layout_alignRight="@+id/imageButton6"
-        android:layout_alignEnd="@+id/imageButton6" />
+        android:layout_toStartOf="@+id/imageButton10" />
 
     <ImageButton
         android:onClick="rest"
@@ -86,8 +91,8 @@
         android:layout_alignRight="@+id/imageButton10"
         android:layout_alignEnd="@+id/imageButton10"
         android:layout_toEndOf="@+id/imageButton6"
-        android:layout_below="@+id/imageButton6"
-        android:layout_toRightOf="@+id/imageButton6"
-        android:layout_alignBottom="@+id/imageButton9" />
+        android:layout_alignBottom="@+id/imageButton9"
+        android:layout_alignStart="@+id/imageButton10"
+        android:layout_below="@+id/imageButton6" />
 
 </RelativeLayout>

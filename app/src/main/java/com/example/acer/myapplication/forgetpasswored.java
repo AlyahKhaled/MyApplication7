@@ -91,7 +91,6 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
 
             que=0;
 
-
         }else if(position==1){
             que=1;
         }else if(position==2){
@@ -105,10 +104,10 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
 
     }
 
-    public void check(View view){
+        public void check(View view){
         UserName = editText10.getText().toString();
         if(que==0){
-            HashMap postData = new HashMap();
+        HashMap postData = new HashMap();
 
             postData.put("editText10", editText10.getText().toString());
             postData.put("editText12", editText12.getText().toString());
@@ -133,7 +132,7 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
 
             task1.execute("http://zwarh.net/zwarhapp/Alyah/teacher.php");
         }
-        else if(que==1){
+            else if(que==1){
 
             HashMap postData = new HashMap();
 
@@ -147,8 +146,8 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
                         public void processFinish(String s) {
                             Log.d(TAG, s);
                             if (s.contains("success")) {
-                                flag=true;
-                                Toast.makeText(forgetpasswored.this, "تم التحقق بنجاح ", Toast.LENGTH_LONG).show();
+                            flag=true;
+                            Toast.makeText(forgetpasswored.this, "تم التحقق بنجاح ", Toast.LENGTH_LONG).show();
 
 
                             } else {
@@ -189,7 +188,7 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onClick(View v) {
-        newPass = MD5.encrypt(editText11.getText().toString());
+        //newPass = MD5.encrypt(editText11.getText().toString());
 
         if(flag){
 
