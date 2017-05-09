@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 public class homeuser extends AppCompatActivity implements View.OnClickListener {
     final String TAG = this.getClass().getName();
 
-    SharedPreferences pref;
+    SharedPreferences pref;//p
     SharedPreferences.Editor editor;
 
     ImageButton profileBtn;
