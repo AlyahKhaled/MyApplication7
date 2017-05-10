@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -29,7 +30,7 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
     String UserName;//1 taka it and assaigne the user name to it and send it in php file
     ImageButton logoutBtn;
     public InputStream is ;
-
+    TextView usN,Na;
     String line = null;
     String result = null;
     String [] arr ;
@@ -44,6 +45,8 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
 
         Log.d(TAG, pref.getString("UserName", ""));// 3
         Log.d(TAG, pref.getString("PassWord", ""));// 4
+        usN=(TextView)findViewById(R.id.textView11);
+        Na=(TextView)findViewById(R.id.textView12);
 
          UserName = pref.getString("UserName", ""); // 5 after intilisatien
 
@@ -78,19 +81,31 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
 
             StringBuilder sb = new StringBuilder();
             while ((line=reader.readLine())!=null)
-                sb.append(line+"\n");
+                sb.append(line);
 
             result=sb.toString();
-            result=result.replace('"',' ');
-            int length =result.length();
-            String sreOne =result.substring(1,length-2);
+            System.out.println("**"+result+result+"**"+result.length());
 
-            //use toString() to get the data result
-            result=sb.toString();
-            // check the data
+            result = result.replace('"', ' ');
+            int length = result.length();
+            String sreOne = result.substring(1, length - 2);//i did not start from index 0 cause the string is retreved with spaces at the beging
+            System.out.println("*******here is my Data************");
             System.out.println(sreOne);
-            arr= sreOne.split(",");
-            int arrLength = arr.length ;
+            arr = sreOne.split(",");
+
+
+
+            String username        =arr[0].substring(1,arr[0].length());
+            String name            =arr[1];
+
+
+            usN.setText(username);
+            Na.setText(name);
+
+
+
+            System.out.println("username: "+username);
+            System.out.println("name: "+name);
 
 
 

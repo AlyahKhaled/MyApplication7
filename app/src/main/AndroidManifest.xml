@@ -35,6 +35,10 @@
         <activity android:name=".forgetpasswored" />
         <activity android:name=".sugg" />
         <activity android:name=".coordenation" />
+        <activity android:name=".sentInviitations" />
+        <activity android:name=".resevedInvitatio" />
+        <activity android:name=".resevedInvitationDeatales" />
+        <activity android:name=".sentInveDetales" />
         <activity android:name=".restrictions"></activity>
     </application>
 

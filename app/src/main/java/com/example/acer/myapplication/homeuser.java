@@ -21,7 +21,7 @@ public class homeuser extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homeuser);
 
-        profileBtn = (ImageButton) findViewById(R.id.profileBtn1);
+        profileBtn = (ImageButton) findViewById(R.id.imageButton3);
 
         pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
 

@@ -96,28 +96,35 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
 
             StringBuilder sb = new StringBuilder();
             while ((line=reader.readLine())!=null)
-                sb.append(line+"\n");
+                sb.append(line);
 
             result=sb.toString();
-            result=result.replace('"',' ');
-            result=result.replace(']',' ');
-            result=result.replace('[',' ');
-            int length =result.length();
-            String sreOne =result.substring(1,length-2);
+            System.out.println("**"+result+result+"**"+result.length());
 
-            //use toString() to get the data result
-            result=sb.toString();
-            // check the data
+            result = result.replace('"', ' ');
+            int length = result.length();
+            String sreOne = result.substring(1, length - 2);//i did not start from index 0 cause the string is retreved with spaces at the beging
+            System.out.println("*******here is my Data************");
             System.out.println(sreOne);
-            arr= sreOne.split(",");
-            int arrLength = arr.length ;
-
-            usN.setText(arr[0]);
-            Na.setText(arr[1]);
-            Bir.setText(arr[2]);
-            Per.setText(arr[3]);
+            arr = sreOne.split(",");
 
 
+
+            String username        =arr[0].substring(1,arr[0].length());
+            String name            =arr[1];
+            String berthday        =arr[2];
+            String personalMessage =arr[3];
+
+            usN.setText(username);
+            Na.setText(name);
+            Bir.setText(berthday);
+            Per.setText(personalMessage);
+
+
+            System.out.println("username: "+username);
+            System.out.println("name: "+name);
+            System.out.println("berthday: "+berthday);
+            System.out.println("personalMessage: "+personalMessage);
 
 
         }  catch (IOException e) {

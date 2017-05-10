@@ -40,7 +40,7 @@ public class registerUser extends AppCompatActivity {
 
     public Button insert ;
     public InputStream is ;
-
+    public  connectionDetector cd ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +55,7 @@ public class registerUser extends AppCompatActivity {
         Fquestion   = (EditText) findViewById(R.id.BF);
         Squestion   = (EditText) findViewById(R.id.BT);
         Tquestion   = (EditText) findViewById(R.id.BC);
+        cd                 = new connectionDetector(this);
         insert= (Button)findViewById(R.id.button);
 
 
@@ -65,8 +66,11 @@ public class registerUser extends AppCompatActivity {
         insert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(cd.icConnected())
+                { Register();}
+                else
+                { Toast.makeText(registerUser.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
 
-                Register ();
             }
         });
 

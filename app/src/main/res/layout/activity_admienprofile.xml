@@ -10,13 +10,13 @@
 
     <ImageButton
         android:id="@+id/imageButton4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="200dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/kshk"
         android:onClick="homee"
-        app:srcCompat="@drawable/kshk"
+
         android:layout_alignBottom="@+id/imageView" />
 
     <ImageView
@@ -88,5 +88,26 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="13dp"
         android:layout_marginEnd="13dp" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/imageView7"
+        android:layout_alignEnd="@+id/imageView5"
+        android:layout_marginEnd="14dp" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_alignTop="@+id/imageView7"
+        android:layout_alignStart="@+id/textView11"
+        android:layout_marginTop="21dp" />
 
 </RelativeLayout>

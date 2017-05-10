@@ -47,7 +47,7 @@ public class sentInveDetales extends AppCompatActivity {
     public TextView    AppsentTextView ;
     public TextView    suggestionTextView ;
     public boolean     Enter ;
-    connectionDetector cd ;
+    public connectionDetector cd ;
     //============================================end===============================================
 
 
