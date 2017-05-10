@@ -35,6 +35,10 @@ public class admin extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent(admin.this,admienprofile.class);
+        startActivity(intent);
+    }
+    public void list (View v) {
         Intent intent = new Intent(admin.this,adminListOfUsers.class);
         startActivity(intent);
     }
