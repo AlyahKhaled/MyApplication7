@@ -24,6 +24,7 @@
         <activity android:name=".profileuser" />
         <activity android:name=".admin" />
         <activity android:name=".admienprofile" />
+        <activity android:name=".editProfile" />
         <activity android:name=".adminListOfUsers" />
         <activity android:name=".invitationOptiens" />
         <activity android:name=".registerUser" />
