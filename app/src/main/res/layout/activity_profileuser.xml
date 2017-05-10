@@ -25,7 +25,8 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/kshk"
         android:onClick="homee"
-        app:srcCompat="@drawable/kshk" />
+        app:srcCompat="@drawable/kshk"
+        android:layout_alignBottom="@+id/imageView" />
 
     <ImageView
         android:layout_width="200sp"
@@ -53,9 +54,9 @@
         tools:layout_editor_absoluteX="316dp"
         android:layout_height="68dp"
         android:id="@+id/imageView8"
-        android:layout_above="@+id/imageView12"
         android:layout_alignEnd="@+id/imageView5"
-        android:layout_marginBottom="13dp" />
+        android:layout_below="@+id/imageView5"
+        android:layout_above="@+id/imageView7" />
 
 
     <ImageView
@@ -65,7 +66,8 @@
         android:id="@+id/imageView12"
         android:layout_above="@+id/logoutBtn1"
         android:layout_alignStart="@+id/imageView9"
-        android:layout_marginBottom="54dp" />
+        android:layout_marginBottom="54dp"
+        android:layout_below="@+id/imageView7" />
 
 
     <ImageView
@@ -133,7 +135,7 @@
         android:onClick="editP"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/sett"
-        android:layout_alignBottom="@+id/imageButton12" />
+        android:layout_alignBottom="@+id/imageView" />
 
 </RelativeLayout>
 

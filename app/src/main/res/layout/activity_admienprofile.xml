@@ -16,7 +16,8 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/kshk"
         android:onClick="homee"
-        app:srcCompat="@drawable/kshk" />
+        app:srcCompat="@drawable/kshk"
+        android:layout_alignBottom="@+id/imageView" />
 
     <ImageView
         android:layout_width="200sp"

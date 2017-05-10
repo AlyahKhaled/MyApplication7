@@ -24,7 +24,6 @@ public class admin extends AppCompatActivity implements View.OnClickListener {
 
         profileBtn = (ImageButton) findViewById(R.id.imageButton3);
         pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
-
         Log.d(TAG, pref.getString("UserName", ""));
         Log.d(TAG, pref.getString("PassWord", ""));
 
@@ -41,5 +40,10 @@ public class admin extends AppCompatActivity implements View.OnClickListener {
     public void list (View v) {
         Intent intent = new Intent(admin.this,adminListOfUsers.class);
         startActivity(intent);
+    }
+
+    public void Back (View view)
+    {
+        onBackPressed();
     }
 }

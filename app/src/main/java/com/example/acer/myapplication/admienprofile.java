@@ -117,7 +117,7 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
         startActivity(in);
     }
 
-    public void homee(View view){
+        public void homee(View view){
         Intent in = new Intent(admienprofile.this, admin.class);
         startActivity(in);
     }
