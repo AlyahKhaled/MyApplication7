@@ -84,7 +84,6 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
 
             result=sb.toString();
             result=result.replace('"',' ');
-
             int length =result.length();
             String sreOne =result.substring(1,length-2);
 

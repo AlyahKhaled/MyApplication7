@@ -32,38 +32,35 @@ import java.util.regex.Pattern;
 public class sugg extends AppCompatActivity {
 
     public EditText sugg;
-
     public Button insert ;
     String sug;
     public InputStream is ;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sugg);
 
 
         sugg = (EditText) findViewById(R.id.apo);
-         insert= (Button)findViewById(R.id.button);
+        insert= (Button)findViewById(R.id.button);
 
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        insert.setOnClickListener(new View.OnClickListener() {
+            insert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                  sug = sugg.getText().toString();
 
                 if(sug.length() == 0) {sugg.setError("الاقتراح لا يمكن ان يكون فارغ ");return; }
 
-                if (sug.matches(".*[^a-z^A-Z].*")){sugg.setError(" الاقتراح لا يمكن ان يحتوي رموز او ارقام  "); return;}
-
+                if(sug.length() >100) {sugg.setError("الاقتراح يجب ان يكون ١٠٠ حرف أو أقل  ");return; }
 
 
 
                     List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
-
                     nameValuePair.add(new BasicNameValuePair("sugg", sug));
                     nameValuePair.add(new BasicNameValuePair("selectedFromList", invitations.selectedFromList));
 

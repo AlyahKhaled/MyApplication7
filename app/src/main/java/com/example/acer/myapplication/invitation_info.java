@@ -43,6 +43,7 @@ public class invitation_info extends AppCompatActivity {
     String [] arr ;
     public InputStream is ;
     Button map;
+    connectionDetector cd ;
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,8 @@ public class invitation_info extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new  StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        if(cd.icConnected())
+        {
 //==============================================================================================================
 
         try {
@@ -154,7 +157,6 @@ public class invitation_info extends AppCompatActivity {
                     }
                 });
 
-
                             builder.setNegativeButton("نعم", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             String selectedFromList= invitations.selectedFromList;
@@ -176,8 +178,7 @@ public class invitation_info extends AppCompatActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
-                    }
+      }
 
                 });
 
@@ -186,7 +187,7 @@ public class invitation_info extends AppCompatActivity {
             }
         });
 
-    }
+    }{ Toast.makeText(invitation_info.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
 
     //============================================================================================================== To go Back
 

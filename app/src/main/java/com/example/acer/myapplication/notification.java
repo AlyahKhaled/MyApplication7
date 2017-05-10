@@ -14,13 +14,14 @@ public class notification extends AppCompatActivity {
     public Button inc, frie;
     SharedPreferences pref;
     String UserName;
+    connectionDetector cd ;
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-
+        cd= new connectionDetector(this);
         inc = (Button) findViewById(R.id.button6);
         frie = (Button) findViewById(R.id.button4);
         pref =getSharedPreferences("login.conf",Context.MODE_PRIVATE);

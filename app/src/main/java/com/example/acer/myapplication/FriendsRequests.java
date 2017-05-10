@@ -48,7 +48,7 @@ public class FriendsRequests extends AppCompatActivity {
     public ArrayList<String> listitems2;
     String result;
     View view2;
-
+    connectionDetector cd ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,13 +58,18 @@ public class FriendsRequests extends AppCompatActivity {
         Log.d(TAG, pref.getString("UserName", ""));// 3
         Log.d(TAG, pref.getString("PassWord", ""));// 4
         UserName = pref.getString("UserName", ""); // 5
+        cd= new connectionDetector(this);
 
 //==============================================================================================================
         ArrayList<String> listitems;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        if(cd.icConnected())
+        {
+
 //==============================================================================================================
+
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/Friends_req.php?UserName=" + UserName);
@@ -94,7 +99,9 @@ public class FriendsRequests extends AppCompatActivity {
             System.out.print("exception 1 caught");
             //exception handel code
         }
-    }
+    } else
+        { Toast.makeText(FriendsRequests.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
+
 //============================================================================================================== Class adapter
 
     public class CustomAdapter extends BaseAdapter {

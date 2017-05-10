@@ -21,7 +21,6 @@ public class admin extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
-
         profileBtn = (ImageButton) findViewById(R.id.imageButton3);
         pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
         Log.d(TAG, pref.getString("UserName", ""));

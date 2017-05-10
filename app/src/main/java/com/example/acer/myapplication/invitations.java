@@ -52,6 +52,7 @@ public class invitations extends AppCompatActivity {
     public String[] arr2;
     public ArrayList<String> listitems;
     public ArrayList<String> listitems2;
+    connectionDetector cd ;
 
 
 
@@ -64,11 +65,13 @@ public class invitations extends AppCompatActivity {
         Log.d(TAG, pref.getString("UserName", ""));// 3
         Log.d(TAG, pref.getString("PassWord", ""));// 4
         UserName = pref.getString("UserName", ""); // 5
+        cd= new connectionDetector(this);
 
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
+        if(cd.icConnected())
+        {
 //==============================================================================================================
         try {
             HttpClient httpClient = new DefaultHttpClient();
@@ -126,7 +129,8 @@ public class invitations extends AppCompatActivity {
             System.out.print("exception 1 caught");
             //exception handel code
         }
-    }
+    }else
+        { Toast.makeText(invitations.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
 
     //==============================================================================================================
     public void display(String  text ){
