@@ -196,7 +196,7 @@ public void deleteAccount(View view){
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    //do things
+                    //do thingss
                 }
             });
 
