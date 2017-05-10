@@ -35,7 +35,7 @@
 
     <Button
         android:text=""
-        android:onClick="onClick"
+        android:onClick="list"
         android:background="@drawable/users"
         android:layout_width="300sp"
         android:layout_height="300sp"
