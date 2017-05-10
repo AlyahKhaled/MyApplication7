@@ -269,4 +269,9 @@ public class FriendsRequests extends AppCompatActivity {
 
     }
 
+    public void Back (View view)
+    {
+        onBackPressed();
+    }
+
 }

@@ -90,6 +90,8 @@ public class invitation_info extends AppCompatActivity {
 
             result=sb.toString();
             result=result.replace('"',' ');
+            result=result.replace(']',' ');
+            result=result.replace('[',' ');
             int length =result.length();
             String sreOne =result.substring(1,length-2);
 
