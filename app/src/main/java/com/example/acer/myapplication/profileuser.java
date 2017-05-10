@@ -11,9 +11,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -41,7 +40,7 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
     ImageButton delete;
     public InputStream is ;
     String UserName;
-    ListView lv ;
+    TextView usN,Na ,Bir,Per;
     String line = null;
     String result = null;
     String [] arr ;
@@ -54,6 +53,12 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
         pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
         Log.d(TAG, pref.getString("UserName", ""));
         Log.d(TAG, pref.getString("PassWord", ""));
+
+        usN=(TextView)findViewById(R.id.textView11);
+        Na=(TextView)findViewById(R.id.textView12);
+        Bir=(TextView)findViewById(R.id.textView13);
+        Per=(TextView)findViewById(R.id.textView14);
+
         logoutBtn = (ImageButton) findViewById(R.id.logoutBtn1);
        delete = (ImageButton) findViewById(R.id.imageButton);
         logoutBtn.setOnClickListener(this);
@@ -61,7 +66,7 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
         UserName = pref.getString("UserName", "");
 
         logoutBtn.setOnClickListener(this);
-        lv = (ListView) findViewById(R.id.listV);
+
 
 
 
@@ -95,6 +100,8 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
 
             result=sb.toString();
             result=result.replace('"',' ');
+            result=result.replace(']',' ');
+            result=result.replace('[',' ');
             int length =result.length();
             String sreOne =result.substring(1,length-2);
 
@@ -105,7 +112,10 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
             arr= sreOne.split(",");
             int arrLength = arr.length ;
 
-            lv.setAdapter(new ArrayAdapter<String>(profileuser.this,android.R.layout.simple_list_item_1,arr));
+            usN.setText(arr[0]);
+            Na.setText(arr[1]);
+            Bir.setText(arr[2]);
+            Per.setText(arr[3]);
 
 
 

@@ -20,6 +20,17 @@
         android:layout_alignBottom="@+id/imageView" />
 
     <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="278dp"
+        android:layout_height="692dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/pro"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="57dp" />
+
+    <ImageView
         android:layout_width="200sp"
         android:layout_height="50sp"
         android:background="@drawable/zwara_word"
@@ -29,27 +40,15 @@
 
 
     <ImageView
-        android:layout_width="278dp"
-        android:layout_height="692dp"
-        android:background="@drawable/pro"
-        tools:layout_editor_absoluteY="57dp"
-        tools:layout_editor_absoluteX="0dp"
-        android:id="@+id/imageView4"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <ImageView
         android:layout_width="68dp"
         android:background="@drawable/usr"
         tools:layout_editor_absoluteY="298dp"
         tools:layout_editor_absoluteX="312dp"
         android:id="@+id/imageView7"
         android:layout_height="68dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_below="@+id/imageView8"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="84dp" />
+        android:layout_marginTop="21dp" />
 
     <ImageView
         android:layout_width="68dp"
@@ -57,10 +56,10 @@
         tools:layout_editor_absoluteY="230dp"
         tools:layout_editor_absoluteX="316dp"
         android:layout_height="68dp"
-        android:layout_above="@+id/imageView7"
-        android:layout_alignParentRight="true"
+        android:id="@+id/imageView8"
+        android:layout_below="@+id/imageView5"
         android:layout_alignParentEnd="true"
-        android:id="@+id/imageView8" />
+        android:layout_marginTop="29dp" />
 
 
     <ImageView
@@ -89,12 +88,5 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="13dp"
         android:layout_marginEnd="13dp" />
-
-    <ListView
-        android:id="@+id/listV1"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_above="@+id/imageView7"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

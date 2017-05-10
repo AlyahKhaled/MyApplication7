@@ -2,6 +2,7 @@ package com.example.acer.myapplication;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -44,7 +45,7 @@ public class editProfile extends AppCompatActivity {
 
     String UserName;
     String birth ="null";
-
+String Namee ;
     String msgP ="null";
 
     public EditText nameUs , msgPe ;
@@ -57,6 +58,14 @@ public class editProfile extends AppCompatActivity {
     public InputStream iss ;
 
     DatePickerDialog.OnDateSetListener mDateSetListener;
+
+
+    public InputStream is ;
+
+
+    String line = null;
+    String result = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +91,47 @@ public class editProfile extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        ///////////////////////////////////////////////////
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/retriveName.php?UserName="+UserName);
+            HttpResponse response = httpClient.execute(httpPost);
+            HttpEntity entity = response.getEntity();
+
+
+            is = entity.getContent();
+
+
+        }catch (Exception e){
+            System.out.print("exception 1 caught");
+            //exception handel code
+        }
+
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+
+            StringBuilder sb = new StringBuilder();
+            while ((line=reader.readLine())!=null)
+                sb.append(line);
+
+            result=sb.toString();
+            result=result.replace('"',' ');
+            result=result.replace(']',' ');
+            result=result.replace('[',' ');
+            result=result.replace(" ","");
+
+
+            // check the data
+            nameUs.setText(result);
+
+
+
+        }  catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
 
         dat.setOnClickListener(new View.OnClickListener() {
 
@@ -119,6 +169,8 @@ public class editProfile extends AppCompatActivity {
         };
 
 
+
+
     }
 
 
@@ -131,6 +183,63 @@ public class editProfile extends AppCompatActivity {
 
 
         msgP = msgPe.getText().toString();
+
+        Namee =nameUs.getText().toString();
+
+        if (!(Namee.contains(result))){
+
+
+
+            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
+
+            nameValuePair.add(new BasicNameValuePair("Namee", Namee));
+            try {
+                HttpClient httpClient = new DefaultHttpClient();
+                HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/editName.php?UserName=" + UserName);
+                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+                HttpResponse response = httpClient.execute(httpPost);
+                HttpEntity entity = response.getEntity();
+                iss = entity.getContent();
+
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(iss, "iso-8859-1"), 8);
+                StringBuilder sb = new StringBuilder();
+                while ((linee = reader.readLine()) != null) {
+                    sb.append(linee + "\n");
+                }
+                iss.close();
+                resulte = sb.toString();
+                //test the query
+                if (resulte.contains("true")) {
+                    System.out.println("************************ result " + resulte + "**********************************************");
+                    String msg = "تم تعديل اسمك ";
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+
+                }
+                else{
+                    String msg = "لم يتم تعديل اسمك ";
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                }
+
+            }
+            catch(Exception e)
+            {
+                Log.e("Fail 2", e.toString());
+            }
+
+
+
+
+        }
 
         if (!(msgP.contains("null"))){
 
@@ -241,10 +350,16 @@ public class editProfile extends AppCompatActivity {
 
         }
 
+        Intent in = new Intent(editProfile.this, profileuser.class);
+        startActivity(in);
 
 
 
+    }
 
+    public void Back(View v){
+        Intent in = new Intent(editProfile.this, profileuser.class);
+        startActivity(in);
     }
 }
 

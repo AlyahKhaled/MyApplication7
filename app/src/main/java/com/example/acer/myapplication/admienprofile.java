@@ -8,9 +8,7 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -31,7 +29,7 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
     String UserName;//1 taka it and assaigne the user name to it and send it in php file
     ImageButton logoutBtn;
     public InputStream is ;
-    ListView lv ;
+
     String line = null;
     String result = null;
     String [] arr ;
@@ -50,7 +48,7 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
          UserName = pref.getString("UserName", ""); // 5 after intilisatien
 
         logoutBtn.setOnClickListener(this);
-        lv = (ListView) findViewById(R.id.listV1);
+
 
         System.out.println("******************************************* UserName "+UserName+"*********************");
 
@@ -94,7 +92,7 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
             arr= sreOne.split(",");
             int arrLength = arr.length ;
 
-            lv.setAdapter(new ArrayAdapter<String>(admienprofile.this,android.R.layout.simple_list_item_1,arr));
+
 
 
 
