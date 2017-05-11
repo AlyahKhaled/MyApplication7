@@ -18,9 +18,9 @@
                 android:background="@drawable/zwarahlogo"
                 android:id="@+id/imageView"
                 android:layout_marginRight="13dp"
-                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:layout_above="@+id/radioGroup"
-                android:layout_alignParentTop="true" />
+                android:layout_alignStart="@+id/checkBox" />
 
             <ImageView
                 android:layout_width="wrap_content"

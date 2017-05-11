@@ -9,6 +9,7 @@
 
 
     <TextView
+        android:onClick="Back"
         android:text=""
         android:background="@drawable/arow"
         android:layout_width="40sp"
@@ -29,6 +30,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
+        android:onClick="profile"
         android:text=""
         android:layout_width="40sp"
         android:background="@drawable/person"
@@ -58,6 +60,7 @@
         tools:layout_editor_absoluteY="8dp"
         android:layout_marginBottom="37dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

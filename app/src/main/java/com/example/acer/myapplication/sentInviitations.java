@@ -68,14 +68,14 @@ public class sentInviitations extends AppCompatActivity {
     }
 
 
-    public void connectANDretrev ()
+       public void connectANDretrev ()
     {
         // this in order to set up the code to fetch data from database
 
         try {
             HttpClient httpClient = new DefaultHttpClient();
 
-            // spacifi url for the retrive
+            // spacial url for the retrive
 
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Dalal/sentInv.php?value="+UserName);
             HttpResponse response = httpClient.execute(httpPost);
@@ -98,7 +98,7 @@ public class sentInviitations extends AppCompatActivity {
             StringBuilder sb = new StringBuilder();
 
             while ((line=reader.readLine())!=null)
-                sb.append(line+"\n");
+            sb.append(line+"\n");
 
             //use toString() to get the data result
             result=sb.toString();
@@ -108,14 +108,14 @@ public class sentInviitations extends AppCompatActivity {
             int length = result.length();
             String sreOne = result.substring(1, length - 2);//i did not start from index 0 cause the string is retreved with spaces at the beging
             // chek the data
-            // chek the data
+
             System.out.println("*******here is my Data************");
             System.out.println(sreOne);
             arr = sreOne.split(",");
             int arrLength = arr.length;
 
 
-            for (int i = 0; i < arrLength; i++) {
+                for (int i = 0; i < arrLength; i++) {
                 if (i % 2 == 0) {
                     boolean add = invitations.add(arr[i]);
                     if (add == true)
@@ -153,6 +153,19 @@ public class sentInviitations extends AppCompatActivity {
 
         }  catch (IOException e) {
             e.printStackTrace();
-        }}
+        }
 
-}
+
+
+    }
+    public void Back (View view)
+    {
+        onBackPressed();
+    }
+
+
+    public void profile (View view)
+    {
+        Intent intent = new Intent(sentInviitations.this, profileuser.class);
+        startActivity(intent);
+    }}

@@ -24,11 +24,9 @@ public class invitationOptiens extends AppCompatActivity {
 
         toProfile = (TextView) findViewById(R.id.textView28);
         Back      = (TextView) findViewById(R.id.textView27);
-
         pref      = getSharedPreferences("login.conf", Context.MODE_PRIVATE);//2
         Log.d(TAG, pref.getString("UserName", ""));//3
         Log.d(TAG, pref.getString("PassWord", ""));//4
-
         UserName   = pref.getString("UserName", "");//5
         System.out.print(UserName+"this is the UserName");
 

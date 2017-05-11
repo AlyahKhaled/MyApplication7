@@ -64,13 +64,11 @@ public class FriendsRequests extends AppCompatActivity {
         ArrayList<String> listitems;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
         if(cd.icConnected())
         {
 
 //==============================================================================================================
-
-        try {
+            try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/Friends_req.php?UserName=" + UserName);
             HttpResponse response = httpClient.execute(httpPost);
@@ -104,11 +102,8 @@ public class FriendsRequests extends AppCompatActivity {
 
 //============================================================================================================== Class adapter
 
-    public class CustomAdapter extends BaseAdapter {
-
-
-
-        ArrayList<String> Items=new ArrayList<String>();
+        public class CustomAdapter extends BaseAdapter {
+            ArrayList<String> Items=new ArrayList<String>();
         CustomAdapter(ArrayList<String>Items){this.Items=Items;}
 
         @Override
@@ -222,9 +217,7 @@ public class FriendsRequests extends AppCompatActivity {
                         }
 
                         //do things
-
-                    }
-                });
+                      }});
 
 //************************************ when click delete friend request  ***********************************************************
 

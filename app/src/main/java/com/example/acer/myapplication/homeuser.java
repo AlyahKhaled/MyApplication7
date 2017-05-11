@@ -24,9 +24,7 @@ public class homeuser extends AppCompatActivity implements View.OnClickListener 
         profileBtn = (ImageButton) findViewById(R.id.imageButton3);
 
         pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
-
-      String UserName=pref.getString("UserName", "");
-
+        String UserName=pref.getString("UserName", "");
         Log.d(TAG, pref.getString("UserName", ""));
         Log.d(TAG, pref.getString("PassWord", ""));
 
@@ -59,11 +57,6 @@ public class homeuser extends AppCompatActivity implements View.OnClickListener 
         startActivity(intent);
    }
 
-   // public void rest (View view)
-   // {
-       // Intent intent = new Intent(homeuser.this,restorantlist.class);
-        //startActivity(intent);
-   // }
 
 
 
