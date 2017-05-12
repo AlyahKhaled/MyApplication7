@@ -140,11 +140,31 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
 
 
     public void onClick(View view) {
-        editor = pref.edit();
-        editor.clear();
-        editor.commit();
-        Intent in = new Intent(profileuser.this, LoginActivity.class);
-        startActivity(in);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(profileuser.this);
+        builder.setMessage("هل انت متأكد تريد تسجيل الخروج ؟");
+        builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+
+
+            public void onClick(DialogInterface dialog, int id) {
+
+                //do things
+            }
+        });
+
+
+        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                editor = pref.edit();
+                editor.clear();
+                editor.commit();
+                Intent in = new Intent(profileuser.this, LoginActivity.class);
+                startActivity(in);
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
 
@@ -166,7 +186,7 @@ public void deleteAccount(View view){
 
 
             AlertDialog.Builder builder = new AlertDialog.Builder(profileuser.this);
-            builder.setMessage("are you sure you wants to delete this invitation");
+            builder.setMessage("هل أنت متأكد تريد حذف حسابك نهائيا ؟");
             builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
 
 

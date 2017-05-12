@@ -1,10 +1,12 @@
 package com.example.acer.myapplication;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -122,11 +124,33 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
 
     }
     public void onClick(View view) {
-        editor = pref.edit();
-        editor.clear();
-        editor.commit();
-        Intent in = new Intent(admienprofile.this, LoginActivity.class);
-        startActivity(in);
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(admienprofile.this);
+        builder.setMessage("هل انت متأكد تريد تسجيل الخروج ؟");
+        builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+
+
+            public void onClick(DialogInterface dialog, int id) {
+
+                //do things
+            }
+        });
+
+
+        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                editor = pref.edit();
+                editor.clear();
+                editor.commit();
+                Intent in = new Intent(admienprofile.this, LoginActivity.class);
+                startActivity(in);
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
     }
 
         public void homee(View view){
