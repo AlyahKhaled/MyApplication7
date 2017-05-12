@@ -14,20 +14,22 @@
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1.لن يتم اخذ اي معلومات خاصة قد تؤذي المسخدم."
+        android:text="2.ادخالك لمعلوماتتك الحقيقةتساعدك وتساعد اصدقاءك في ايجادك."
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/textView18"
+        android:layout_alignEnd="@+id/textView18" />
 
     <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView5"
         android:layout_marginTop="28dp"
         android:text="1.لن يتم اخذ اي معلومات خاصة قد تؤذي المسخدم."
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_below="@+id/textView5"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="11dp" />
 
     <ImageButton
         android:id="@+id/imageButton7"
@@ -52,31 +54,32 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="27dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         tools:text="القيود والاحكام:"
         android:layout_below="@+id/textView43"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignEnd="@+id/textView18" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1.لن يتم اخذ اي معلومات خاصة قد تؤذي المسخدم."
+        android:text="4.التطبيق ير مسؤول عن اي اخطاء في تحديد موقعك او مكان دعوتك او ارسالك الخاطيء للدعوة."
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_below="@+id/textView15"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="52dp" />
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/textView17"
+        android:layout_alignEnd="@+id/textView17" />
 
     <TextView
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1.لن يتم اخذ اي معلومات خاصة قد تؤذي المسخدم."
+        android:text="3.سوف يتم اخذ موقعك لارساله لاصدقاءك وهذا عند استخدامك الصحيح للتطبيق ."
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_marginTop="24dp"
         android:layout_below="@+id/textView15"
-        android:layout_alignParentStart="true" />
+        android:layout_alignEnd="@+id/textView15" />
 
 
 </RelativeLayout>
