@@ -13,29 +13,26 @@
         android:ems="10"
         android:textColor="#6c481d"
         android:textAlignment="center"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="12dp"
         android:id="@+id/name"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/imageView5"
         android:hint="الاسم"
-        android:layout_toLeftOf="@+id/imageView5" />
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/username"
+        android:layout_toStartOf="@+id/imageView5" />
 
     <EditText
         android:id="@+id/phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/pass"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/pass"
         android:layout_below="@+id/imageView6"
         android:ems="10"
         android:hint="رقم الجوال"
         android:inputType="phone"
         android:textAlignment="center"
-        android:textColor="#6c481d" />
+        android:textColor="#6c481d"
+        android:layout_alignStart="@+id/pass" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -49,20 +46,20 @@
         android:layout_marginBottom="13dp"
         android:layout_above="@+id/phone"
         android:layout_toLeftOf="@+id/imageView5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignStart="@+id/textView4" />
 
     <TextView
-        android:text="القيود"
-        android:textColor="#6c481d"
-        android:onClick="restri"
-        android:textStyle="bold"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView4"
+        android:layout_marginStart="24dp"
+
         android:clickable="true"
-        android:layout_marginStart="21dp"
-        android:layout_below="@+id/button"
+        android:onClick="restri"
+        android:text="القيود"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        android:layout_alignBaseline="@+id/textView6"
+        android:layout_alignBottom="@+id/textView6"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -71,10 +68,10 @@
         android:layout_height="wrap_content"
         android:onClick="loginA"
         android:text="تسجيل دخول"
-        android:textColor="#6c481d"
-        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
         android:layout_below="@+id/button"
-        android:layout_alignEnd="@+id/textView3" />
+        android:layout_alignEnd="@+id/textView3"
+        android:layout_marginTop="11dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -85,9 +82,8 @@
         android:hint="ما اسم أفضل أصدقائك؟"
         android:textColor="#6c481d"
         android:id="@+id/BF"
-        android:layout_alignBottom="@+id/imageView8"
-        android:layout_alignStart="@+id/BT"
-        android:layout_toStartOf="@+id/textView3" />
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="70dp"
@@ -96,7 +92,8 @@
         android:id="@+id/imageView8"
         android:layout_below="@+id/textView3"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/imageView9" />
 
     <TextView
         android:text="الأسئلة:"
@@ -108,19 +105,18 @@
         android:textSize="40dp"
         android:textColor="#694418"
         android:id="@+id/textView3"
-        android:layout_below="@+id/phone"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="13dp" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageView
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/phone"
         android:id="@+id/imageView7"
-        android:layout_above="@+id/textView3"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/pass"
+        android:layout_alignBottom="@+id/phone" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -146,7 +142,7 @@
         android:id="@+id/username"
         android:layout_alignTop="@+id/imageView5"
         android:layout_marginTop="13dp"
-        android:layout_alignParentStart="true"
+        android:layout_alignStart="@+id/pass"
         android:layout_toStartOf="@+id/imageView6" />
 
     <ImageView
@@ -175,7 +171,8 @@
         android:id="@+id/imageView4"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/name" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -187,17 +184,16 @@
         android:ems="10"
         android:id="@+id/BT"
         android:layout_below="@+id/BF"
-        android:layout_toRightOf="@+id/textView4"
-        android:layout_toEndOf="@+id/textView4" />
+        android:layout_alignStart="@+id/BF" />
 
     <ImageView
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/ticon"
         android:id="@+id/imageView9"
-        android:layout_above="@+id/BC"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/BF"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/BC" />
 
     <ImageView
         android:layout_width="70dp"
@@ -206,18 +202,19 @@
         android:id="@+id/imageView10"
         android:layout_below="@+id/imageView9"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/button" />
 
     <Button
-        android:text="تسجيل"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+
+        android:layout_width="270dp"
+        android:layout_height="47dp"
         android:id="@+id/button"
         android:textSize="30dp"
         android:textColor="#ffffff"
         android:width="260dp"
-        android:background="#f79d31"
+        android:background="@drawable/reg"
+        android:layout_marginTop="14dp"
         android:layout_below="@+id/BC"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

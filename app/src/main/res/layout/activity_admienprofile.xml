@@ -69,10 +69,9 @@
         tools:layout_editor_absoluteX="80dp"
         android:id="@+id/imageView5"
         android:background="@drawable/profile"
-        android:layout_below="@+id/imageView"
-        android:layout_alignLeft="@+id/imageView4"
-        android:layout_alignStart="@+id/imageView4"
-        android:layout_marginTop="19dp" />
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/imageButton4"
+        android:layout_toEndOf="@+id/imageButton4" />
 
     <ImageButton
         android:id="@+id/logoutBtn"
@@ -97,8 +96,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:layout_marginBottom="20dp"
         android:layout_above="@+id/imageView7"
-        android:layout_alignEnd="@+id/imageView5"
-        android:layout_marginEnd="14dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textView12"

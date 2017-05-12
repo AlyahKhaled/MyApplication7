@@ -9,8 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -21,21 +19,21 @@ import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
 import java.util.HashMap;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     final String TAG = this.getClass().getName();
 
 
     Button btnLogin;
     EditText etUsername, etPassword;
-    CheckBox cbRemember;
+
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     RadioGroup rg;
     RadioButton rb;
     String type;
 
-    boolean checkFlag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +45,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        cbRemember =(CheckBox)findViewById(R.id.checkBox);
 
-        cbRemember.setOnCheckedChangeListener(this);
-        checkFlag = cbRemember.isChecked();
+
+
+
         btnLogin.setOnClickListener(this);
         pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
         editor = pref.edit();
@@ -137,13 +135,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Log.d(TAG, s);
                             if(s.contains("success")){
 
-                                if(checkFlag) {
+
                                     editor.putString("UserName", etUsername.getText().toString());
                                     editor.putString("PassWord", etPassword.getText().toString());
                                     editor.apply();
 
                                     Log.d(TAG, pref.getString("PassWord", ""));
-                                }
+
 
                                 Toast.makeText(LoginActivity.this, "تم تسجيل دخولك بنجاح", Toast.LENGTH_LONG).show();
                                 Intent in = new Intent(LoginActivity.this, homeuser.class);
@@ -173,13 +171,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Log.d(TAG, s);
                             if(s.contains("success")){
 
-                                if(checkFlag) {
+
                                     editor.putString("UserName", etUsername.getText().toString());
                                     editor.putString("PassWord", etPassword.getText().toString());
                                     editor.apply();
 
                                     Log.d(TAG, pref.getString("PassWord", ""));
-                                }
+
 
                                 Toast.makeText(LoginActivity.this, "تم تسجيل دخولك بنجاح", Toast.LENGTH_LONG).show();
                                 Intent in = new Intent(LoginActivity.this, admin.class);
@@ -200,11 +198,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        checkFlag = isChecked;
-        Log.d(TAG, "checkFlag: " + checkFlag);
-    }
 
 
    public void forgetPass(View view){

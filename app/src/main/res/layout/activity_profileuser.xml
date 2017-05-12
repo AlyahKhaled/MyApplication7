@@ -154,8 +154,9 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_below="@+id/imageView7"
-        android:layout_alignStart="@+id/textView12" />
+        android:layout_alignTop="@+id/imageView12"
+        android:layout_alignStart="@+id/textView12"
+        android:layout_marginTop="13dp" />
 
     <TextView
         android:id="@+id/textView14"
@@ -165,7 +166,9 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:layout_below="@+id/imageView12"
-        android:layout_toStartOf="@+id/imageView12" />
+        android:layout_marginTop="14dp"
+        android:layout_alignStart="@+id/logoutBtn1"
+        android:layout_alignEnd="@+id/textView13" />
 
 </RelativeLayout>
 
