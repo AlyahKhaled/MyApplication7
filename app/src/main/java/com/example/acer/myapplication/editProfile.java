@@ -2,12 +2,14 @@ package com.example.acer.myapplication;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -186,172 +188,191 @@ String Namee ;
 
         Namee =nameUs.getText().toString();
 
-        if (!(Namee.contains(result))){
+        AlertDialog.Builder builder = new AlertDialog.Builder(editProfile.this);
+        builder.setMessage("هل انت متأكد تريد حفظ التعديلات ؟");
+        builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
 
 
+            public void onClick(DialogInterface dialog, int id) {
 
-            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
-
-            nameValuePair.add(new BasicNameValuePair("Namee", Namee));
-            try {
-                HttpClient httpClient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/editName.php?UserName=" + UserName);
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
-                HttpResponse response = httpClient.execute(httpPost);
-                HttpEntity entity = response.getEntity();
-                iss = entity.getContent();
-
-
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-
+                //do things
             }
-            try {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(iss, "iso-8859-1"), 8);
-                StringBuilder sb = new StringBuilder();
-                while ((linee = reader.readLine()) != null) {
-                    sb.append(linee + "\n");
-                }
-                iss.close();
-                resulte = sb.toString();
-                //test the query
-                if (resulte.contains("true")) {
-                    System.out.println("************************ result " + resulte + "**********************************************");
-                    String msg = "تم تعديل اسمك ";
-                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+        });
 
-                }
-                else{
-                    String msg = "لم يتم تعديل اسمك ";
-                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-                }
 
-            }
-            catch(Exception e)
-            {
-                Log.e("Fail 2", e.toString());
-            }
+        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (!(Namee.contains(result))){
 
 
 
+                    List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
 
-        }
-
-        if (!(msgP.contains("null"))){
-
-
-
-            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
-
-            nameValuePair.add(new BasicNameValuePair("msgP", msgP));
-            try {
-                HttpClient httpClient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/editMsg.php?UserName=" + UserName);
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
-                HttpResponse response = httpClient.execute(httpPost);
-                HttpEntity entity = response.getEntity();
-                iss = entity.getContent();
+                    nameValuePair.add(new BasicNameValuePair("Namee", Namee));
+                    try {
+                        HttpClient httpClient = new DefaultHttpClient();
+                        HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/editName.php?UserName=" + UserName);
+                        httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+                        HttpResponse response = httpClient.execute(httpPost);
+                        HttpEntity entity = response.getEntity();
+                        iss = entity.getContent();
 
 
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    } catch (ClientProtocolException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
 
-            }
-            try {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(iss, "iso-8859-1"), 8);
-                StringBuilder sb = new StringBuilder();
-                while ((linee = reader.readLine()) != null) {
-                    sb.append(linee + "\n");
-                }
-                iss.close();
-                resulte = sb.toString();
-                //test the query
-                if (resulte.contains("true")) {
-                    System.out.println("************************ result " + resulte + "**********************************************");
-                    String msg = "تم تعديل الرسالة الشخصية ";
-                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                    }
+                    try {
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(iss, "iso-8859-1"), 8);
+                        StringBuilder sb = new StringBuilder();
+                        while ((linee = reader.readLine()) != null) {
+                            sb.append(linee + "\n");
+                        }
+                        iss.close();
+                        resulte = sb.toString();
+                        //test the query
+                        if (resulte.contains("true")) {
+                            System.out.println("************************ result " + resulte + "**********************************************");
+                            String msg = "تم تعديل اسمك ";
+                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+
+                        }
+                        else{
+                            String msg = "لم يتم تعديل اسمك ";
+                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                    catch(Exception e)
+                    {
+                        Log.e("Fail 2", e.toString());
+                    }
+
+
+
 
                 }
-                else{
-                    String msg = "لم يتم تعديل الرسالة الشخصية ";
-                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+
+                if (!(msgP.contains("null"))){
+
+
+
+                    List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
+
+                    nameValuePair.add(new BasicNameValuePair("msgP", msgP));
+                    try {
+                        HttpClient httpClient = new DefaultHttpClient();
+                        HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/editMsg.php?UserName=" + UserName);
+                        httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+                        HttpResponse response = httpClient.execute(httpPost);
+                        HttpEntity entity = response.getEntity();
+                        iss = entity.getContent();
+
+
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    } catch (ClientProtocolException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+
+                    }
+                    try {
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(iss, "iso-8859-1"), 8);
+                        StringBuilder sb = new StringBuilder();
+                        while ((linee = reader.readLine()) != null) {
+                            sb.append(linee + "\n");
+                        }
+                        iss.close();
+                        resulte = sb.toString();
+                        //test the query
+                        if (resulte.contains("true")) {
+                            System.out.println("************************ result " + resulte + "**********************************************");
+                            String msg = "تم تعديل الرسالة الشخصية ";
+                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+
+                        }
+                        else{
+                            String msg = "لم يتم تعديل الرسالة الشخصية ";
+                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                    catch(Exception e)
+                    {
+                        Log.e("Fail 2", e.toString());
+                    }
+
+
+
+
                 }
 
-            }
-            catch(Exception e)
-            {
-                Log.e("Fail 2", e.toString());
-            }
+
+                if(!(birth.contains("null"))){
+
+                    List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
+
+                    nameValuePair.add(new BasicNameValuePair("birth", birth));
+                    try {
+                        HttpClient httpClient = new DefaultHttpClient();
+                        HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/editBirth.php?UserName=" + UserName);
+                        httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+                        HttpResponse response = httpClient.execute(httpPost);
+                        HttpEntity entity = response.getEntity();
+                        iss = entity.getContent();
+
+
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    } catch (ClientProtocolException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+
+                    }
+                    try {
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(iss, "iso-8859-1"), 8);
+                        StringBuilder sb = new StringBuilder();
+                        while ((linee = reader.readLine()) != null) {
+                            sb.append(linee + "\n");
+                        }
+                        iss.close();
+                        resulte = sb.toString();
+                        //test the query
+                        if (resulte.contains("true")) {
+                            System.out.println("************************ result " + resulte + "**********************************************");
+                            String msg = "تم تعديل تاريخ ميلادك ";
+                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+
+                        }
+                        else{
+                            String msg = "لم يتم تعديل تاريخ ميلادك ";
+                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                    catch(Exception e)
+                    {
+                        Log.e("Fail 2", e.toString());
+                    }
 
 
 
 
-        }
-
-
-        if(!(birth.contains("null"))){
-
-            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
-
-            nameValuePair.add(new BasicNameValuePair("birth", birth));
-            try {
-                HttpClient httpClient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/editBirth.php?UserName=" + UserName);
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
-                HttpResponse response = httpClient.execute(httpPost);
-                HttpEntity entity = response.getEntity();
-                iss = entity.getContent();
-
-
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-
-            }
-            try {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(iss, "iso-8859-1"), 8);
-                StringBuilder sb = new StringBuilder();
-                while ((linee = reader.readLine()) != null) {
-                    sb.append(linee + "\n");
                 }
-                iss.close();
-                resulte = sb.toString();
-                //test the query
-                if (resulte.contains("true")) {
-                    System.out.println("************************ result " + resulte + "**********************************************");
-                    String msg = "تم تعديل تاريخ ميلادك ";
-                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 
-                }
-                else{
-                    String msg = "لم يتم تعديل تاريخ ميلادك ";
-                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-                }
-
+                Intent in = new Intent(editProfile.this, profileuser.class);
+                startActivity(in);
             }
-            catch(Exception e)
-            {
-                Log.e("Fail 2", e.toString());
-            }
+        });
 
-
-
-
-        }
-
-        Intent in = new Intent(editProfile.this, profileuser.class);
-        startActivity(in);
+        AlertDialog alert = builder.create();
+        alert.show();
 
 
 
