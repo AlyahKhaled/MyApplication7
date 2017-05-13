@@ -117,7 +117,9 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
 
             usN.setText(username);
             Na.setText(name);
+            if (!(berthday.contains("NULL")))
             Bir.setText(berthday);
+            if (!(personalMessage.contains("NULL")))
             Per.setText(personalMessage);
 
 
