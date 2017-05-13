@@ -117,10 +117,10 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
 
             usN.setText(username);
             Na.setText(name);
-            if (!(berthday.contains("NULL")))
-            Bir.setText(berthday);
-            if (!(personalMessage.contains("NULL")))
-            Per.setText(personalMessage);
+            if (!(berthday.contains("null"))){
+            Bir.setText(berthday);}else{Bir.setVisibility(View.INVISIBLE);}
+            if (!(personalMessage.contains("nul"))){
+            Per.setText(personalMessage);}else{Per.setVisibility(View.INVISIBLE);}
 
 
             System.out.println("username: "+username);
