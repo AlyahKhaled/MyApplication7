@@ -104,7 +104,7 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
             result = result.replace('"', ' ');
             int length = result.length();
             String sreOne = result.substring(1, length - 2);//i did not start from index 0 cause the string is retreved with spaces at the beging
-            System.out.println("*******here is my Data************");
+            System.out.println("*******here is my Data*************");
             System.out.println(sreOne);
             arr = sreOne.split(",");
 
