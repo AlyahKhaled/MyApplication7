@@ -84,7 +84,6 @@ public class FriendsRequests extends AppCompatActivity {
             String sreOne = result.substring(1, length - 2);
 //==============================================================================================================
             //use toString() to get the data result
-
             result = sb.toString();
             arr = sreOne.split(",");
             listitems = new ArrayList<>(Arrays.asList(arr));

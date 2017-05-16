@@ -55,7 +55,7 @@ public class adminListOfUsers extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textitem);
         Users = false;
         //Data Base connection
-        // this line of code will fill the  list view with the content in the array
+        //this line of code will fill the  list view with the content in the array
 
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -84,14 +84,14 @@ public class adminListOfUsers extends AppCompatActivity {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
 
-            // creat String builder object to hold the data
+            // create String builder object to hold the data
 
             StringBuilder sb = new StringBuilder();
             while ((line = reader.readLine()) != null)
                 sb.append(line + "\n");
 
 
-            //orgnizing the array to be displayed
+            //organizing the array to be displayed
             result = sb.toString();
             result = result.replace('"', ' ');
             int length = result.length();
@@ -101,7 +101,7 @@ public class adminListOfUsers extends AppCompatActivity {
                 items = sreOne.split(",");
                 //fill the adapter
                 initList();
-            } else {
+            }   else {
                 String sreTwo = "Sorry No Users Found ";
                 items = sreTwo.split(",");
                 listView.setAdapter(new ArrayAdapter<String>(adminListOfUsers.this, android.R.layout.simple_list_item_1, items));
@@ -113,7 +113,7 @@ public class adminListOfUsers extends AppCompatActivity {
         //end of Database connection
 
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ItimPostion = position;
@@ -128,13 +128,12 @@ public class adminListOfUsers extends AppCompatActivity {
                                 }
                             });
 
-                    alertDialogBuilder.setNegativeButton("yes",
+                            alertDialogBuilder.setNegativeButton("yes",
                             new DialogInterface.OnClickListener() {
 
                                 @Override
                                 public void onClick(DialogInterface arg0, int arg1) {
                                     deletUser(items[ItimPostion]);
-
                                 }
                             });
 
@@ -148,7 +147,7 @@ public class adminListOfUsers extends AppCompatActivity {
         });
 
 
-        editText.addTextChangedListener(new TextWatcher() {
+            editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -210,7 +209,7 @@ public class adminListOfUsers extends AppCompatActivity {
         {
             Log.e("Fail 1", e.toString());
             Toast.makeText(getApplicationContext(), "Invalid IP Address",
-                    Toast.LENGTH_LONG).show();
+            Toast.LENGTH_LONG).show();
         }
 
         try
@@ -233,7 +232,7 @@ public class adminListOfUsers extends AppCompatActivity {
             Log.e("Fail 2", e.toString());
         }
 
-        // End Delet
+        // End Delete
 
 
     }
@@ -246,26 +245,17 @@ public class adminListOfUsers extends AppCompatActivity {
             if(!item.contains(textToSearch))
             {
                 listItims.remove(item);
+ }}
 
-            }
-        }
+        adapter.notifyDataSetChanged();}
 
-        adapter.notifyDataSetChanged();
-
-
-    }
-
-    public void initList () {
+       public void initList () {
 
         listItims=new ArrayList<>(Arrays.asList(items));
         adapter=new ArrayAdapter<String>(this, R.layout.listitem, R.id.textitem, listItims);
         listView.setAdapter(adapter);
 
-
-
     }
-
-
 
     public void register(View view)
     {
