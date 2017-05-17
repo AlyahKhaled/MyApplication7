@@ -25,7 +25,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,8 +67,7 @@ public class invitations extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        if(cd.icConnected())
-        {
+
 //==============================================================================================================
         try {
             HttpClient httpClient = new DefaultHttpClient();
@@ -127,8 +125,7 @@ public class invitations extends AppCompatActivity {
             System.out.print("exception 1 caught");
             //exception handel code
         }
-    }else
-        { Toast.makeText(invitations.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
+   }
 
     //==============================================================================================================
     public void display(String  text ){
@@ -178,7 +175,7 @@ public class invitations extends AppCompatActivity {
 
             if(!arr[0].equals("ul")) {
 
-                Accept.setOnClickListener(new View.OnClickListener() {
+                    Accept.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         selectedFromList = name.toString();
@@ -193,16 +190,13 @@ public class invitations extends AppCompatActivity {
                         List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
                         Intent intent = new Intent(invitations.this, invitation_info.class);
                         startActivity(intent);
-
-
-
                         //do things
 
                     }
                 });
 
 
-                    Delete.setOnClickListener(new View.OnClickListener() {
+                        Delete.setOnClickListener(new View.OnClickListener() {
 
 
                     @Override

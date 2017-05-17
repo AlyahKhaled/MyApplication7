@@ -50,23 +50,20 @@ public class FriendsRequests extends AppCompatActivity {
     View view2;
     connectionDetector cd ;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends_requests);
-
         pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
         Log.d(TAG, pref.getString("UserName", ""));// 3
         Log.d(TAG, pref.getString("PassWord", ""));// 4
         UserName = pref.getString("UserName", ""); // 5
         cd= new connectionDetector(this);
-
 //==============================================================================================================
         ArrayList<String> listitems;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         if(cd.icConnected())
         {
-
 //==============================================================================================================
             try {
             HttpClient httpClient = new DefaultHttpClient();
@@ -266,9 +263,9 @@ public class FriendsRequests extends AppCompatActivity {
                 return view2;
         }
 
-    }
+        }
 
-    public void Back (View view)
+            public void Back (View view)
     {
         onBackPressed();
     }

@@ -65,8 +65,7 @@ public class invitation_info extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new  StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        if(cd.icConnected())
-        {
+
 //==============================================================================================================
 
         try {
@@ -187,7 +186,7 @@ public class invitation_info extends AppCompatActivity {
             }
         });
 
-    }{ Toast.makeText(invitation_info.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
+   }
 
     //============================================================================================================== To go Back
 
