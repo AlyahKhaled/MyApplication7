@@ -1,12 +1,16 @@
 package com.example.acer.myapplication;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,12 +62,14 @@ public class FriendsRequests extends AppCompatActivity {
         Log.d(TAG, pref.getString("PassWord", ""));// 4
         UserName = pref.getString("UserName", ""); // 5
         cd= new connectionDetector(this);
+
+
+
 //==============================================================================================================
         ArrayList<String> listitems;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        if(cd.icConnected())
-        {
+
 //==============================================================================================================
             try {
             HttpClient httpClient = new DefaultHttpClient();
@@ -93,8 +99,7 @@ public class FriendsRequests extends AppCompatActivity {
             System.out.print("exception 1 caught");
             //exception handel code
         }
-    } else
-        { Toast.makeText(FriendsRequests.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
+    }
 
 //============================================================================================================== Class adapter
 

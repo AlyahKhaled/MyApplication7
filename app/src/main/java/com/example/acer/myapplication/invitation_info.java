@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -23,7 +22,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,8 +47,6 @@ public class invitation_info extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation_info);
-
-
         pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
         Log.d(TAG, pref.getString("UserName", ""));// 3
         Log.d(TAG, pref.getString("PassWord", ""));// 4
@@ -78,7 +74,7 @@ public class invitation_info extends AppCompatActivity {
             is = entity.getContent();
 
 
-        }catch (Exception e){
+        }   catch (Exception e){
             System.out.print("exception 1 caught");
             //exception handel code
         }
@@ -107,7 +103,7 @@ public class invitation_info extends AppCompatActivity {
             lv.setAdapter(new ArrayAdapter<String>(invitation_info.this,android.R.layout.simple_list_item_1,arr));
 
 
-        }  catch (IOException e) {
+        }   catch (IOException e) {
             e.printStackTrace();
         }
 
