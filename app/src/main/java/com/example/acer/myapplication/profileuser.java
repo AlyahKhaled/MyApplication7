@@ -60,7 +60,7 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
         Per=(TextView)findViewById(R.id.textView14);
 
         logoutBtn = (ImageButton) findViewById(R.id.logoutBtn1);
-       delete = (ImageButton) findViewById(R.id.imageButton);
+         delete = (ImageButton) findViewById(R.id.imageButton);
         logoutBtn.setOnClickListener(this);
 
         UserName = pref.getString("UserName", "");

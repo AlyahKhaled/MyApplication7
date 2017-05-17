@@ -201,13 +201,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
    public void forgetPass(View view){
+       int radId = rg.getCheckedRadioButtonId();
+       rb=(RadioButton) findViewById(radId);
+       type= (String) rb.getText();
+
+       if(type.contains("User")){
        Intent in = new Intent(LoginActivity.this, forgetpasswored.class);
-       startActivity(in);
+       startActivity(in);}else if(type.contains("Admin")){
+           Intent in = new Intent(LoginActivity.this, forgetpassworedAdmin.class);
+           startActivity(in);}
     }
 
     public void newUser(View view){
-        Intent in = new Intent(LoginActivity.this, registerUser.class);
-        startActivity(in);
+        int radId = rg.getCheckedRadioButtonId();
+        rb=(RadioButton) findViewById(radId);
+        type= (String) rb.getText();
+
+        if(type.contains("User")){
+            Intent in = new Intent(LoginActivity.this, registerUser.class);
+            startActivity(in);}else if(type.contains("Admin")){
+            Toast.makeText(LoginActivity.this, "يجب أن تكون مستخدم كي تنشيئ مستخدم جديد ", Toast.LENGTH_LONG).show();}
+
     }
 
 }
