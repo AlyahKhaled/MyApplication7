@@ -178,7 +178,7 @@ public class apologization_not extends AppCompatActivity {
                         ID1=listitems2.get(pos);
                         ID1 =ID1.replaceAll("\\s+", "");
                         ID=Integer.parseInt(ID1);
-                        display(ID1);
+                        //display(ID1);
 
                         ID2 = pos;
 
