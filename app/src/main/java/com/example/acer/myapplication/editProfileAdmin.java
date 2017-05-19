@@ -1,6 +1,5 @@
 package com.example.acer.myapplication;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,30 +37,16 @@ public class editProfileAdmin extends AppCompatActivity {
 
     SharedPreferences pref;
     SharedPreferences.Editor editor;
-
     String UserName;
-
-String Namee ;
-
-
+    String Namee ;
     public EditText nameUs;
     Button editB;
-
-
     String linee=null;
     String resulte=null;
-
     public InputStream iss ;
-
-    DatePickerDialog.OnDateSetListener mDateSetListener;
-
-
     public InputStream is ;
-
-
     String line = null;
     String result = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
