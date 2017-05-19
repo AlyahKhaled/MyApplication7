@@ -56,7 +56,7 @@ public class forgetpassworedAdmin extends AppCompatActivity implements AdapterVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgetpasswored);
+        setContentView(R.layout.activity_forgetpassworedadmin);
 
         spinner = (Spinner) findViewById(R.id.spinner);
         editText10 = (EditText) findViewById(R.id.editText10);

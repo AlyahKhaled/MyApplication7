@@ -30,6 +30,19 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="57dp" />
 
+    <ImageButton
+        android:id="@+id/imageButton14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/imageView8"
+        android:layout_toEndOf="@+id/imageView"
+        android:background="@android:color/transparent"
+        android:onClick="editP"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/sett" />
+
     <ImageView
         android:layout_width="200sp"
         android:layout_height="50sp"

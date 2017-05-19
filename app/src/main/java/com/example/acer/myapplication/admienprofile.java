@@ -158,6 +158,11 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
         startActivity(in);
     }
 
+    public void editP(View view){
+        Intent in = new Intent(admienprofile.this, editProfileAdmin.class);
+        startActivity(in);
+    }
+
 
 
 

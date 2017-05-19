@@ -35,6 +35,7 @@
         <activity android:name=".invitation_info" />
         <activity android:name=".forgetpasswored" />
         <activity android:name=".forgetpassworedAdmin" />
+        <activity android:name=".editProfileAdmin" />
         <activity android:name=".sugg" />
         <activity android:name=".coordenation" />
         <activity android:name=".sentInviitations" />
