@@ -11,6 +11,7 @@
     <TextView
 
         android:text=""
+        android:onClick="Back"
         android:background="@drawable/arow"
         android:layout_width="40sp"
         android:layout_height="35sp"
@@ -42,6 +43,7 @@
     <TextView
 
         android:text=""
+        android:onClick="admProf"
         android:layout_width="40sp"
         android:background="@drawable/person"
         android:layout_height="35sp"

@@ -1,12 +1,15 @@
 package com.example.acer.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +51,7 @@ public class sentInveDetales extends AppCompatActivity {
     public TextView    suggestionTextView ;
     public boolean     Enter ;
     public connectionDetector cd ;
+    public Button      GoCancel  ;
     //============================================end===============================================
 
 
@@ -68,6 +72,7 @@ public class sentInveDetales extends AppCompatActivity {
         presentTextView    = (TextView) findViewById(R.id.textView4);
         AppsentTextView    = (TextView) findViewById(R.id.textView5);
         suggestionTextView = (TextView) findViewById(R.id.textView7);
+        GoCancel           =  (Button)  findViewById(R.id.cancelBu) ;
         lv                 = (ListView) findViewById(R.id.plist);
         appsentlv          = (ListView) findViewById(R.id.apsentlist);
         suggestionlv       = (ListView) findViewById(R.id.suggestionList);
@@ -189,4 +194,30 @@ public class sentInveDetales extends AppCompatActivity {
         }
         catch (IOException e) {e.printStackTrace();}
     }
+
+    public void cancelInvitation (View view)
+    {
+        Intent intent = new Intent(sentInveDetales.this, cancelInvitationLayout.class);
+
+
+        if(cd.icConnected()&&!venueID.equals(null))
+        { intent.putExtra("venueId",venueID);
+            startActivity(intent);}
+        else
+        { Toast.makeText(sentInveDetales.this,"Network connection problems",Toast.LENGTH_SHORT).show();
+          Toast.makeText(sentInveDetales.this,"لايمكن إلغاء الدعوة",Toast.LENGTH_SHORT).show();}
+    }
+
+    public void Back (View view)
+    {
+        onBackPressed();
+    }
+
+    public void toProfUser (View view)
+    {
+        Intent intent = new Intent(sentInveDetales.this,profileuser.class);
+        startActivity(intent);
+    }
+
+
 }

@@ -35,12 +35,12 @@ public class invitationOptiens extends AppCompatActivity {
 
     }
 
-    public void Back ()
+    public void Back (View view)
     {
         onBackPressed();
     }
 
-    public void toProfile ()
+    public void toProfile (View view)
     {
         Intent intent = new Intent(invitationOptiens.this,profileuser.class);
         startActivity(intent);

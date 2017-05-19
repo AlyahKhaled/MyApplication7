@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context="com.example.acer.myapplication.cancelInvitationLayout">
+
+
+    <ImageButton
+        android:onClick="Back"
+        android:layout_width="50dp"
+        android:layout_height="70dp"
+        android:background="@drawable/arow"
+        android:id="@+id/imageButton2"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/button10" />
+
+    <ImageView
+        android:layout_width="227dp"
+        android:layout_height="49dp"
+        android:background="@drawable/zwara_word"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+    <ImageButton
+        android:layout_width="80dp"
+        android:onClick="Prof"
+        android:layout_height="71dp"
+        tools:layout_editor_absoluteY="71dp"
+        tools:layout_editor_absoluteX="0dp"
+        android:id="@+id/imageButton3"
+        android:scaleType="fitXY"
+        android:background="@drawable/pers"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/imageView" />
+
+
+    <TextView
+        android:id="@+id/textView19"
+        android:textColor="#765214"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:text="أدخل رسالة إعتذار"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/button10"
+        android:onClick="canselInv"
+        android:textColor="#7e5815"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:drawableBottom="@drawable/send_botn"
+        android:layout_width="230dp"
+        android:layout_height="90dp"
+        android:background="@android:color/transparent"
+        android:text=" "
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="18dp"
+        android:text="أعتذر عن الإجتماع لظروف خاصة"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:layout_below="@+id/textView19"
+        android:layout_toEndOf="@+id/imageButton2" />
+</RelativeLayout>

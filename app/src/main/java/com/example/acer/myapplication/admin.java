@@ -45,4 +45,11 @@ public class admin extends AppCompatActivity implements View.OnClickListener {
     {
         onBackPressed();
     }
+
+
+    public void toProfile (View view)
+    {
+        Intent intent = new Intent(admin.this,admienprofile.class);
+        startActivity(intent);
+    }
 }

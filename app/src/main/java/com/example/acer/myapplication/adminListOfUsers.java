@@ -249,7 +249,7 @@ public class adminListOfUsers extends AppCompatActivity {
 
         adapter.notifyDataSetChanged();}
 
-       public void initList () {
+    public void initList () {
 
         listItims=new ArrayList<>(Arrays.asList(items));
         adapter=new ArrayAdapter<String>(this, R.layout.listitem, R.id.textitem, listItims);
@@ -260,6 +260,18 @@ public class adminListOfUsers extends AppCompatActivity {
     public void register(View view)
     {
         Intent intent = new Intent(adminListOfUsers.this,registerUser.class);
+        startActivity(intent);
+    }
+
+    public void Back (View view)
+    {
+        onBackPressed();
+    }
+
+
+    public void admProf (View view)
+    {
+        Intent intent = new Intent(adminListOfUsers.this,admienprofile.class);
         startActivity(intent);
     }
 
