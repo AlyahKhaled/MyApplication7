@@ -2,10 +2,10 @@ package com.example.acer.myapplication;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -43,6 +43,9 @@ public class adminListOfUsers extends AppCompatActivity {
     public TextView textView ;
     public int ItimPostion ;
     public boolean Users ;
+    public String   theClickedItem ;
+    public String value ;
+    public connectionDetector cd ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,87 +56,94 @@ public class adminListOfUsers extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listview);
         editText = (EditText) findViewById(R.id.textSearch);
         textView = (TextView) findViewById(R.id.textitem);
-        Users = false;
-        //Data Base connection
-        //this line of code will fill the  list view with the content in the array
+        cd= new connectionDetector(this);
+        Users = true;
+
+        if(connectionChecker ())
+          connectAndRetriveUsers ();
+        else
+        { Toast.makeText(adminListOfUsers.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
+
+
+    }
+
+
+    //******************************************Methods******************************************
+
+    public void connectAndRetriveUsers ()
+    {
+        //=======================================DatBase connection===============================
 
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-        // this in order to set up the code to fetch data from database
-
+           // this in order to set up the code to fetch data from database
         try {
             HttpClient httpClient = new DefaultHttpClient();
-
-            // spacifi url for the retrive
-
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Dalal/retrive.php?");
             HttpResponse response = httpClient.execute(httpPost);
             HttpEntity entity = response.getEntity();
-            // set up the input stream to receive the data
-
-            is = entity.getContent();
-
-
-        } catch (Exception e) {
-            System.out.print("exception 1 caught");
-            //exception handel code
-        }
+            is = entity.getContent(); // set up the input stream to receive the data
+            }
+            catch (Exception e) { System.out.print("exception 1 caught");}
 
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-
-            // create String builder object to hold the data
-
-            StringBuilder sb = new StringBuilder();
-            while ((line = reader.readLine()) != null)
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+                // create String builder object to hold the data
+                StringBuilder sb = new StringBuilder();
+                while ((line = reader.readLine()) != null)
                 sb.append(line + "\n");
+               //organizing the array to be displayed
+                result = sb.toString();
+              //  System.out.println("*******result"+result+"***result Length"+result.length());
+              //  System.out.println("*******result"+result.substring(0,5)+"***result Length"+result.length());
+                result = result.replace('"', ' ');
 
+                if (!result.contains("connections error ")) {
+                    if (!result.contains("no users found ")) {
+                        postiveResult();
+                    } else {
+                        negativResult(1);
+                    }
+                }
+                else {
+                    negativResult(0);}
 
-            //organizing the array to be displayed
-            result = sb.toString();
-            result = result.replace('"', ' ');
-            int length = result.length();
-            if (!result.contains("no users found :/")) {
-                Users = true;
-                String sreOne = result.substring(3, length - 2);
-                items = sreOne.split(",");
-                //fill the adapter
-                initList();
-            }   else {
-                String sreTwo = "Sorry No Users Found ";
-                items = sreTwo.split(",");
-                listView.setAdapter(new ArrayAdapter<String>(adminListOfUsers.this, android.R.layout.simple_list_item_1, items));
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        //end of Database connection
+        catch (IOException e) {e.printStackTrace();}
+        //==================================end of Database connection=============================
 
+        //================================ifDeletionDetected========================================
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ItimPostion = position;
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+
+                theClickedItem = listView.getItemAtPosition(position).toString();
+                 value =theClickedItem.substring(1,theClickedItem.length()-1);
+
 
                 if (Users) {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(adminListOfUsers.this);
-                    alertDialogBuilder.setMessage("are you sure you want to delete this user? ");
+                    alertDialogBuilder.setMessage("هل أنت متأكد من حذف هذا المستخدم؟ ");
                     alertDialogBuilder.setPositiveButton("No",new DialogInterface.OnClickListener() {
 
-                                @Override
-                                public void onClick(DialogInterface arg0, int arg1) {
-                                }
-                            });
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) { }
+                    });
 
                             alertDialogBuilder.setNegativeButton("yes",
                             new DialogInterface.OnClickListener() {
 
                                 @Override
                                 public void onClick(DialogInterface arg0, int arg1) {
-                                    deletUser(items[ItimPostion]);
+                                    if(connectionChecker ())
+                                        deletUser();
+                                    else
+                                    { Toast.makeText(adminListOfUsers.this,"تعذر الحذف",Toast.LENGTH_SHORT).show();
+                                      Toast.makeText(adminListOfUsers.this,"لايمكن الإتصال في الإنترنت",Toast.LENGTH_SHORT).show();}
+
+
                                 }
                             });
 
@@ -143,52 +153,61 @@ public class adminListOfUsers extends AppCompatActivity {
 
             }
 
-
         });
 
+            //========================this part is for searching in the list========================
 
             editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s.toString().equals(""))
-                {//reset listView
-                    initList ();
-                }
+                { listView.setAdapter(new ArrayAdapter<String>(adminListOfUsers.this, android.R.layout.simple_list_item_1, items)); }//fill listView
 
-                else {
-                    searchItem(s.toString());
-                }
-
-
-
+                else {searchItem(s.toString());}
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
-
 
     }
 
+    private void postiveResult() {
+        int length = result.length();
+        String sreOne = result.substring(1, length - 2);
+        items = sreOne.split(",");
+        //fill the adapter
+        listView.setAdapter(new ArrayAdapter<String>(adminListOfUsers.this, android.R.layout.simple_list_item_1,items));
+    }
 
-    //**************************************************
+    private void negativResult(int messageNum) {
 
-    public void deletUser (String p)
+        Users =false;
+        String errorMessage ;
+
+        if(messageNum ==1)
+            errorMessage = "لا يوجد مستخدمين!";
+        else
+            errorMessage = "حدث خطأ في الإتصال!";
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(adminListOfUsers.this);
+        alertDialogBuilder.setMessage(errorMessage);
+        alertDialogBuilder.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {}
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+        items = errorMessage.split(",");
+        listView.setAdapter(new ArrayAdapter<String>(adminListOfUsers.this, android.R.layout.simple_list_item_1, items));
+    }
+
+
+    public void deletUser ()
     {
-        System.out.println("********************* ItimPostion ***************************");
-        System.out.println(p+"length [p] "+p.length()+p);
-        String value =p.substring(1,p.length()-1);
-        System.out.println(value+"length [str] "+value.length()+value);
-
-        // Delet from database
-
         InputStream is=null;
         String result=null;
         String line=null;
@@ -214,18 +233,20 @@ public class adminListOfUsers extends AppCompatActivity {
 
         try
         {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
-            StringBuilder sb = new StringBuilder();
-            while ((line = reader.readLine()) != null)
+            if(!is.equals(null))
             {
-                sb.append(line + "\n");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+                StringBuilder sb = new StringBuilder();
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                String reslt = sb.toString();
+                if (reslt.contains("1"))
+                    System.out.println("*******************Deleted*********************************");
+                is.close();
+                result = sb.toString();
+                Log.e("pass 2", "connection success ");
             }
-            String reslt = sb.toString();
-            if(reslt.contains("1"))
-                System.out.println("*******************Deleted*********************************");
-            is.close();
-            result = sb.toString();
-            Log.e("pass 2", "connection success ");
         }
         catch(Exception e)
         {
@@ -234,27 +255,23 @@ public class adminListOfUsers extends AppCompatActivity {
 
         // End Delete
 
+        if(connectionChecker ())
+            connectAndRetriveUsers();
+        else
+        { Toast.makeText(adminListOfUsers.this,"تعذر التحديث",Toast.LENGTH_SHORT).show();
+            Toast.makeText(adminListOfUsers.this,"لايمكن الإتصال في الإنترنت",Toast.LENGTH_SHORT).show();}
+
 
     }
 
-
     public void searchItem (String textToSearch)
     {
-        for (String item : items)
-        {
-            if(!item.contains(textToSearch))
-            {
-                listItims.remove(item);
- }}
-
-        adapter.notifyDataSetChanged();}
-
-    public void initList () {
-
         listItims=new ArrayList<>(Arrays.asList(items));
-        adapter=new ArrayAdapter<String>(this, R.layout.listitem, R.id.textitem, listItims);
-        listView.setAdapter(adapter);
+        for (String item : items)
+            { if(!item.contains(textToSearch))
+            {listItims.remove(item);}}
 
+        listView.setAdapter(new ArrayAdapter<String>(adminListOfUsers.this, android.R.layout.simple_list_item_1,listItims));
     }
 
     public void register(View view)
@@ -268,11 +285,21 @@ public class adminListOfUsers extends AppCompatActivity {
         onBackPressed();
     }
 
-
     public void admProf (View view)
     {
         Intent intent = new Intent(adminListOfUsers.this,admienprofile.class);
         startActivity(intent);
+    }
+
+    public boolean connectionChecker ()
+    {
+        boolean connectionstatose = false ;
+
+        if(cd.icConnected())
+            connectionstatose = true ;
+
+        return connectionstatose ;
+
     }
 
 
