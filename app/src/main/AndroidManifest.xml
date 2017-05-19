@@ -24,6 +24,8 @@
         <activity android:name=".profileuser" />
         <activity android:name=".admin" />
         <activity android:name=".admienprofile" />
+        <activity android:name=".cancelation_message" />
+        <activity android:name=".apologization_not" />
         <activity android:name=".editProfile" />
         <activity android:name=".adminListOfUsers" />
         <activity android:name=".invitationOptiens" />

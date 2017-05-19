@@ -43,10 +43,6 @@ public class homeuser extends AppCompatActivity implements View.OnClickListener 
         startActivity(intent);
     }
 
-/*public void friends(){
-    Intent intent = new Intent(homeuser.this,friends.class);
-   startActivity(intent);
-}*/
 
     public void Back (View view)
     {

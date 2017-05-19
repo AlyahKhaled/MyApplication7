@@ -40,6 +40,12 @@ public class notification extends AppCompatActivity {
         Intent intent = new Intent(notification.this, FriendsRequests.class);
         startActivity(intent);
     }
+
+    public void apo (View view)
+    {
+        Intent intent = new Intent(notification.this, apologization_not.class);
+        startActivity(intent);
+    }
     public void Back(View view)
     {
         Intent intent = new Intent(notification.this, homeuser.class);
