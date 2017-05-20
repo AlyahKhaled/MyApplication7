@@ -31,7 +31,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     SharedPreferences.Editor editor;
     RadioGroup rg;
     RadioButton rb;
-    String type;
+    String type,Na , Pa;
+    boolean valid=true;
 
 
 
@@ -116,16 +117,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
 
 
-
         int radId = rg.getCheckedRadioButtonId();
         rb=(RadioButton) findViewById(radId);
         type= (String) rb.getText();
 
-        if(type.contains("User")){
+        Na=etUsername.getText().toString();
+        Pa=etPassword.getText().toString();
+
+      if(type.contains("User")){
+
+          if(Na.isEmpty()||Na.length()>15){
+              etUsername.setError("ادخل اسم مستخدم لا يتجاوز 15 حرف");
+              valid=false;
+              Toast.makeText(LoginActivity.this, " فشل تسجيل الدخول ", Toast.LENGTH_LONG).show();
+          }else if(Pa.isEmpty()||Pa.length()>30){
+              etPassword.setError("ادخل كلمة مرور لا تتجاوز 30 رمز");
+              valid=false;
+              Toast.makeText(LoginActivity.this, " فشل تسجيل الدخول ", Toast.LENGTH_LONG).show();
+          }
+
+          if(valid){
             HashMap postData = new HashMap();
 
-            postData.put("txtUsername", etUsername.getText().toString());
-            postData.put("txtPassword",  etPassword.getText().toString());
+            postData.put("txtUsername", Na);
+            postData.put("txtPassword", Pa );
 
 
             PostResponseAsyncTask task1 = new PostResponseAsyncTask(LoginActivity.this, postData,
@@ -136,8 +151,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             if(s.contains("success")){
 
 
-                                    editor.putString("UserName", etUsername.getText().toString());
-                                    editor.putString("PassWord", etPassword.getText().toString());
+                                    editor.putString("UserName", Na);
+                                    editor.putString("PassWord", Pa);
                                     editor.apply();
 
                                     Log.d(TAG, pref.getString("PassWord", ""));
@@ -156,12 +171,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             task1.execute("http://zwarh.net/zwarhapp/Alyah/login.php");
 
-        }
-        else{
+        }}
+        else if(type.contains("Admin")){
+
+
+          if(Na.isEmpty()||Na.length()>15){
+              etUsername.setError("ادخل اسم مستخدم لا يتجاوز 15 حرف");
+              valid=false;
+              Toast.makeText(LoginActivity.this, " فشل تسجيل الدخول ", Toast.LENGTH_LONG).show();
+          }else if(Pa.isEmpty()||Pa.length()>30){
+              etPassword.setError("ادخل كلمة مرور لا تتجاوز 30 رمز");
+              valid=false;
+              Toast.makeText(LoginActivity.this, " فشل تسجيل الدخول ", Toast.LENGTH_LONG).show();
+          }
+          if(valid){
+
             HashMap postData = new HashMap();
 
-            postData.put("txtUsername", etUsername.getText().toString());
-            postData.put("txtPassword", etPassword.getText().toString());
+            postData.put("txtUsername", Na);
+            postData.put("txtPassword", Pa);
 
 
             PostResponseAsyncTask task1 = new PostResponseAsyncTask(LoginActivity.this, postData,
@@ -172,8 +200,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             if(s.contains("success")){
 
 
-                                    editor.putString("UserName", etUsername.getText().toString());
-                                    editor.putString("PassWord", etPassword.getText().toString());
+                                    editor.putString("UserName", Na);
+                                    editor.putString("PassWord", Pa);
                                     editor.apply();
 
                                     Log.d(TAG, pref.getString("PassWord", ""));
@@ -193,6 +221,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             task1.execute("http://zwarh.net/zwarhapp/Alyah/loginAdmin.php");
 
 
+        }} else {
+            Toast.makeText(LoginActivity.this, " اختر نوع الدخول الى زوارة ", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -207,10 +237,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
        if(type.contains("User")){
        Intent in = new Intent(LoginActivity.this, forgetpasswored.class);
-       startActivity(in);}else if(type.contains("Admin")){
+       startActivity(in);}
+       else if(type.contains("Admin")){
            Intent in = new Intent(LoginActivity.this, forgetpassworedAdmin.class);
            startActivity(in);}
+       else {
+           Toast.makeText(LoginActivity.this, " اختر نوع المستخدم لتغيير كلمة المرور ", Toast.LENGTH_LONG).show();
+       }
     }
+
 
     public void newUser(View view){
         int radId = rg.getCheckedRadioButtonId();
