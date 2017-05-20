@@ -116,117 +116,124 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-        type="null";
+
 
         int radId = rg.getCheckedRadioButtonId();
         rb=(RadioButton) findViewById(radId);
-        type= (String) rb.getText();
 
 
-
-        Na=etUsername.getText().toString();
-        Pa=etPassword.getText().toString();
-
-      if(type.contains("User")){
-
-          if(Na.isEmpty()||Na.length()>15){
-              etUsername.setError("ادخل اسم مستخدم لا يتجاوز 15 حرف");
-              valid=false;
-              Toast.makeText(LoginActivity.this, " فشل تسجيل الدخول ", Toast.LENGTH_LONG).show();
-          }else if(Pa.isEmpty()||Pa.length()>30){
-              etPassword.setError("ادخل كلمة مرور لا تتجاوز 30 رمز");
-              valid=false;
-              Toast.makeText(LoginActivity.this, " فشل تسجيل الدخول ", Toast.LENGTH_LONG).show();
-          }
-
-          if(valid){
-            HashMap postData = new HashMap();
-
-            postData.put("txtUsername", Na);
-            postData.put("txtPassword", Pa );
-
-
-            PostResponseAsyncTask task1 = new PostResponseAsyncTask(LoginActivity.this, postData,
-                        new AsyncResponse() {
-                        @Override
-                        public void processFinish(String s) {
-                            Log.d(TAG, s);
-                            if(s.contains("success")){
-
-
-                                    editor.putString("UserName", Na);
-                                    editor.putString("PassWord", Pa);
-                                    editor.apply();
-
-                                    Log.d(TAG, pref.getString("PassWord", ""));
-
-
-                                Toast.makeText(LoginActivity.this, "تم تسجيل دخولك بنجاح", Toast.LENGTH_LONG).show();
-                                Intent in = new Intent(LoginActivity.this, homeuser.class);
-                                startActivity(in);
-                            }
-                            else{
-                                Toast.makeText(LoginActivity.this, " خطأ في كلمة المرور او اسم المستخدم", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-
-
-            task1.execute("http://zwarh.net/zwarhapp/Alyah/login.php");
-
-        }}
-        else if(type.contains("Admin")){
-
-
-          if(Na.isEmpty()||Na.length()>15){
-              etUsername.setError("ادخل اسم مستخدم لا يتجاوز 15 حرف");
-              valid=false;
-              Toast.makeText(LoginActivity.this, " فشل تسجيل الدخول ", Toast.LENGTH_LONG).show();
-          }else if(Pa.isEmpty()||Pa.length()>30){
-              etPassword.setError("ادخل كلمة مرور لا تتجاوز 30 رمز");
-              valid=false;
-              Toast.makeText(LoginActivity.this, " فشل تسجيل الدخول ", Toast.LENGTH_LONG).show();
-          }
-          if(valid){
-
-            HashMap postData = new HashMap();
-
-            postData.put("txtUsername", Na);
-            postData.put("txtPassword", Pa);
-
-
-            PostResponseAsyncTask task1 = new PostResponseAsyncTask(LoginActivity.this, postData,
-                        new AsyncResponse() {
-                        @Override
-                        public void processFinish(String s) {
-                            Log.d(TAG, s);
-                            if(s.contains("success")){
-
-
-                                    editor.putString("UserName", Na);
-                                    editor.putString("PassWord", Pa);
-                                    editor.apply();
-
-                                    Log.d(TAG, pref.getString("PassWord", ""));
-
-
-                                Toast.makeText(LoginActivity.this, "تم تسجيل دخولك بنجاح", Toast.LENGTH_LONG).show();
-                                Intent in = new Intent(LoginActivity.this, admin.class);
-                                startActivity(in);
-                            }
-                            else{
-                                Toast.makeText(LoginActivity.this, " خطأ في كلمة المرور او اسم المستخدم", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-
-
-            task1.execute("http://zwarh.net/zwarhapp/Alyah/loginAdmin.php");
-
-
-        }} else {
+        if (radId == -1)
+        {
             Toast.makeText(LoginActivity.this, " اختر نوع الدخول الى زوارة ", Toast.LENGTH_LONG).show();
+
         }
+        else
+        {   type= (String) rb.getText();
+            Na=etUsername.getText().toString();
+            Pa=etPassword.getText().toString();
+
+            if(type.contains("User")){
+
+                if(Na.isEmpty()||Na.length()>15){
+                    etUsername.setError("ادخل اسم مستخدم لا يتجاوز 15 حرف");
+                    valid=false;
+                    Toast.makeText(LoginActivity.this, " فشل تسجيل الدخول ", Toast.LENGTH_LONG).show();
+                }else if(Pa.isEmpty()||Pa.length()>30){
+                    etPassword.setError("ادخل كلمة مرور لا تتجاوز 30 رمز");
+                    valid=false;
+                    Toast.makeText(LoginActivity.this, " فشل تسجيل الدخول ", Toast.LENGTH_LONG).show();
+                }
+
+                if(valid){
+                    HashMap postData = new HashMap();
+
+                    postData.put("txtUsername", Na);
+                    postData.put("txtPassword", Pa );
+
+
+                    PostResponseAsyncTask task1 = new PostResponseAsyncTask(LoginActivity.this, postData,
+                            new AsyncResponse() {
+                                @Override
+                                public void processFinish(String s) {
+                                    Log.d(TAG, s);
+                                    if(s.contains("success")){
+
+
+                                        editor.putString("UserName", Na);
+                                        editor.putString("PassWord", Pa);
+                                        editor.apply();
+
+                                        Log.d(TAG, pref.getString("PassWord", ""));
+
+
+                                        Toast.makeText(LoginActivity.this, "تم تسجيل دخولك بنجاح", Toast.LENGTH_LONG).show();
+                                        Intent in = new Intent(LoginActivity.this, homeuser.class);
+                                        startActivity(in);
+                                    }
+                                    else{
+                                        Toast.makeText(LoginActivity.this, " خطأ في كلمة المرور او اسم المستخدم", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+
+
+                    task1.execute("http://zwarh.net/zwarhapp/Alyah/login.php");
+
+                }}
+            else if(type.contains("Admin")){
+
+
+                if(Na.isEmpty()||Na.length()>15){
+                    etUsername.setError("ادخل اسم مستخدم لا يتجاوز 15 حرف");
+                    valid=false;
+                    Toast.makeText(LoginActivity.this, " فشل تسجيل الدخول ", Toast.LENGTH_LONG).show();
+                }else if(Pa.isEmpty()||Pa.length()>30){
+                    etPassword.setError("ادخل كلمة مرور لا تتجاوز 30 رمز");
+                    valid=false;
+                    Toast.makeText(LoginActivity.this, " فشل تسجيل الدخول ", Toast.LENGTH_LONG).show();
+                }
+                if(valid){
+
+                    HashMap postData = new HashMap();
+
+                    postData.put("txtUsername", Na);
+                    postData.put("txtPassword", Pa);
+
+
+                    PostResponseAsyncTask task1 = new PostResponseAsyncTask(LoginActivity.this, postData,
+                            new AsyncResponse() {
+                                @Override
+                                public void processFinish(String s) {
+                                    Log.d(TAG, s);
+                                    if(s.contains("success")){
+
+
+                                        editor.putString("UserName", Na);
+                                        editor.putString("PassWord", Pa);
+                                        editor.apply();
+
+                                        Log.d(TAG, pref.getString("PassWord", ""));
+
+
+                                        Toast.makeText(LoginActivity.this, "تم تسجيل دخولك بنجاح", Toast.LENGTH_LONG).show();
+                                        Intent in = new Intent(LoginActivity.this, admin.class);
+                                        startActivity(in);
+                                    }
+                                    else{
+                                        Toast.makeText(LoginActivity.this, " خطأ في كلمة المرور او اسم المستخدم", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+
+
+                    task1.execute("http://zwarh.net/zwarhapp/Alyah/loginAdmin.php");
+
+
+                }}
+        }
+
+
+
     }
 
 
@@ -236,16 +243,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
    public void forgetPass(View view){
        int radId = rg.getCheckedRadioButtonId();
        rb=(RadioButton) findViewById(radId);
-       type= (String) rb.getText();
 
-       if(type.contains("User")){
-       Intent in = new Intent(LoginActivity.this, forgetpasswored.class);
-       startActivity(in);}
-       else if(type.contains("Admin")){
-           Intent in = new Intent(LoginActivity.this, forgetpassworedAdmin.class);
-           startActivity(in);}
+       if (radId == -1)
+       {
+           Toast.makeText(LoginActivity.this, " اختر نوع الدخول الى زوارة لتغيير كلمة المرور ", Toast.LENGTH_LONG).show();
+
+       }
        else {
-           Toast.makeText(LoginActivity.this, " اختر نوع المستخدم لتغيير كلمة المرور ", Toast.LENGTH_LONG).show();
+           type= (String) rb.getText();
+           if (type.contains("User")) {
+               Intent in = new Intent(LoginActivity.this, forgetpasswored.class);
+               startActivity(in);
+           } else if (type.contains("Admin")) {
+               Intent in = new Intent(LoginActivity.this, forgetpassworedAdmin.class);
+               startActivity(in);
+           }
        }
     }
 
@@ -253,13 +265,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void newUser(View view){
         int radId = rg.getCheckedRadioButtonId();
         rb=(RadioButton) findViewById(radId);
-        type= (String) rb.getText();
 
+        if (radId == -1)
+        {
+            Toast.makeText(LoginActivity.this, " اختر نوع الدخول الى زوارة ", Toast.LENGTH_LONG).show();
+
+        }else {
+            type= (String) rb.getText();
         if(type.contains("User")){
             Intent in = new Intent(LoginActivity.this, registerUser.class);
             startActivity(in);}else if(type.contains("Admin")){
             Toast.makeText(LoginActivity.this, "يجب أن تكون مستخدم كي تنشيئ مستخدم جديد ", Toast.LENGTH_LONG).show();}
 
-    }
+    }}
 
 }
