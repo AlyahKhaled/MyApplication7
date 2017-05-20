@@ -116,10 +116,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
+        type="null";
 
         int radId = rg.getCheckedRadioButtonId();
         rb=(RadioButton) findViewById(radId);
         type= (String) rb.getText();
+
+
 
         Na=etUsername.getText().toString();
         Pa=etPassword.getText().toString();
