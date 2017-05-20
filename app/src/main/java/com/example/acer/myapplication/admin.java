@@ -40,13 +40,10 @@ public class admin extends AppCompatActivity implements View.OnClickListener {
         Intent intent = new Intent(admin.this,adminListOfUsers.class);
         startActivity(intent);
     }
-
     public void Back (View view)
     {
         onBackPressed();
     }
-
-
     public void toProfile (View view)
     {
         Intent intent = new Intent(admin.this,admienprofile.class);
