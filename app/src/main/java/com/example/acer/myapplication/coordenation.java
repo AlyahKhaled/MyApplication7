@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -36,6 +37,7 @@ public class coordenation extends AppCompatActivity {
     static double lati;
     static double loni;
     Button map;
+    connectionDetector cd ;
 
 
     @Override
@@ -49,12 +51,14 @@ public class coordenation extends AppCompatActivity {
 //==============================================================================================================
         StrictMode.ThreadPolicy policy = new  StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+
         String selectedFromList =invitations.selectedFromList;
         List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
         nameValuePair.add(new BasicNameValuePair("selectedFromList", selectedFromList));
 
 //==============================================================================================================
-
+        if(cd.icConnected()){
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/location.php?ID="+invitations.ID);
@@ -111,7 +115,8 @@ public class coordenation extends AppCompatActivity {
 
 //==============================================================================================================
 
-    }
+    }else
+        { Toast.makeText(coordenation.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
 
     //=========================== to see the map
     public void map (View view)

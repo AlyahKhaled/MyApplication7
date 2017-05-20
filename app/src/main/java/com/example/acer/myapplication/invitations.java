@@ -67,7 +67,7 @@ public class invitations extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
+        if(cd.icConnected()){
 //==============================================================================================================
         try {
             HttpClient httpClient = new DefaultHttpClient();
@@ -125,7 +125,8 @@ public class invitations extends AppCompatActivity {
             System.out.print("exception 1 caught");
             //exception handel code
         }
-   }
+   }else
+        { Toast.makeText(invitations.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
 
     //==============================================================================================================
     public void display(String  text ){

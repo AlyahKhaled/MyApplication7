@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -59,7 +60,7 @@ public class cancelation_message extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
 //==============================================================================================================
-
+        if(cd.icConnected()){
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/cancel_message.php?ID=" + apologization_not.ID);
@@ -102,7 +103,8 @@ public class cancelation_message extends AppCompatActivity {
         }   catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }else
+        { Toast.makeText(cancelation_message.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
 
 
     public void Back (View view)

@@ -71,6 +71,7 @@ public class FriendsRequests extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
 //==============================================================================================================
+            if(cd.icConnected()){
             try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/Friends_req.php?UserName=" + UserName);
@@ -99,7 +100,8 @@ public class FriendsRequests extends AppCompatActivity {
             System.out.print("exception 1 caught");
             //exception handel code
         }
-    }
+    } else
+            { Toast.makeText(FriendsRequests.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
 
 //============================================================================================================== Class adapter
 
