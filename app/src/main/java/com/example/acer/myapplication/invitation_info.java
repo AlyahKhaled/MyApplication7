@@ -63,8 +63,9 @@ public class invitation_info extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
 //==============================================================================================================
-
+        if(cd.icConnected()){
         try {
+
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/invitation_info.php?ID=" + invitations.ID);
             HttpResponse response = httpClient.execute(httpPost);
@@ -182,7 +183,8 @@ public class invitation_info extends AppCompatActivity {
             }
         });
 
-   }
+   } else
+        { Toast.makeText(invitation_info.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
 
     //============================================================================================================== To go Back
 
