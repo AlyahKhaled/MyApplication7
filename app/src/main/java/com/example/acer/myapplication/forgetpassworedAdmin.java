@@ -48,7 +48,7 @@ public class forgetpassworedAdmin extends AppCompatActivity implements AdapterVi
 
     String line=null;
     String result=null;
-    connectionDetector cd ;
+
 
     public InputStream is ;
     Spinner spinner;
@@ -66,9 +66,7 @@ public class forgetpassworedAdmin extends AppCompatActivity implements AdapterVi
         button3 = (Button) findViewById(R.id.button3);
         button = (Button) findViewById(R.id.button);
 
-        cd = new connectionDetector(this);
 
-        if (cd.icConnected()) {
             button3.setOnClickListener(this);
             spinner.setOnItemSelectedListener(this);
             ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, quest);
@@ -77,8 +75,7 @@ public class forgetpassworedAdmin extends AppCompatActivity implements AdapterVi
 
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-        }else
-            { Toast.makeText(forgetpassworedAdmin.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
+
     }
 
 //==============================================================================================================
