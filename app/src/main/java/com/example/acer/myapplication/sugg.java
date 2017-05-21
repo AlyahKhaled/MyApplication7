@@ -8,8 +8,10 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -31,36 +33,42 @@ import java.util.regex.Pattern;
 
 public class sugg extends AppCompatActivity {
 
-    public EditText sugg;
+    public Spinner sugg;
     public Button insert ;
     String sug;
     public InputStream is ;
+    public String[] arraySpinner;
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sugg);
 
+        this.arraySpinner = new String[] {
+          "هل يمكن ان نجتمع صباحا ", "هل يمكن ان نجتمع مساء", "هل يمكن تاجيل الاجتماع لنهاية الاسبوع", "هل يمكن تغيير مكان الاجتماع  ",
+        };
 
-        sugg = (EditText) findViewById(R.id.apo);
+
+        sugg = (Spinner) findViewById(R.id.apo);
         insert= (Button)findViewById(R.id.button);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        android.R.layout.simple_spinner_item, arraySpinner);
+        sugg.setAdapter(adapter);
 
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-            insert.setOnClickListener(new View.OnClickListener() {
+                 insert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 sug = sugg.getText().toString();
+                 sug = sugg.getSelectedItem().toString();
+                 if(sug.equals(arraySpinner[0])){sug="InMorning";}
+                 else if(sug.equals(arraySpinner[1])){sug="InEvning";}
+                 else if(sug.equals(arraySpinner[2])){sug="Weakened";}
+                 else if(sug.equals(arraySpinner[3])){sug="ChangePlace";}
 
-                if(sug.length() == 0) {sugg.setError("الاقتراح لا يمكن ان يكون فارغ ");return; }
-
-                if(sug.length() >100) {sugg.setError("الاقتراح يجب ان يكون ١٠٠ حرف أو أقل  ");return; }
-
-
-
-                    List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
+                List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
                     nameValuePair.add(new BasicNameValuePair("sugg", sug));
                     nameValuePair.add(new BasicNameValuePair("selectedFromList", invitations.selectedFromList));
 
@@ -68,7 +76,7 @@ public class sugg extends AppCompatActivity {
                     try {
                         HttpClient httpClient = new DefaultHttpClient();
                         HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/Add_sugg.php?ID=" + invitations.ID);
-                        httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+                        httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair,"UTF-8"));
                         HttpResponse response = httpClient.execute(httpPost);
                         HttpEntity entity = response.getEntity();
                         is = entity.getContent();

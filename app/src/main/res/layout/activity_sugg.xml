@@ -40,19 +40,6 @@
         android:layout_alignBottom="@+id/imageView" />
 
 
-
-    <EditText
-        android:id="@+id/apo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:ems="10"
-        android:hint="suggestion"
-        android:inputType="textPersonName"
-        android:layout_below="@+id/textView7"
-        android:layout_alignEnd="@+id/imageView" />
-
-
     <TextView
         android:id="@+id/textView7"
         android:textColor="#D98518"
@@ -71,8 +58,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ارسال"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="48dp"
         android:layout_below="@+id/apo"
         android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:id="@+id/apo"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@+id/textView7"
+        android:layout_marginTop="67dp"
+        android:background="@drawable/picture3"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView" />
 
 </RelativeLayout>

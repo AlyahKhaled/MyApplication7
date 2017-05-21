@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.acer.myapplication.Utility.GPSTracker;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -39,7 +41,7 @@ public class coordenation extends AppCompatActivity {
     Button map;
     connectionDetector cd ;
 
-
+    GPSTracker GPS;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,9 @@ public class coordenation extends AppCompatActivity {
 
         lv = (ListView) findViewById(R.id.list);
         map = (Button) findViewById(R.id.button2);
+        cd= new connectionDetector(this);
+
+        if(cd.icConnected()){
 
 //==============================================================================================================
         StrictMode.ThreadPolicy policy = new  StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -58,7 +63,7 @@ public class coordenation extends AppCompatActivity {
         nameValuePair.add(new BasicNameValuePair("selectedFromList", selectedFromList));
 
 //==============================================================================================================
-        if(cd.icConnected()){
+
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/location.php?ID="+invitations.ID);
@@ -115,15 +120,17 @@ public class coordenation extends AppCompatActivity {
 
 //==============================================================================================================
 
-    }else
+    } else
         { Toast.makeText(coordenation.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
 
     //=========================== to see the map
     public void map (View view)
     {
+        if(cd.icConnected()){
 
         Intent intent = new Intent(coordenation.this, MapsActivity.class);
-        startActivity(intent);
+        startActivity(intent);}
+        else {Toast.makeText(coordenation.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
     }
 
     //=========================== to go Back

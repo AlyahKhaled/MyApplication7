@@ -52,6 +52,7 @@ public class cancelation_message extends AppCompatActivity {
         sug= (Button)findViewById(R.id.sug);
         ignor= (Button)findViewById(R.id.ignor);
         accept= (Button)findViewById(R.id.accept);
+        cd= new connectionDetector(this);
 
 
 //==============================================================================================================
@@ -87,6 +88,7 @@ public class cancelation_message extends AppCompatActivity {
             result=result.replace('"',' ');
             result=result.replace(']',' ');
             result=result.replace('[',' ');
+
             int length =result.length();
             String sreOne =result.substring(1,length-2);
 

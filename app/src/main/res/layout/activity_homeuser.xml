@@ -80,7 +80,6 @@
         android:layout_toStartOf="@+id/imageButton10" />
 
     <ImageButton
-        android:onClick="rest"
         android:id="@+id/imageButton11"
         android:scaleType="fitXY"
         android:layout_height="255dp"

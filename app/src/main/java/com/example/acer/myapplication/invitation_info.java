@@ -19,16 +19,23 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
 
 public class invitation_info extends AppCompatActivity {
     final String TAG = this.getClass().getName();
@@ -43,7 +50,8 @@ public class invitation_info extends AppCompatActivity {
     Button map;
     connectionDetector cd ;
 
-    @Override
+
+        @Override
         protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation_info);
@@ -56,6 +64,8 @@ public class invitation_info extends AppCompatActivity {
         sug= (Button)findViewById(R.id.sug);
         ignor= (Button)findViewById(R.id.ignor);
         accept= (Button)findViewById(R.id.accept);
+        cd = new connectionDetector(this);
+        if(cd.icConnected()){
 
  //==============================================================================================================
 
@@ -63,16 +73,16 @@ public class invitation_info extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
 //==============================================================================================================
-        if(cd.icConnected()){
+
         try {
 
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Mai/invitation_info.php?ID=" + invitations.ID);
             HttpResponse response = httpClient.execute(httpPost);
             HttpEntity entity = response.getEntity();
-//==============================================================================================================
-
             is = entity.getContent();
+
+//==============================================================================================================
 
 
         }   catch (Exception e){
@@ -80,41 +90,54 @@ public class invitation_info extends AppCompatActivity {
             //exception handel code
         }
 //==============================================================================================================
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
 
-            StringBuilder sb = new StringBuilder();
-            while ((line=reader.readLine())!=null)
-            sb.append(line+"\n");
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
 
-            result=sb.toString();
-            result=result.replace('"',' ');
-            result=result.replace(']',' ');
-            result=result.replace('[',' ');
-            int length =result.length();
-            String sreOne =result.substring(1,length-2);
+                StringBuilder sb = new StringBuilder();
+                while ((line=reader.readLine())!=null)
+                sb.append(line+"\n");
 
-            //use toString() to get the data result
-            result=sb.toString();
-            // check the data
-            System.out.println(sreOne);
-            arr= sreOne.split(",");
+                result=sb.toString();
+                result=result.replace('"',' ');
+                result=result.replace(']',' ');
+                result=result.replace('[',' ');
+                result=result.replace("null","لا توجد معلومات اضافية ");
+                result=result.replace("Be on time","                                          تعالوا في الوقت ");
+                result=result.replace("No Kids allowed","                                  يمنع اصطحاب الاطفال ");
+                result=result.replace("Job meeting","                                              اجتماع عمل ");
+                result=result.replace("Allowed to bring friends ","                          يمكنك احضتر مرافق ");
+                result=result.replace("Celebration party","                                        حفلة معايدة ");
+                result=result.replace("No Kids allowed","                                    يمنع اصطحاب الاطفال ");
+                result=result.replace("Friends gathering","                                        اجتماع اصدقاء ");
+                result=result.replace("Children party","                                              حفلة اطفال ");
+                result=result.replace("Graduation party","                                               حفلة نجاح ");
+
+                int length =result.length();
+
+                String sreOne =result.substring(1,length-2);
+                //use toString() to get the data result
+                result=sb.toString();
+                // check the data
+                System.out.println(sreOne);
+                arr= sreOne.split(",");
 
 //==============================================================================================================
+
+            }   catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+//==============================================================================================================
+
             lv.setAdapter(new ArrayAdapter<String>(invitation_info.this,android.R.layout.simple_list_item_1,arr));
 
-
-        }   catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
                 accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                @Override
+                public void onClick(View view) {
                 String selectedFromList= invitations.selectedFromList;
                 List<NameValuePair> nameValuePair =new ArrayList<NameValuePair>(1);
-
                 nameValuePair.add(new BasicNameValuePair("UserName", UserName));
                 nameValuePair.add(new BasicNameValuePair("selectedFromList",selectedFromList));
 //==============================================================================================================
@@ -174,7 +197,11 @@ public class invitation_info extends AppCompatActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-      }
+
+
+
+
+                        }
 
                 });
 
@@ -183,7 +210,7 @@ public class invitation_info extends AppCompatActivity {
             }
         });
 
-   } else
+   }else
         { Toast.makeText(invitation_info.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
 
     //============================================================================================================== To go Back
