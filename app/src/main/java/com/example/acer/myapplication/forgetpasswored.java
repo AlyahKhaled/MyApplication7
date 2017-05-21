@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.kosalgeek.android.md5simply.MD5;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
@@ -45,7 +44,7 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
     boolean flag=false;
     int que;
     String newPass;
-    String UserName;
+    String UserName , ans;
 
     String line=null;
     String result=null;
@@ -91,17 +90,27 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
-
+        Toast.makeText(forgetpasswored.this, "اختر واحد من الأسئلة ", Toast.LENGTH_LONG).show();
 
     }
 
         public void check(View view){
+
         UserName = editText10.getText().toString();
-        if(que==0){
+        ans= editText12.getText().toString();
+
+            if(UserName.isEmpty()) {
+                editText10.setError("ادخل اسم الستخدم ");
+                Toast.makeText(forgetpasswored.this, " فشل التحقق من المستخدم ", Toast.LENGTH_LONG).show();
+            } else if(ans.isEmpty()) {
+                editText12.setError("ادخل الإجابة ");
+                Toast.makeText(forgetpasswored.this, " فشل التحقق من الإجابة ", Toast.LENGTH_LONG).show();
+            } else{
+            if(que==0){
         HashMap postData = new HashMap();
 
-            postData.put("editText10", editText10.getText().toString());
-            postData.put("editText12", editText12.getText().toString());
+            postData.put("editText10", UserName);
+            postData.put("editText12", ans);
 
 
             PostResponseAsyncTask task1 = new PostResponseAsyncTask(forgetpasswored.this, postData,
@@ -125,8 +134,8 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
         }   else if(que==1){
             HashMap postData = new HashMap();
 
-            postData.put("editText10", editText10.getText().toString());
-            postData.put("editText12", editText12.getText().toString());
+            postData.put("editText10", UserName);
+            postData.put("editText12", ans);
 
 
             PostResponseAsyncTask task1 = new PostResponseAsyncTask(forgetpasswored.this, postData,
@@ -150,8 +159,8 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
         }   else if(que==2){
             HashMap postData = new HashMap();
 
-            postData.put("editText10", editText10.getText().toString());
-            postData.put("editText12", editText12.getText().toString());
+            postData.put("editText10", UserName);
+            postData.put("editText12", ans);
 
 
             PostResponseAsyncTask task1 = new PostResponseAsyncTask(forgetpasswored.this, postData,
@@ -171,70 +180,72 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
 
 
             task1.execute("http://zwarh.net/zwarhapp/Alyah/city.php");
-        }
+        }}
     }
 
     @Override
     //==============================================================================================================
         public void onClick(View v) {
-        newPass = MD5.encrypt(editText11.getText().toString());
+
+        newPass = editText11.getText().toString();
+
+
 
         if(flag){
 
+            if(newPass.isEmpty()) {
+                editText11.setError("ادخل كلمة مرور صحيحة لا تتجاوز 30 رمز ");
+                Toast.makeText(forgetpasswored.this, " فشلت العملية ", Toast.LENGTH_LONG).show();
+            } else {
+
+                List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
+
+                nameValuePair.add(new BasicNameValuePair("psw", newPass));
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/updatePass.php?UserName=" + UserName);
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+                    HttpResponse response = httpClient.execute(httpPost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
 
 
-            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
-
-            nameValuePair.add(new BasicNameValuePair("psw", newPass));
-            try {
-                HttpClient httpClient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/updatePass.php?UserName=" + UserName);
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
-                HttpResponse response = httpClient.execute(httpPost);
-                HttpEntity entity = response.getEntity();
-                is = entity.getContent();
-
-
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            //==============================================================================================================
-            try {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-                StringBuilder sb = new StringBuilder();
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (ClientProtocolException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                is.close();
-                result = sb.toString();
-                //test the query
-                if (result.contains("true")) {
-                    System.out.println("************************ result " + result + "**********************************************");
-                    String msg = "تم تغيير كلمة المرور";
-                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                //==============================================================================================================
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    //test the query
+                    if (result.contains("true")) {
+                        System.out.println("************************ result " + result + "**********************************************");
+                        String msg = "تم تغيير كلمة المرور";
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 
-                    Intent in = new Intent(forgetpasswored.this, LoginActivity.class);
-                    startActivity(in);
+                        Intent in = new Intent(forgetpasswored.this, LoginActivity.class);
+                        startActivity(in);
+                    } else {
+                        String msg = "لم يتم تغيير كلمة المرور ";
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (Exception e) {
+                    Log.e("Fail 2", e.toString());
                 }
-                else{
-                    String msg = "لم يتم تغيير كلمة المرور ";
-                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-                }
-
-            }
-                catch(Exception e)
-            {
-                Log.e("Fail 2", e.toString());
-            }
 
 
-
-
-        }else{
+            }}
+        else{
             String msg = "تحقق من اجابتك اولا ";
             Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
         }

@@ -44,10 +44,11 @@ public class forgetpassworedAdmin extends AppCompatActivity implements AdapterVi
     boolean flag=false;
     int que;
     String newPass;
-    String UserName;
+    String UserName , ans;
 
     String line=null;
     String result=null;
+    connectionDetector cd ;
 
     public InputStream is ;
     Spinner spinner;
@@ -64,15 +65,20 @@ public class forgetpassworedAdmin extends AppCompatActivity implements AdapterVi
         editText12 = (EditText) findViewById(R.id.editText12);
         button3 = (Button) findViewById(R.id.button3);
         button = (Button) findViewById(R.id.button);
-        button3.setOnClickListener(this);
-        spinner.setOnItemSelectedListener(this);
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,quest);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(aa);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        cd = new connectionDetector(this);
 
+        if (cd.icConnected()) {
+            button3.setOnClickListener(this);
+            spinner.setOnItemSelectedListener(this);
+            ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, quest);
+            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(aa);
+
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }else
+            { Toast.makeText(forgetpassworedAdmin.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
     }
 
 //==============================================================================================================
@@ -86,17 +92,26 @@ public class forgetpassworedAdmin extends AppCompatActivity implements AdapterVi
 
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
-
+        Toast.makeText(forgetpassworedAdmin.this, "اختر واحد من الأسئلة ", Toast.LENGTH_LONG).show();
 
     }
 
         public void check(View view) {
             UserName = editText10.getText().toString();
+            ans= editText12.getText().toString();
+
+            if(UserName.isEmpty()) {
+                editText10.setError("ادخل اسم الستخدم ");
+                Toast.makeText(forgetpassworedAdmin.this, " فشل التحقق من المستخدم ", Toast.LENGTH_LONG).show();
+            } else if(ans.isEmpty()) {
+                editText12.setError("ادخل الإجابة ");
+                Toast.makeText(forgetpassworedAdmin.this, " فشلت التحقق من الإجابة ", Toast.LENGTH_LONG).show();
+            } else{
             if (que == 0) {
                 HashMap postData = new HashMap();
 
-                postData.put("editText10", editText10.getText().toString());
-                postData.put("editText12", editText12.getText().toString());
+                postData.put("editText10", UserName);
+                postData.put("editText12", ans);
 
 
                 PostResponseAsyncTask task1 = new PostResponseAsyncTask(forgetpassworedAdmin.this, postData,
@@ -118,73 +133,75 @@ public class forgetpassworedAdmin extends AppCompatActivity implements AdapterVi
 
                 task1.execute("http://zwarh.net/zwarhapp/Alyah/friend.php");
 
-            }
+            }}
         }
     @Override
     //==============================================================================================================
         public void onClick(View v) {
+
         newPass = editText11.getText().toString();
+
 
         if(flag){
 
+            if(newPass.isEmpty()) {
+                editText11.setError("ادخل كلمة مرور صحيحة لا تتجاوز 30 رمز ");
+                Toast.makeText(forgetpassworedAdmin.this, " فشلت العملية  ", Toast.LENGTH_LONG).show();
+            } else {
+
+                List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
+
+                nameValuePair.add(new BasicNameValuePair("psw", newPass));
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/updateAdminPass.php?UserName=" + UserName);
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+                    HttpResponse response = httpClient.execute(httpPost);
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
 
 
-            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
-
-            nameValuePair.add(new BasicNameValuePair("psw", newPass));
-            try {
-                HttpClient httpClient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/updateAdminPass.php?UserName=" + UserName);
-                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
-                HttpResponse response = httpClient.execute(httpPost);
-                HttpEntity entity = response.getEntity();
-                is = entity.getContent();
-
-
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            //==============================================================================================================
-            try {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-                StringBuilder sb = new StringBuilder();
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (ClientProtocolException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                is.close();
-                result = sb.toString();
-                //test the query
-                if (result.contains("true")) {
-                    System.out.println("************************ result " + result + "**********************************************");
-                    String msg = "تم تغيير كلمة المرور";
-                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                //==============================================================================================================
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    is.close();
+                    result = sb.toString();
+                    //test the query
+                    if (result.contains("true")) {
+                        System.out.println("************************ result " + result + "**********************************************");
+                        String msg = "تم تغيير كلمة المرور";
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 
-                    Intent in = new Intent(forgetpassworedAdmin.this, LoginActivity.class);
-                    startActivity(in);
+                        Intent in = new Intent(forgetpassworedAdmin.this, LoginActivity.class);
+                        startActivity(in);
+                    } else {
+                        String msg = "لم يتم تغيير كلمة المرور ";
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (Exception e) {
+                    Log.e("Fail 2", e.toString());
                 }
-                else{
-                    String msg = "لم يتم تغيير كلمة المرور ";
-                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-                }
+
 
             }
-                catch(Exception e)
-            {
-                Log.e("Fail 2", e.toString());
-            }
-
-
-
 
         }else{
             String msg = "تحقق من اجابتك اولا ";
             Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-        }
-    }
+
+    }}
 
     public void Back(View view){
         Intent in = new Intent(forgetpassworedAdmin.this, LoginActivity.class);

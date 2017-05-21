@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -36,6 +37,9 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
     String line = null;
     String result = null;
     String [] arr ;
+
+    connectionDetector cd ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +56,10 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
 
          UserName = pref.getString("UserName", ""); // 5 after intilisatien
 
+        cd = new connectionDetector(this);
+
+
+        if (cd.icConnected()) {
         logoutBtn.setOnClickListener(this);
 
 
@@ -121,7 +129,8 @@ public class admienprofile extends AppCompatActivity implements View.OnClickList
 
 
 
-
+        }else
+        { Toast.makeText(admienprofile.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
     }
     public void onClick(View view) {
 
