@@ -75,7 +75,7 @@ public class cancelInvitationLayout extends AppCompatActivity {
 
     }
 
-    public void canselInv(View view) {
+   public void canselInv(View view) {
 
             //****
 
@@ -105,7 +105,7 @@ public class cancelInvitationLayout extends AppCompatActivity {
                                     Intent intent = new Intent(cancelInvitationLayout.this, invitationOptiens.class);
                                     startActivity(intent);
                                 } else {
-                                    Toast.makeText(cancelInvitationLayout.this, "Network connection problems", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(cancelInvitationLayout.this, "حدث خطأ في الإتصال", Toast.LENGTH_SHORT).show();
                                     Toast.makeText(cancelInvitationLayout.this, "لايمكن إلغاء الدعوة", Toast.LENGTH_SHORT).show();
                                 }
 
@@ -119,8 +119,8 @@ public class cancelInvitationLayout extends AppCompatActivity {
 
     }
 
-   public void cancel ()
-   {    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+    public void cancel ()
+    {    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
        StrictMode.setThreadPolicy(policy);
 
 

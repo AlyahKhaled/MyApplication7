@@ -1,11 +1,13 @@
 package com.example.acer.myapplication;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -86,7 +88,7 @@ public class sentInveDetales extends AppCompatActivity {
         value =  (getIntent().getExtras().getString("venueId"));
         int l =  value.length();
         venueID = value.substring(1,l-1);
-        System.out.println("*********************************the venueId:"+venueID+venueID.length());
+        System.out.println("**********************the venueId:"+venueID+"*****the length"+venueID.length());
 
 
 
@@ -118,81 +120,118 @@ public class sentInveDetales extends AppCompatActivity {
 
         //read the retrieved data
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
             // create String builder object to hold the data
             StringBuilder sb = new StringBuilder();
-            while ((line=reader.readLine())!=null)
-                sb.append(line+"\n");
-            System.out.println("**********************"+sb);
-            result=sb.toString();
+            while ((line = reader.readLine()) != null)
+                sb.append(line + "\n");
+            System.out.println("**********************" + sb);
+            result = sb.toString();
             // chek the data
             System.out.println("*******here is my Data************");
-            System.out.print(result+"***LENGTH***"+result.length());
+            System.out.print(result + "***LENGTH***" + result.length());
 
-            int lengthResult =result.length();
-            String sreOne =result.substring(1,lengthResult-2);//i did not start from index 0 cause the string is retreved with spaces at the beging
-            result=sreOne.replace('"',' ');
-            arr= result.split(",");
-            System.out.println("*********"+result);
+            int lengthResult = result.length();
+            String sreOne = result.substring(1, lengthResult - 2);//i did not start from index 0 cause the string is retreved with spaces at the beging
+            result = sreOne.replace('"', ' ');
+            arr = result.split(",");
+            System.out.println("*********" + result);
 
-           if(result.equals(" no responses yet "))
-           {Enter=false;
-            Toast.makeText(sentInveDetales.this,"no responses yet",Toast.LENGTH_SHORT).show();}
-//**************************************************************split the contant of the retrieved Data********************************************
-            int length = arr.length ;
-            int i=0 ;
-            while (i< length&&Enter)
-            {    System.out.print("here");
-                if(arr[i].contains("coming"))
-                {Present.add(arr[i+1]);}//to add the name
-
-                else if(arr[i].contains("notComing"))
-                {Appsents.add(arr[i+1]);} //to add the name
-
-                else if(arr[i].contains("suggestion"))
-                {Suggestions.add(arr[i+1]+": "+arr[i+2]);} //to add the name
-                i=i+3;
-            }
-//**************************************************************print the data for testing********************************************************
-            System.out.println("the coming guests : ");
-
-            for (int a=0;a<Present.size();a++)
-            {
-
-                System.out.println(Present.get(a));
-
-            }
-
-            System.out.println("the not coming guests : ");
-
-            for (int a=0;a<Appsents.size();a++)
-            {
-
-                System.out.println(Appsents.get(a));
-
-            }
-
-            System.out.println("the Suggestions  : ");
-
-            for (int a=0;a<Suggestions.size();a++)
-            {
-
-                System.out.println(Suggestions.get(a));
-
-            }
-            System.out.println();
-
-            //==================================================== now fill the list view with the names========================================
-
-            presentTextView.setText("الحاضرين : "+Present.size());
-            AppsentTextView.setText("الغير حاضريـن"+Appsents.size());
-            suggestionTextView.setText("الإقتراحــات"+Suggestions.size());
-
-            lv.setAdapter(new ArrayAdapter<String>(sentInveDetales.this,android.R.layout.simple_list_item_1,Present));
-            appsentlv.setAdapter(new ArrayAdapter<String>(sentInveDetales.this,android.R.layout.simple_list_item_1,Appsents));
-            suggestionlv.setAdapter(new ArrayAdapter<String>(sentInveDetales.this,android.R.layout.simple_list_item_1,Suggestions));
+            if (!result.contains("connections errore ")){
+                if (!result.contains("no responses yet ")) {
+                    postiveResult();
+                } else negativResult(1);
+        }
+        else
+            {negativResult(0);}
         }
         catch (IOException e) {e.printStackTrace();}
+    }
+
+    private void negativResult(int messageNum) {
+
+        String errorMessage ;
+
+        if(messageNum ==1)
+            errorMessage = "لا يوجد أي ردود حتى الآن";
+        else
+            errorMessage = "حدث خطأ في الإتصال!";
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(sentInveDetales.this);
+        alertDialogBuilder.setMessage(errorMessage);
+        alertDialogBuilder.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {}
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+        presentTextView.setText(errorMessage);
+
+    }
+
+    private void postiveResult() {
+
+        if (result.equals("no responses yet ")) {
+            Enter = false;
+            negativResult(1);
+        }
+//**************************************************************split the contant of the retrieved Data********************************************
+       if(Enter) {
+        int length = arr.length;
+        int i = 0;
+        while (i < length && Enter) {
+            System.out.print("here");
+            if (arr[i].contains("coming")) {
+                Present.add(arr[i + 1]);
+            }//to add the name
+
+            else if (arr[i].contains("notComing")) {
+                Appsents.add(arr[i + 1]);
+            } //to add the name
+
+            else if (arr[i].contains("suggestion")) {
+                Suggestions.add(arr[i + 1] + ": " + arr[i + 2]);
+            } //to add the name
+            i = i + 3;
+        }
+//**************************************************************print the data for testing********************************************************
+        System.out.println("the coming guests : ");
+
+        for (int a = 0; a < Present.size(); a++) {
+
+            System.out.println(Present.get(a));
+
+        }
+
+        System.out.println("the not coming guests : ");
+
+        for (int a = 0; a < Appsents.size(); a++) {
+
+            System.out.println(Appsents.get(a));
+
+        }
+
+        System.out.println("the Suggestions  : ");
+
+        for (int a = 0; a < Suggestions.size(); a++) {
+
+            System.out.println(Suggestions.get(a));
+
+        }
+        System.out.println();
+
+        //==================================================== now fill the list view with the names========================================
+
+        presentTextView.setText("الحاضرين : " + Present.size());
+        AppsentTextView.setText("الغير حاضريـن" + Appsents.size());
+        suggestionTextView.setText("الإقتراحــات" + Suggestions.size());
+
+        lv.setAdapter(new ArrayAdapter<String>(sentInveDetales.this, android.R.layout.simple_list_item_1, Present));
+        appsentlv.setAdapter(new ArrayAdapter<String>(sentInveDetales.this, android.R.layout.simple_list_item_1, Appsents));
+        suggestionlv.setAdapter(new ArrayAdapter<String>(sentInveDetales.this, android.R.layout.simple_list_item_1, Suggestions));
+    }
     }
 
     public void cancelInvitation (View view)
