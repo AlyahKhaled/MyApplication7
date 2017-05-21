@@ -27,7 +27,17 @@
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-
+    <Button
+        android:id="@+id/deleteExpiredInvButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button18"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:background="?android:attr/colorPressedHighlight"
+        android:padding="10dp"
+        android:onClick="deleteExpiredInvitations"
+        android:text="حذف الدعوات المنتهية" />
 
     <ImageButton
 
@@ -53,9 +63,9 @@
         android:layout_width="300sp"
         android:layout_height="300sp"
         android:id="@+id/button18"
-        android:layout_marginBottom="28dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="31dp" />
 
     <TextView
         android:text=""

@@ -57,5 +57,15 @@ public class invitationOptiens extends AppCompatActivity {
         Intent intent = new Intent(invitationOptiens.this,invitations.class);
         startActivity(intent);
     }
+    public void saved(View view)
+    {
+        Intent intent = new Intent(invitationOptiens.this,invitatonssaved.class);
+        startActivity(intent);
+    }
+    public void createINV(View view)
+    {
+        Intent intent = new Intent(invitationOptiens.this,invititioncretion.class);
+        startActivity(intent);
+    }
 
 }
