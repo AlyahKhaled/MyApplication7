@@ -1,9 +1,13 @@
 package com.example.acer.myapplication;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -68,7 +72,7 @@ public class sugg extends AppCompatActivity {
                  else if(sug.equals(arraySpinner[2])){sug="Weakened";}
                  else if(sug.equals(arraySpinner[3])){sug="ChangePlace";}
 
-                List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
+                    List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
                     nameValuePair.add(new BasicNameValuePair("sugg", sug));
                     nameValuePair.add(new BasicNameValuePair("selectedFromList", invitations.selectedFromList));
 
@@ -82,6 +86,7 @@ public class sugg extends AppCompatActivity {
                         is = entity.getContent();
                         String msg = " تم ارسال الاقتراح بنجاح ";
                         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                        notification();
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -103,6 +108,19 @@ public class sugg extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void notification(){
 
+
+        NotificationCompat.Builder notification=(NotificationCompat.Builder)new NotificationCompat.Builder(this)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setSmallIcon(R.drawable.zwarahlogo)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.zwarahlogo))
+                .setContentTitle("Notification")
+                .setContentText("You have a Suggestion ");
+
+        NotificationManager NotificationManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        NotificationManager.notify(1,notification.build());
+    }
 
 }
