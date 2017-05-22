@@ -63,15 +63,15 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/editText10"
+        android:layout_marginEnd="17dp"
         android:layout_marginRight="17dp"
-        android:text="أجب على الأسئلة :"
+        android:layout_marginTop="14dp"
+        android:text="أجب على أحد هذه الاأسئلة:"
         android:textColor="#694418"
         android:textSize="30sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/editText10"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="17dp"
-        android:layout_marginTop="14dp" />
+        android:textStyle="bold" />
 
     <ImageView
         android:layout_width="wrap_content"

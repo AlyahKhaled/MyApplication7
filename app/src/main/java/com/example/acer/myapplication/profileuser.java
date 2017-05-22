@@ -40,7 +40,7 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
     ImageButton delete;
     public InputStream is ;
     String UserName;
-    TextView usN,Na ,Bir,Per;
+    TextView usN,Na ,Bir;
     String line = null;
     String result = null;
     String [] arr ;
@@ -57,7 +57,7 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
         usN=(TextView)findViewById(R.id.textView11);
         Na=(TextView)findViewById(R.id.textView12);
         Bir=(TextView)findViewById(R.id.textView13);
-        Per=(TextView)findViewById(R.id.textView14);
+
 
         logoutBtn = (ImageButton) findViewById(R.id.logoutBtn1);
          delete = (ImageButton) findViewById(R.id.imageButton);
@@ -113,20 +113,19 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
             String username        =arr[0].substring(1,arr[0].length());
             String name            =arr[1];
             String berthday        =arr[2];
-            String personalMessage =arr[3];
+
 
             usN.setText(username);
             Na.setText(name);
             if (!(berthday.contains("null"))){
             Bir.setText(berthday);}else{Bir.setVisibility(View.INVISIBLE);}
-            if (!(personalMessage.contains("nul"))){
-            Per.setText(personalMessage);}else{Per.setVisibility(View.INVISIBLE);}
+
 
 
             System.out.println("username: "+username);
             System.out.println("name: "+name);
             System.out.println("berthday: "+berthday);
-            System.out.println("personalMessage: "+personalMessage);
+
 
 
         }  catch (IOException e) {

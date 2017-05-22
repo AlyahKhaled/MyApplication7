@@ -48,9 +48,9 @@ public class editProfile extends AppCompatActivity {
     String UserName;
     String birth ="null";
     String Namee ;
-    String msgP ="null";
 
-    public EditText nameUs , msgPe ;
+
+    public EditText nameUs ;
     Button editB;
     ImageButton dat;
     TextView mDisplayDate;
@@ -75,7 +75,7 @@ public class editProfile extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         nameUs    = (EditText) findViewById(R.id.nameUs);
-        msgPe   = (EditText) findViewById(R.id.msgP);
+
 
         editB = (Button) findViewById(R.id.editB);
         dat = (ImageButton) findViewById(R.id.imageButton8);
@@ -192,20 +192,18 @@ public class editProfile extends AppCompatActivity {
     }
 
     public void edit(){
-        msgP = msgPe.getText().toString();
+
 
         Namee =nameUs.getText().toString();
 
         if(Namee.isEmpty()||Namee.length()>20) {
             nameUs.setError("ادخل اسمك ");
             Toast.makeText(editProfile.this, " فشل التعديل ", Toast.LENGTH_LONG).show();
-        } else if(msgP.length()>100) {
-            nameUs.setError("يجب ان تكون رسالتك الشخصية اقل من 200 حرف ");
-            Toast.makeText(editProfile.this, " فشل التعديل ", Toast.LENGTH_LONG).show();
-        } else {
+        }
+         else {
 
 
-            if (!(Namee.contains(result)) || !(msgP.contains("null")) || !(birth.contains("null"))) {
+            if (!(Namee.contains(result)) || !(birth.contains("null"))) {
 
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(editProfile.this);
@@ -261,55 +259,6 @@ public class editProfile extends AppCompatActivity {
 
                                 } else {
                                     String msg = "لم يتم تعديل اسمك ";
-                                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-                                }
-
-                            } catch (Exception e) {
-                                Log.e("Fail 2", e.toString());
-                            }
-
-
-                        }
-
-                        if (!(msgP.contains("null"))) {
-
-
-                            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
-
-                            nameValuePair.add(new BasicNameValuePair("msgP", msgP));
-                            try {
-                                HttpClient httpClient = new DefaultHttpClient();
-                                HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/editMsg.php?UserName=" + UserName);
-                                httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
-                                HttpResponse response = httpClient.execute(httpPost);
-                                HttpEntity entity = response.getEntity();
-                                iss = entity.getContent();
-
-
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
-                            } catch (ClientProtocolException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-
-                            }
-                            try {
-                                BufferedReader reader = new BufferedReader(new InputStreamReader(iss, "iso-8859-1"), 8);
-                                StringBuilder sb = new StringBuilder();
-                                while ((linee = reader.readLine()) != null) {
-                                    sb.append(linee + "\n");
-                                }
-                                iss.close();
-                                resulte = sb.toString();
-                                //test the query
-                                if (resulte.contains("true")) {
-                                    System.out.println("************************ result " + resulte + "**********************************************");
-                                    String msg = "تم تعديل الرسالة الشخصية ";
-                                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-
-                                } else {
-                                    String msg = "لم يتم تعديل الرسالة الشخصية ";
                                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
                                 }
 
