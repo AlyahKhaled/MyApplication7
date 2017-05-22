@@ -39,9 +39,16 @@ public class sentInviitations extends AppCompatActivity {
     String result = null;//to convert what have been read from string builder to String
     String [] arr ;//to suplet the result in array for easy modification
     connectionDetector cd ;
-
     ArrayList<String> invitations ;// to save the invitations
     ArrayList<String> venueId;// to save the venueId for each invitations
+    ArrayList<String> Dates ; // to save the Dates for each invitations
+
+    public String  Celebration_party;
+    public String  Friends_gathering;
+    public String  Job_meeting;
+    public String  Children_party;
+    public String  Graduation_party;
+
     //============================================end===============================================
 
     @Override
@@ -56,8 +63,12 @@ public class sentInviitations extends AppCompatActivity {
     //============================================DalalPART=========================================
         invitations = new ArrayList<String>();
         venueId= new ArrayList<String>();
+        Dates=new ArrayList<String>();
+
         lv = (ListView) findViewById(R.id.sentList);
         cd= new connectionDetector(this);
+
+        Dictienary ();
 
         StrictMode.ThreadPolicy policy = new  StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -65,56 +76,57 @@ public class sentInviitations extends AppCompatActivity {
         if(cd.icConnected())
         {connectANDretrev ();}
         else
-        { Toast.makeText(sentInviitations.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
+        { Toast.makeText(sentInviitations.this,"حدث مشاكل في الإتصال",Toast.LENGTH_SHORT).show();}
 
     }
 
+    public void Dictienary ()
+    {
+        Celebration_party ="حفلة معايدة";
+        Friends_gathering = "اجتماع اصدقاء";
+        Job_meeting = "اجتماع عمل";
+        Children_party ="حفلة أطفال";
+        Graduation_party = "حفلة نجاح";
+
+    }
 
        public void connectANDretrev ()
     {
-        // this in order to set up the code to fetch data from database
+        //==========================================Connection======================================
 
         try {
             HttpClient httpClient = new DefaultHttpClient();
-
-            // spacial url for the retrive
-
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Dalal/sentInv.php?value="+UserName);
             HttpResponse response = httpClient.execute(httpPost);
             HttpEntity entity = response.getEntity();
-            // set up the input stream to receive the data
-
             is = entity.getContent();
-
-
         }catch (Exception e){
             System.out.print("exception 1 caught");
-            //exception handel code
-        }
 
+        }
+        //===================================== reading data =======================================
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-
-            // creat String builder object to hold the data
-
             StringBuilder sb = new StringBuilder();
-
             while ((line = reader.readLine()) != null)
-                sb.append(line + "\n");
-            //use toString() to get the data result
+            sb.append(line + "\n");
             result = sb.toString();
-            System.out.println("**" + result + result + "**" + result.length());
-            result = result.replace('"', ' ');
 
-                if (!result.contains("connections errore ")) {
-                    System.out.print("!result.contains (connections errore) "+!result.contains("connections errore "));
+             result = result.replace('"', ' ');
+             result = result.replace("Celebration party",Celebration_party);
+             result = result.replace("Friends gathering",Friends_gathering);
+             result = result.replace("Job meeting",Job_meeting);
+             result = result.replace("Children party",Children_party);
+             result = result.replace("Graduation party ",Graduation_party);
+
+                if (!result.contains("connections errore "))
+                {
                 if (!result.contains("there are no invitations sent yet "))
                      { postivResult();}
                 else
                     {NegativResult(1);}
-
-            }
-            else{NegativResult(0);}
+                }
+                else{NegativResult(0);}
 
             }
 
@@ -148,44 +160,36 @@ public class sentInviitations extends AppCompatActivity {
     private void postivResult() {
 
         int length = result.length();
-        String sreOne = result.substring(1, length - 2);//i did not start from index 0 cause the string is retreved with spaces at the beging
-        // chek the data
+        String sreOne = result.substring(1, length - 2);
 
-        System.out.println("*******here is my Data************");
-        System.out.println(sreOne);
         arr = sreOne.split(",");
         int arrLength = arr.length;
 
 
-        for (int i = 0; i < arrLength; i++) {
-            if (i % 2 == 0) {
-                boolean add = invitations.add(arr[i]);
-                if (add == true)
-                    System.out.println("added successfully");
-            } else if (i % 2 == 1) {
-                boolean add = venueId.add(arr[i]);
-                if (add == true)
-                    System.out.println("added successfully");
-            }
+        for (int i = 0; i < arrLength; ) {
 
+                String str ="\n"+"نوع الدعوة: "+arr[i]+"\n"+"بتاريخ: "+arr[i+1]+"\n"+"الوقت: "+arr[i+2]+"\n";
+                boolean add = invitations.add(str);
+                if (add == true)
+                   System.out.println("added successfully");
+                boolean ad = venueId.add(arr[i+3]);
+                if (ad == true)
+                    System.out.println("added successfully");
+
+            i=i+4;
         }
 
-
-        // now fill the list view with the names
         lv.setAdapter(new ArrayAdapter<String>(sentInviitations.this, android.R.layout.simple_list_item_1, invitations));
-
-        // let provied the on click lstiener when and item is clicked
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 boolean flag = false;
                 String str = (lv.getItemAtPosition(position)).toString();
-                System.out.println("*******str*******" + str + "************str************");
+
                 if (!str.equals(" there are no invitations sent yet :( ")) {
                     Intent intent = new Intent(sentInviitations.this, sentInveDetales.class);
                     intent.putExtra("venueId", venueId.get(position));
-                    System.out.println(" the position : " + position);
                     startActivity(intent);
                 }
 

@@ -54,6 +54,15 @@ public class sentInveDetales extends AppCompatActivity {
     public boolean     Enter ;
     public connectionDetector cd ;
     public Button      GoCancel  ;
+    public  HttpClient httpClient ;
+    public  HttpPost httpPost ;
+    public HttpResponse response ;
+    public HttpEntity entity ;
+
+    public String inMorning   ;
+    public String inEvning    ;
+    public String inWeakend   ;
+    public String ChangePlace ;
     //============================================end===============================================
 
 
@@ -68,8 +77,7 @@ public class sentInveDetales extends AppCompatActivity {
         Log.d(TAG, pref.getString("UserName", ""));//3
         Log.d(TAG, pref.getString("PassWord", ""));//4
         UserName   = pref.getString("UserName", "");//5
-        //============================================DalalPART=====================================
-        //initializations
+        //============================================initializations===============================
 
         presentTextView    = (TextView) findViewById(R.id.textView4);
         AppsentTextView    = (TextView) findViewById(R.id.textView5);
@@ -84,66 +92,74 @@ public class sentInveDetales extends AppCompatActivity {
         Appsents           = new ArrayList<String>();
         Enter              =true;
 
-        //retrieve the value of the venueID
-        value =  (getIntent().getExtras().getString("venueId"));
+      if(!(getIntent().getExtras().getString("venueId")).equals(null))
+        {  value =  (getIntent().getExtras().getString("venueId"));
         int l =  value.length();
-        venueID = value.substring(1,l-1);
-        System.out.println("**********************the venueId:"+venueID+"*****the length"+venueID.length());
+        venueID = value.substring(1,l-1);}
 
-
-
-        // this is important to connect to the internet <not sure>
         StrictMode.ThreadPolicy policy = new  StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
+        //=================================check the in going connection============================
         if(cd.icConnected())
         {connectANDretrive ();}
         else
-        { Toast.makeText(sentInveDetales.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
+        { Toast.makeText(sentInveDetales.this,"حدث خطأ في الإتصال",Toast.LENGTH_SHORT).show();}
+
+        dictionary ();
+     }
+
+     public void dictionary (){
+
+      inMorning   ="هل يمكن أن نجتمع صباحا"  ;
+      inEvning    ="هل يمكن أن نجتمع مساء" ;
+      inWeakend   ="هل يمكن تأجيل الإجتماع لنهاية الأسبوع" ;
+      ChangePlace ="هل يمكن تغير مكان الإجتماع " ;
+
      }
 
     public void connectANDretrive ()
     {
-
-        // this in order to set up the code to fetch data from database
         try {
-            HttpClient httpClient = new DefaultHttpClient();
-            // specific url for the retrieve
-            HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Dalal/sentInvDeatales.php?value="+venueID);
-            HttpResponse response = httpClient.execute(httpPost);
-            HttpEntity entity = response.getEntity();
-            // set up the input stream to receive the data
-            is = entity.getContent();
-        }//exception handel code
+
+             httpClient = new DefaultHttpClient();
+             httpPost = new HttpPost("http://zwarh.net/zwarhapp/Dalal/sentInvDeatales.php?value="+venueID);
+             response = httpClient.execute(httpPost);
+             entity = response.getEntity();
+             is = entity.getContent();
+
+        }
         catch (Exception e)
         {System.out.print("exception 1 caught");}
 
-        //read the retrieved data
+        //=======================================read the retrieved data============================
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-            // create String builder object to hold the data
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
             StringBuilder sb = new StringBuilder();
             while ((line = reader.readLine()) != null)
-                sb.append(line + "\n");
-            System.out.println("**********************" + sb);
+            sb.append(line + "\n");
             result = sb.toString();
-            // chek the data
-            System.out.println("*******here is my Data************");
-            System.out.print(result + "***LENGTH***" + result.length());
 
             int lengthResult = result.length();
-            String sreOne = result.substring(1, lengthResult - 2);//i did not start from index 0 cause the string is retreved with spaces at the beging
-            result = sreOne.replace('"', ' ');
-            arr = result.split(",");
-            System.out.println("*********" + result);
+           if(lengthResult>0)
+           {    dictionary ();
+                String sreOne = result.substring(1, lengthResult - 2);
+                result = sreOne.replace('"', ' ');
+                result = result.replace("inMorning",inMorning);
+                result = result.replace("inEvning", inEvning);
+                result = result.replace("inWeakend", inWeakend);
+                result = result.replace("ChangePlace",ChangePlace);
+                arr = result.split(",");
+            }
 
-            if (!result.contains("connections errore ")){
-                if (!result.contains("no responses yet ")) {
-                    postiveResult();
-                } else negativResult(1);
-        }
-        else
-            {negativResult(0);}
+              if (!result.contains("connections errore "))
+              {
+                if (!result.contains("no responses yet "))
+                       { postiveResult();}
+                else negativResult(1);
+              }
+              else
+                {negativResult(0);}
         }
         catch (IOException e) {e.printStackTrace();}
     }
@@ -153,7 +169,11 @@ public class sentInveDetales extends AppCompatActivity {
         String errorMessage ;
 
         if(messageNum ==1)
-            errorMessage = "لا يوجد أي ردود حتى الآن";
+        {errorMessage = "لا يوجد أي ردود حتى الآن";
+            presentTextView.setText("الحاضرين : 0" );
+            AppsentTextView.setText("الغير حاضريـن : 0" );
+            suggestionTextView.setText("الإقتراحــات: 0" );
+        }
         else
             errorMessage = "حدث خطأ في الإتصال!";
 
@@ -167,21 +187,16 @@ public class sentInveDetales extends AppCompatActivity {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
 
-        presentTextView.setText(errorMessage);
+        Toast.makeText(sentInveDetales.this,errorMessage,Toast.LENGTH_SHORT).show();
 
     }
 
     private void postiveResult() {
 
-        if (result.equals("no responses yet ")) {
-            Enter = false;
-            negativResult(1);
-        }
-//**************************************************************split the contant of the retrieved Data********************************************
-       if(Enter) {
+//============================split the contant of the retrieved Data==============================
         int length = arr.length;
         int i = 0;
-        while (i < length && Enter) {
+        while (i < length && length>0) {
             System.out.print("here");
             if (arr[i].contains("coming")) {
                 Present.add(arr[i + 1]);
@@ -193,36 +208,10 @@ public class sentInveDetales extends AppCompatActivity {
 
             else if (arr[i].contains("suggestion")) {
                 Suggestions.add(arr[i + 1] + ": " + arr[i + 2]);
-            } //to add the name
+            } //to add the name and suggestion
             i = i + 3;
         }
-//**************************************************************print the data for testing********************************************************
-        System.out.println("the coming guests : ");
-
-        for (int a = 0; a < Present.size(); a++) {
-
-            System.out.println(Present.get(a));
-
-        }
-
-        System.out.println("the not coming guests : ");
-
-        for (int a = 0; a < Appsents.size(); a++) {
-
-            System.out.println(Appsents.get(a));
-
-        }
-
-        System.out.println("the Suggestions  : ");
-
-        for (int a = 0; a < Suggestions.size(); a++) {
-
-            System.out.println(Suggestions.get(a));
-
-        }
-        System.out.println();
-
-        //==================================================== now fill the list view with the names========================================
+//================================ now fill the list view with the names============================
 
         presentTextView.setText("الحاضرين : " + Present.size());
         AppsentTextView.setText("الغير حاضريـن" + Appsents.size());
@@ -231,7 +220,7 @@ public class sentInveDetales extends AppCompatActivity {
         lv.setAdapter(new ArrayAdapter<String>(sentInveDetales.this, android.R.layout.simple_list_item_1, Present));
         appsentlv.setAdapter(new ArrayAdapter<String>(sentInveDetales.this, android.R.layout.simple_list_item_1, Appsents));
         suggestionlv.setAdapter(new ArrayAdapter<String>(sentInveDetales.this, android.R.layout.simple_list_item_1, Suggestions));
-    }
+
     }
 
     public void cancelInvitation (View view)

@@ -10,8 +10,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -47,6 +49,9 @@ public class cancelInvitationLayout extends AppCompatActivity {
     public String result = null;
     public String message;
     String[] arr;
+    public String []arraySpinner ;
+    public Spinner apolgies ;
+    public String [] spinnerCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,19 +62,22 @@ public class cancelInvitationLayout extends AppCompatActivity {
         Log.d(TAG, pref.getString("UserName", ""));//3
         Log.d(TAG, pref.getString("PassWord", ""));//4
         UserName = pref.getString("UserName", "");//5
+        this.arraySpinner=new String [] {"أعتذر عن الإجتماع لظروف طارئة","أعتذر عن الإجتماع لظروف خاصة","أعتذر عن الإجتماع لظروف صحية","أعتذر عن الإجتماع لظروف عائلية","أعتذر عن الإجتماع لتغير جدول أعمالي"};
+        spinnerCode=new String[]{"emergencies","personalReasons","healthIssues","familyReasons","Business"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,arraySpinner);
 
         //============================================DalalPART=========================================
         //retrieve the value of the venueID
         venueID = (getIntent().getExtras().getString("venueId"));
         cd                 = new connectionDetector(this);
         cancelInv          = (Button) findViewById(R.id.button10);
-        apologizeMeass     = (EditText) findViewById(R.id.editText);
+        //apologizeMeass     = (EditText) findViewById(R.id.editText);
+        apolgies           = (Spinner) findViewById(R.id.spinner2);
+        apolgies.setAdapter(adapter);
 
-        if(!apologizeMeass.getText().toString().equals(null))
-        {
-            message=apologizeMeass.getText().toString();
+         message=apolgies.getSelectedItem().toString();
             System.out.println("*************************"+message+"*******************************");
-        }
+
 
 
 
@@ -93,15 +101,15 @@ public class cancelInvitationLayout extends AppCompatActivity {
 
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
-                            if(!apologizeMeass.getText().toString().equals(null)) {
+                            if(!(apolgies.toString()).equals(null)) {
 
                                 if (cd.icConnected() && !venueID.equals(null)) {
 
-                                    message = apologizeMeass.getText().toString();
+                                    message = apolgies.getSelectedItem().toString();
                                     System.out.println("*************************" + message + "*******************************");
 
-
-                                    cancel();
+                                    String str= cancelationCode(message);
+                                    cancel(str);
                                     Intent intent = new Intent(cancelInvitationLayout.this, invitationOptiens.class);
                                     startActivity(intent);
                                 } else {
@@ -119,7 +127,20 @@ public class cancelInvitationLayout extends AppCompatActivity {
 
     }
 
-    public void cancel ()
+    public String cancelationCode(String m){
+        String str =null;
+        int  length = arraySpinner.length;
+
+        for (int i=0;i<length;i++)
+        if(arraySpinner[i].equals(m))
+        {  str=spinnerCode[i];System.out.print("str= "+str+"m= "+m);}
+
+
+             return str;
+
+    }
+
+    public void cancel (String message)
     {    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
        StrictMode.setThreadPolicy(policy);
 
