@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E1DDD1"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+
+        >
+
+        <ImageView
+            android:id="@+id/imageViewdelete"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/pasket"
+
+            />
+
+        <TextView
+
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="name"
+            android:textColor="#7a5a23"
+            android:textSize="18sp"
+
+
+            />
+
+        <TextView
+            android:id="@+id/textViewPlace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textViewName"
+            android:layout_marginEnd="22dp"
+            android:layout_marginRight="22dp"
+            android:text="place"
+            android:textSize="18sp" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

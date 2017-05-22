@@ -47,6 +47,7 @@ public class editProfileAdmin extends AppCompatActivity {
     public InputStream is ;
     String line = null;
     String result = null;
+    connectionDetector cd ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,10 @@ public class editProfileAdmin extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        cd = new connectionDetector(this);
 
+
+        if (cd.icConnected()) {
         ///////////////////////////////////////////////////
         try {
             HttpClient httpClient = new DefaultHttpClient();
@@ -110,7 +114,8 @@ public class editProfileAdmin extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
+    }else
+    { Toast.makeText(editProfileAdmin.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
     }
 
 
@@ -120,92 +125,108 @@ public class editProfileAdmin extends AppCompatActivity {
 
     public void dat (View view)
     {
+        edit();
 
+
+       }
+
+
+    public void Back(View v){
+       edit();
+    }
+
+    public void edit(){
 
         Namee =nameUs.getText().toString();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(editProfileAdmin.this);
-        builder.setMessage("هل انت متأكد تريد حفظ التعديلات ؟");
-        builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+        if(Namee.isEmpty()||Namee.length()>20) {
+            nameUs.setError("ادخل اسمك ");
+            Toast.makeText(editProfileAdmin.this, " فشل التعديل ", Toast.LENGTH_LONG).show();
+        } else {
+
+            if (!(Namee.contains(result))){
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(editProfileAdmin.this);
+                builder.setMessage("هل انت متأكد تريد حفظ التعديلات ؟");
+                builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
 
 
-            public void onClick(DialogInterface dialog, int id) {
+                    public void onClick(DialogInterface dialog, int id) {
 
-                //do things
-            }
-        });
-
-
-        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                if (!(Namee.contains(result))){
-
-
-
-                    List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
-
-                    nameValuePair.add(new BasicNameValuePair("Namee", Namee));
-                    try {
-                        HttpClient httpClient = new DefaultHttpClient();
-                        HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/editNameAdmin.php?UserName=" + UserName);
-                        httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
-                        HttpResponse response = httpClient.execute(httpPost);
-                        HttpEntity entity = response.getEntity();
-                        iss = entity.getContent();
-
-
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    } catch (ClientProtocolException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        Intent in = new Intent(editProfileAdmin.this, admienprofile.class);
+                        startActivity(in);
 
                     }
-                    try {
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(iss, "iso-8859-1"), 8);
-                        StringBuilder sb = new StringBuilder();
-                        while ((linee = reader.readLine()) != null) {
-                            sb.append(linee + "\n");
-                        }
-                        iss.close();
-                        resulte = sb.toString();
-                        //test the query
-                        if (resulte.contains("true")) {
-                            System.out.println("************************ result " + resulte + "**********************************************");
-                            String msg = "تم تعديل اسمك ";
-                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                });
+
+
+                builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+
+
+
+                        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
+
+                        nameValuePair.add(new BasicNameValuePair("Namee", Namee));
+                        try {
+                            HttpClient httpClient = new DefaultHttpClient();
+                            HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/editNameAdmin.php?UserName=" + UserName);
+                            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+                            HttpResponse response = httpClient.execute(httpPost);
+                            HttpEntity entity = response.getEntity();
+                            iss = entity.getContent();
+
+
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        } catch (ClientProtocolException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
 
                         }
-                        else{
-                            String msg = "لم يتم تعديل اسمك ";
-                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                        try {
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(iss, "iso-8859-1"), 8);
+                            StringBuilder sb = new StringBuilder();
+                            while ((linee = reader.readLine()) != null) {
+                                sb.append(linee + "\n");
+                            }
+                            iss.close();
+                            resulte = sb.toString();
+                            //test the query
+                            if (resulte.contains("true")) {
+                                System.out.println("************************ result " + resulte + "**********************************************");
+                                String msg = "تم تعديل اسمك ";
+                                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+
+                            }
+                            else{
+                                String msg = "لم يتم تعديل اسمك ";
+                                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+                        catch(Exception e)
+                        {
+                            Log.e("Fail 2", e.toString());
                         }
 
+
+
+
+                        Intent in = new Intent(editProfileAdmin.this, admienprofile.class);
+                        startActivity(in);
                     }
-                    catch(Exception e)
-                    {
-                        Log.e("Fail 2", e.toString());
-                    }
+                });
 
-                }
+                AlertDialog alert = builder.create();
+                alert.show();
 
 
-                Intent in = new Intent(editProfileAdmin.this, admienprofile.class);
-                startActivity(in);
-            }
-        });
-
-        AlertDialog alert = builder.create();
-        alert.show();
-
-
-
-    }
-
-    public void Back(View v){
-        Intent in = new Intent(editProfileAdmin.this, admienprofile.class);
-        startActivity(in);
+            }else {String msg = "لا يوجد تعديل ";
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();}
+        }
     }
 }
 

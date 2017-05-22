@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_invititioncretion"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context="com.example.acer.myapplication.invititioncretion">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        >
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:onClick="Back"
+                    android:text=""
+                    android:background="@drawable/arow"
+                    android:layout_width="40sp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView30"
+                    android:layout_weight="0.74" />
+
+                <TextView
+                    android:text=""
+                    android:layout_width="200sp"
+                    android:layout_height="50sp"
+                    android:background="@drawable/zwara_word"
+                    android:id="@+id/textView34" />
+
+                <TextView
+
+                    android:text=""
+                    android:layout_width="40sp"
+                    android:background="@drawable/person"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView29"
+                    android:layout_weight="1"
+                    android:onClick="openprofile"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="إنشاء دعوة"
+                android:textAlignment="center"
+                android:textColor="#D98518"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawableRight="@drawable/inv_name"
+                    android:ems="20"
+                    android:hint="اسم الدعوة:"
+                    android:inputType="textPersonName"
+                    android:selectAllOnFocus="false"
+                    android:singleLine="false"
+                    android:textColor="#A49279"
+                    android:textSize="20sp"
+                    android:textStyle="normal|bold"
+
+
+                    />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:gravity="right"
+                android:inputType="textPersonName"
+                android:text="الوقت:"
+                android:textColor="#7a5a23"
+                android:textSize="20sp"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:id="@+id/timeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="أرجو اختيار الوقت"
+
+                />
+
+            <Button
+                android:id="@+id/TimeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/colorPressedHighlight"
+                android:onClick="onButtonClickedTime"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="تحديد الوقت"
+                android:textColor="@color/common_google_signin_btn_text_dark_default"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:enabled="false"
+                android:text="التاريخ:"
+                android:textColor="#7a5a23"
+                android:textSize="20sp"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:id="@+id/Datetext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="أرجوا اختيار التاريخ"
+
+                />
+
+            <Button
+                android:id="@+id/DateBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/colorPressedHighlight"
+                android:onClick="onButtonClickedDate"
+
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="تحديد التاريخ"
+                android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+            <EditText
+                android:id="@+id/editText3"
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                android:drawableRight="@drawable/place"
+                android:ems="10"
+                android:hint="اسم المكان:"
+                android:inputType="textPersonName"
+                android:textColor="#7a5a23"
+                android:textSize="20sp"
+                android:textStyle="normal|bold"
+
+
+                />
+
+            <TextView
+                android:id="@+id/textView38"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="الموقع:"
+                android:textColor="#7a5a23"
+                android:textSize="20sp"
+                android:textStyle="normal|bold" />
+
+            <Button
+                android:id="@+id/MapBtn"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/colorPressedHighlight"
+                android:onClick="onButtonClickedMap"
+                android:text="الذهاب إلى الخريطة"
+                android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+
+            <EditText
+                android:id="@+id/editText4"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:ems="10"
+                android:hint="معلومات إضافية"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                android:textStyle="normal|bold" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="356dp"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+
+                <Button
+                    android:onClick="list"
+                    android:text=""
+                    android:background="@drawable/send_botn"
+                    android:layout_width="110dp"
+                    android:layout_height="54dp"
+                    android:id="@+id/button3" />
+
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="110dp"
+                    android:layout_height="54dp"
+                    android:background="@drawable/save"
+                    android:onClick="SaveInvitation"
+                    android:text="" />
+
+                <Button
+                    android:id="@+id/button14"
+                    android:layout_width="112dp"
+                    android:layout_height="51dp"
+                    android:background="@drawable/no"
+                    android:onClick="Back"
+                    android:text="" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

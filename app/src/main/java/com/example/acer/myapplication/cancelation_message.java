@@ -52,6 +52,7 @@ public class cancelation_message extends AppCompatActivity {
         sug= (Button)findViewById(R.id.sug);
         ignor= (Button)findViewById(R.id.ignor);
         accept= (Button)findViewById(R.id.accept);
+        cd= new connectionDetector(this);
 
 
 //==============================================================================================================
@@ -87,6 +88,14 @@ public class cancelation_message extends AppCompatActivity {
             result=result.replace('"',' ');
             result=result.replace(']',' ');
             result=result.replace('[',' ');
+            result=result.replace("emergencies","اعتذر عن الاجتماع لظروف طارئة");
+            result=result.replace("personalReasons","اعتذر عن الاجتماع لظروف خاصة");
+            result=result.replace("healthIssues","اعتذر عن الاجتماع لظروف صحية");
+            result=result.replace("familyReasons","اعتذر عن الاجتماع لظروف عائلية");
+            result=result.replace("Business","اعتذر عن الاجتماع لتغير جدول اعمالي");
+
+
+
             int length =result.length();
             String sreOne =result.substring(1,length-2);
 

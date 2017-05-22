@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.example.acer.myapplication.Activity.MyFriendList;
+
 public class homeuser extends AppCompatActivity implements View.OnClickListener {
     final String TAG = this.getClass().getName();
 
@@ -56,6 +58,12 @@ public class homeuser extends AppCompatActivity implements View.OnClickListener 
         startActivity(intent);
    }
 
+    public void friends(View view) {
+
+        //Intent intent = new Intent(homeuser.this, frind.class);
+        Intent intent = new Intent(homeuser.this, MyFriendList.class);
+        startActivity(intent);
+    }
 
 
 

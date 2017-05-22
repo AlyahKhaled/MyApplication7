@@ -76,6 +76,8 @@ public class invitations extends AppCompatActivity {
             HttpEntity entity = response.getEntity();
             is = entity.getContent();
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+
+
             StringBuilder sb = new StringBuilder();
             while ((line = reader.readLine()) != null)
             sb.append(line + "\n");
