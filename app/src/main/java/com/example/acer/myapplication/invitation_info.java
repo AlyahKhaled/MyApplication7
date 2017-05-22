@@ -103,15 +103,17 @@ public class invitation_info extends AppCompatActivity {
                 result=result.replace(']',' ');
                 result=result.replace('[',' ');
                 result=result.replace("null","لا توجد معلومات اضافية ");
-                result=result.replace("Be on time","                                          تعالوا في الوقت ");
-                result=result.replace("No Kids allowed","                                  يمنع اصطحاب الاطفال ");
-                result=result.replace("Job meeting","                                              اجتماع عمل ");
-                result=result.replace("Allowed to bring friends ","                          يمكنك احضتر مرافق ");
-                result=result.replace("Celebration party","                                        حفلة معايدة ");
-                result=result.replace("No Kids allowed","                                    يمنع اصطحاب الاطفال ");
-                result=result.replace("Friends gathering","                                        اجتماع اصدقاء ");
-                result=result.replace("Children party","                                              حفلة اطفال ");
-                result=result.replace("Graduation party","                                               حفلة نجاح ");
+                result=result.replace("Be on time"," تعالوا في الوقت ");
+                result=result.replace("No Kids allowed","  يمنع اصطحاب الاطفال ");
+                result=result.replace("Job meeting","   اجتماع عمل ");
+                result=result.replace("Allowed to bring friends "," يمكنك احضتر مرافق ");
+                result=result.replace("Celebration party","  حفلة معايدة ");
+                result=result.replace("No Kids allowed","   يمنع اصطحاب الاطفال ");
+                result=result.replace("Friends gathering","   اجتماع اصدقاء ");
+                result=result.replace("Children party","     حفلة اطفال ");
+                result=result.replace("Graduation party"," حفلة نجاح ");
+                result=result.replace("Home"," المنزل ");
+                result=result.replace("Outside"," خارج المنزل ");
 
                 int length =result.length();
 
