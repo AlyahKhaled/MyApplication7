@@ -1,11 +1,14 @@
 package com.example.acer.myapplication;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,9 +77,11 @@ public class apologization_not extends AppCompatActivity {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
             StringBuilder sb = new StringBuilder();
             while ((line = reader.readLine()) != null)
-                sb.append(line + "\n");
+            sb.append(line + "\n");
             result = sb.toString();
             result = result.replace('"',' ');
+
+
 
             int length = result.length();
             String sreOne = result.substring(1, length - 2);
@@ -85,6 +90,7 @@ public class apologization_not extends AppCompatActivity {
             result = sb.toString();
             arr = sreOne.split(",");
 
+             if(arr[0]!=null){notification();}
 
             listitems = new ArrayList<>(Arrays.asList(arr));
             CustomAdapter Adapter = new CustomAdapter(listitems);
@@ -122,7 +128,7 @@ public class apologization_not extends AppCompatActivity {
             //exception handel code
         }
     } else
-        { Toast.makeText(apologization_not.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
+        { Toast.makeText(apologization_not.this,"حدث خطأ في الإتصال!",Toast.LENGTH_SHORT).show();}}
 
     //==============================================================================================================
     public void display(String  text ){
@@ -200,6 +206,21 @@ public class apologization_not extends AppCompatActivity {
         }
 
 
+    }
+
+    public void notification(){
+
+
+        NotificationCompat.Builder notification=(NotificationCompat.Builder)new NotificationCompat.Builder(this)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setSmallIcon(R.drawable.zwarahlogo)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.zwarahlogo))
+                .setContentTitle("Notification")
+                .setContentText("You have a apologize ");
+
+        NotificationManager NotificationManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        NotificationManager.notify(1,notification.build());
     }
 
 
