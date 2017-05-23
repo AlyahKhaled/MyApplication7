@@ -109,6 +109,7 @@ public class invitation_info extends AppCompatActivity {
                 result=result.replace("additional Information","معلومات اضافية");
                 result=result.replace("Place Name","اسم المكان");
                 result=result.replace("null","لا توجد معلومات اضافية ");
+                result=result.replace("No additional information","لا توجد معلومات اضافية ");
                 result=result.replace("Be on time"," تعالوا في الوقت ");
                 result=result.replace("No Kids allowed","  يمنع اصطحاب الاطفال ");
                 result=result.replace("Job meeting","   اجتماع عمل ");
