@@ -34,7 +34,6 @@ public class homeuser extends AppCompatActivity implements View.OnClickListener 
 
     }
 
-
     public void onClick(View v) {
         Intent intent = new Intent(homeuser.this,profileuser.class);
         startActivity(intent);}
@@ -60,8 +59,12 @@ public class homeuser extends AppCompatActivity implements View.OnClickListener 
 
     public void friends(View view) {
 
-        //Intent intent = new Intent(homeuser.this, frind.class);
         Intent intent = new Intent(homeuser.this, MyFriendList.class);
+        startActivity(intent);
+    }
+    public void profile(View view) {
+
+        Intent intent = new Intent(homeuser.this, profileuser.class);
         startActivity(intent);
     }
 

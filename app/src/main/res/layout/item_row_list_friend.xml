@@ -30,8 +30,6 @@
             android:text="name"
             android:textColor="#7a5a23"
             android:textSize="18sp"
-
-
             />
 
         <TextView

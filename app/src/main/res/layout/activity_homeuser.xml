@@ -27,6 +27,7 @@
 
 
     <ImageButton
+        android:onClick="profile"
         android:layout_width="80dp"
         android:layout_height="71dp"
         tools:layout_editor_absoluteY="71dp"
@@ -62,9 +63,9 @@
         tools:layout_editor_absoluteY="57dp"
         tools:layout_editor_absoluteX="192dp"
         android:layout_marginRight="14dp"
+        android:layout_marginEnd="18dp"
         android:layout_below="@+id/imageView"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="27dp"
         android:layout_above="@+id/imageButton9" />
 
     <ImageButton

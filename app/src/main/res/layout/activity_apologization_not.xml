@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/background"
     android:layout_height="match_parent"
     tools:context="com.example.acer.myapplication.apologization_not">
 
@@ -56,10 +57,7 @@
         android:layout_centerHorizontal="true" />
 
     <ListView
-        android:background="@drawable/picture3"
         android:id="@+id/list"
-        android:divider="#A06A19"
-        android:dividerHeight="2dp"
         android:layout_weight="1"
         android:textAlignment="center"
         android:layout_width="match_parent"
