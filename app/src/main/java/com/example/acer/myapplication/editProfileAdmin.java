@@ -225,7 +225,10 @@ public class editProfileAdmin extends AppCompatActivity {
 
 
             }else {String msg = "لا يوجد تعديل ";
-                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();}
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                Intent in = new Intent(editProfileAdmin.this, admienprofile.class);
+                startActivity(in);
+            }
         }
     }
 }
