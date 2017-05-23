@@ -40,6 +40,7 @@ public class invitatonssaved extends AppCompatActivity {
     ListView listViewFriendList;
     private MyCustomAdapter myCustomAdapter;
     List<Invitation> invitations;
+    View view2;
 
     public void openprofile(View v) {
         Intent intent = new Intent(invitatonssaved.this, profileuser.class);
@@ -191,6 +192,13 @@ public class invitatonssaved extends AppCompatActivity {
 
             TextView txtname = (TextView) view.findViewById(R.id.textView);
             txtname.setText(getInvitationName(Item.get(position).getInvitationTopic()));
+
+            view2 = inflater.inflate(R.layout.empty_list, null);
+            TextView textView2 = (TextView) view2.findViewById(R.id.textView4);
+            textView2.setText(" لا توجد دعوات محفوظة :(");
+
+
+
 
             ImageButton friends = (ImageButton) view.findViewById(R.id.imageButton12);
             friends.setOnClickListener(new View.OnClickListener() {

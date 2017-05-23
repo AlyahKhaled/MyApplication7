@@ -215,7 +215,8 @@ public class sentInveDetales extends AppCompatActivity {
             i = i + 3;
         }
 //================================ now fill the list view with the names============================
-         if(!Suggestions.isEmpty()){notification();}
+         if(!Suggestions.get(0).equals(null)){notification();}
+
         presentTextView.setText("الحاضرين : " + Present.size());
         AppsentTextView.setText("الغير حاضريـن" + Appsents.size());
         suggestionTextView.setText("الإقتراحــات" + Suggestions.size());
@@ -258,7 +259,7 @@ public class sentInveDetales extends AppCompatActivity {
                 .setSmallIcon(R.drawable.zwarahlogo)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.zwarahlogo))
                 .setContentTitle("Notification")
-                .setContentText("You have a apologize ");
+                .setContentText("لديك اقتراح جديد ");
 
         NotificationManager NotificationManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 

@@ -90,7 +90,7 @@ public class apologization_not extends AppCompatActivity {
             result = sb.toString();
             arr = sreOne.split(",");
 
-             if(arr[0]!=null){notification();}
+             if(!arr[0].equals("ul")){notification();}
 
             listitems = new ArrayList<>(Arrays.asList(arr));
             CustomAdapter Adapter = new CustomAdapter(listitems);
@@ -216,7 +216,7 @@ public class apologization_not extends AppCompatActivity {
                 .setSmallIcon(R.drawable.zwarahlogo)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.zwarahlogo))
                 .setContentTitle("Notification")
-                .setContentText("You have a apologize ");
+                .setContentText("لديك تنبيه ");
 
         NotificationManager NotificationManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
