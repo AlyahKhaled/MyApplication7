@@ -308,22 +308,6 @@ public class invititioncretion extends AppCompatActivity {
         }
         Log.d("DEBUG","Place name:"+PlaceName);
 
-        /*
-        if (isEditTime){
-            Toast.makeText(getApplicationContext(),
-                    "يجب اختيار الوقت!", Toast.LENGTH_SHORT)
-                    .show();
-            return 1;
-
-        }
-
-        if (isEditDate){
-            Toast.makeText(getApplicationContext(),
-                    "يجب اختيار التاريخ!", Toast.LENGTH_SHORT)
-                    .show();
-            return 1;
-
-        }*/
 
         TimeInfo=Time.getText().toString();
 
@@ -375,25 +359,32 @@ public class invititioncretion extends AppCompatActivity {
     // A methodb that go to friend list page and send the modt important information with the intent
     public  void list (View view)
     {
-        int result= GetInfo();
-        if(result==0) {
-            String username=pref.getString("UserName", ""); // 5 after intilisatien
-            Intent intent = new Intent(invititioncretion.this, friendslist.class);
-            Bundle bundle=new Bundle();
-            bundle.putDouble("latitude" , latitude);
-            bundle.putDouble("longitude", longitude);
-            bundle.putString("InvitationName",InvitationName);
-            bundle.putString("AdditionalInfo",AdditionalInfo);
-            bundle.putString("DateTxt",DateTxt);
-            bundle.putString("TimeTxt",TimeTxt);
-            Log.d("DEBUG","Place name:"+PlaceName);
-            bundle.putString("PlaceName",PlaceName);
-            bundle.putString("InviterName",username);
-            //define that it is a new invitation
-            bundle.putString("path","new");
-            intent.putExtras(bundle);
-            startActivity(intent);
+        if(isNetworkAvailable())
+        {
+
+            int result = GetInfo();
+            if (result == 0) {
+                String username = pref.getString("UserName", ""); // 5 after intilisatien
+                Intent intent = new Intent(invititioncretion.this, friendslist.class);
+                Bundle bundle = new Bundle();
+                bundle.putDouble("latitude", latitude);
+                bundle.putDouble("longitude", longitude);
+                bundle.putString("InvitationName", InvitationName);
+                bundle.putString("AdditionalInfo", AdditionalInfo);
+                bundle.putString("DateTxt", DateTxt);
+                bundle.putString("TimeTxt", TimeTxt);
+                Log.d("DEBUG", "Place name:" + PlaceName);
+                bundle.putString("PlaceName", PlaceName);
+                bundle.putString("InviterName", username);
+                //define that it is a new invitation
+                bundle.putString("path", "new");
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
         }
+        else
+            Toast.makeText(invititioncretion.this, "أنت غير متصل بالشبكة, الرجاء الاتصال بالشبكة وإعادة المحاولة", Toast.LENGTH_LONG).show();
+
 
 
     }
@@ -563,30 +554,6 @@ public class invititioncretion extends AppCompatActivity {
         builder.show();
 
     }
-//    private void showDialog() {
-//        AlertDialog.Builder builder1 = new AlertDialog.Builder(getApplicationContext());
-//        builder1.setMessage("هل انت متاكد؟ ");
-//        builder1.setCancelable(true);
-//        builder1.create();
-//        builder1.setPositiveButton(
-//                "نعم",
-//                new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                       //SaveInvitation();
-//                        saveInvitationMethod();
-//                    }
-//                });
-//
-//        builder1.setNegativeButton(
-//                "لا",
-//                new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-////                        dialog.cancel();
-//                    }
-//                });
-//
-//        builder1.show();
-//    }
 
     private void saveInvitationMethod() {
 

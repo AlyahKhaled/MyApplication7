@@ -43,6 +43,7 @@ public class friendslist extends AppCompatActivity implements View.OnClickListen
     Map<Integer,String> friends = new HashMap<Integer,String>();
     SharedPreferences pref;
     Button button22;
+    public boolean flag=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class friendslist extends AppCompatActivity implements View.OnClickListen
                 if (response.isSuccessful()) {
                     Log.d(TAG,response.body()+"");
                     if (response.body() != null) {
+                        try{
                         if (response.body().getFriends().size() == 0) {
                             Toast.makeText(friendslist.this, "لم يتم العثور على أي أصدقاء.", Toast.LENGTH_SHORT).show();
                         } else {
@@ -81,6 +83,14 @@ public class friendslist extends AppCompatActivity implements View.OnClickListen
                             MyCustomAdapter myCustomAdapter = new MyCustomAdapter(friends);
                             final ListView listViewFriendList = (ListView) findViewById(R.id.list);
                             listViewFriendList.setAdapter(myCustomAdapter);
+                            flag = false;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                        if (flag) {
+                            Toast.makeText(friendslist.this, "لا يوجد أي أصدقاء.", Toast.LENGTH_SHORT).show();
+                            ((TextView) findViewById(R.id.textView20)).setVisibility(View.VISIBLE);
                         }
                     }else{
                         Toast.makeText(friendslist.this, "لم يتم العثور على أي أصدقاء.", Toast.LENGTH_SHORT).show();

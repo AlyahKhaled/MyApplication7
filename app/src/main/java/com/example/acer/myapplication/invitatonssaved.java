@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +43,8 @@ public class invitatonssaved extends AppCompatActivity {
     private MyCustomAdapter myCustomAdapter;
     List<Invitation> invitations;
     View view2;
+    public boolean flag=true;
+
 
     public void openprofile(View v) {
         Intent intent = new Intent(invitatonssaved.this, profileuser.class);
@@ -65,37 +69,52 @@ public class invitatonssaved extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        String username = pref.getString("UserName", "");
-        mAPIService.getInvitations(username).enqueue(new Callback<InvitationResponse>() {
-            @Override
-            public void onResponse(Call<InvitationResponse> call, Response<InvitationResponse> response) {
-                Log.d(TAG, "post response");
-                Log.d(TAG, response.code() + "");
-                if (response.isSuccessful()) {
-                    Log.d(TAG, response.body() + "");
+        if(isNetworkAvailable()) {
+            try {
+                String username = pref.getString("UserName", "");
+                mAPIService.getInvitations(username).enqueue(new Callback<InvitationResponse>() {
+                    @Override
+                    public void onResponse(Call<InvitationResponse> call, Response<InvitationResponse> response) {
+                        Log.d(TAG, "post response");
+                        Log.d(TAG, response.code() + "");
+                        if (response.isSuccessful()) {
+                            Log.d(TAG, response.body() + "");
 
-                    try {
-                        if (response.body().getInvitations().size() == 0) {
-                            Toast.makeText(invitatonssaved.this, "لا يوجد أي دعوات.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            //display in the adapter
-                            invitations = response.body().getInvitations();
-                            myCustomAdapter = new MyCustomAdapter(invitations);
-                            listViewFriendList = (ListView) findViewById(R.id.list);
-                            listViewFriendList.setAdapter(myCustomAdapter);
+                            try {
+                                if (response.body().getInvitations().size() == 0) {
+                                    Toast.makeText(invitatonssaved.this, "لا يوجد أي دعوات.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    //display in the adapter
+                                    invitations = response.body().getInvitations();
+                                    myCustomAdapter = new MyCustomAdapter(invitations);
+                                    listViewFriendList = (ListView) findViewById(R.id.list);
+                                    listViewFriendList.setAdapter(myCustomAdapter);
+                                    flag = false;
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            if (flag) {
+                                Toast.makeText(invitatonssaved.this, "لا يوجد أي دعوات.", Toast.LENGTH_SHORT).show();
+                                ((TextView) findViewById(R.id.textView14)).setVisibility(View.VISIBLE);
+                            }
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
-                }
-            }
 
-            @Override
-            public void onFailure(Call<InvitationResponse> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<InvitationResponse> call, Throwable t) {
 
-                Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
+                        Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
+                    }
+                });
+                //
+            } catch (Exception e) {
+                Log.e(TAG, "Unable to submit post to API. " + e.getMessage());
             }
-        });
+        }
+        else
+            Toast.makeText(invitatonssaved.this, "أنت غير متصل بالشبكة, الرجاء الاتصال بالشبكة وإعادة المحاولة", Toast.LENGTH_LONG).show();
+
     }
 
     public void Back(View view) {
@@ -110,57 +129,71 @@ public class invitatonssaved extends AppCompatActivity {
 
     public void deleteAllInv(View view) {
 
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        //return the saved invitations
-                        mAPIService = ApiUtils.getAPIService();
-                        String username = pref.getString("UserName", "");
-                        mAPIService.deleteInvitations(username).enqueue(new Callback<String>() {
-                            @Override
-                            public void onResponse(Call<String> call, Response<String> response) {
-                                Log.i("AppInfo", response.body().toString());
-                                if (response.isSuccessful() && invitations!= null && !invitations.isEmpty()) {
-                                    if (response.body().equals("yes")) {
-                                        Toast.makeText(invitatonssaved.this, "تم حذف الدعوات.", Toast.LENGTH_SHORT).show();
-                                        invitations.clear();
-                                        myCustomAdapter.notifyDataSetChanged();
+        if(isNetworkAvailable()) {
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            //return the saved invitations
+                            try {
+                                mAPIService = ApiUtils.getAPIService();
+                                String username = pref.getString("UserName", "");
+                                mAPIService.deleteInvitations(username).enqueue(new Callback<String>() {
+                                    @Override
+                                    public void onResponse(Call<String> call, Response<String> response) {
+                                        Log.i("AppInfo", response.body().toString());
+                                        if (response.isSuccessful() && invitations != null && !invitations.isEmpty()) {
+                                            if (response.body().equals("yes")) {
+                                                Toast.makeText(invitatonssaved.this, "تم حذف الدعوات.", Toast.LENGTH_SHORT).show();
+                                                invitations.clear();
+                                                myCustomAdapter.notifyDataSetChanged();
 
 //                                    Intent intent = new Intent(getApplicationContext(), homeuser.class);
 //                                    startActivity(intent);
-                                    } else {
-                                        Toast.makeText(getApplicationContext(), "لا توجد دعوات محفوظة", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), "لا توجد دعوات محفوظة", Toast.LENGTH_SHORT).show();
+                                            }
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "لا توجد دعوات محفوظة", Toast.LENGTH_SHORT).show();
+                                            ;
+
+                                        }
                                     }
-                                }else{
-                                    Toast.makeText(getApplicationContext(), "لا توجد دعوات محفوظة", Toast.LENGTH_SHORT).show();;
+                                    @Override
+                                    public void onFailure(Call<String> call, Throwable t) {
+                                        Log.i("AppInfo", "Error on deleting invitations: " + t.toString());
+                                    }
+                                });
+                    } catch (Exception e) {
+                        Log.e(TAG, "Unable to submit post to API. " + e.getMessage());
+                    }
+                            break;
 
-                                }
-                            }
-
-
-                            @Override
-                            public void onFailure(Call<String> call, Throwable t) {
-                                Log.i("AppInfo", "Error on deleting invitations: " + t.toString());
-                            }
-                        });
-
-                        break;
-
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        //No button clicked
-                        break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            //No button clicked
+                            break;
+                    }
                 }
-            }
-        };
+            };
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("برجاء تأكيد الحذف?").setPositiveButton("Yes", dialogClickListener)
-                .setNegativeButton("No", dialogClickListener).show();
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("الرجاء تأكيد الحذف?").setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show();
+        }
+        else
+            Toast.makeText(invitatonssaved.this, "أنت غير متصل بالشبكة, الرجاء الاتصال بالشبكة وإعادة المحاولة", Toast.LENGTH_LONG).show();
 
     }
+
+    //check if there is network before an action
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 
     class MyCustomAdapter extends BaseAdapter {
 
@@ -205,6 +238,8 @@ public class invitatonssaved extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //if i want to send
+                    if(isNetworkAvailable())
+                    {
                     String ID = Item.get(position).getID();
                     Intent intent = new Intent(invitatonssaved.this, friendslist.class);
                     Bundle bundle = new Bundle();
@@ -212,6 +247,11 @@ public class invitatonssaved extends AppCompatActivity {
                     bundle.putString("ID", ID);
                     intent.putExtras(bundle);
                     startActivity(intent);
+                    }
+
+                    else
+                        Toast.makeText(invitatonssaved.this, "أنت غير متصل بالشبكة, الرجاء الاتصال بالشبكة وإعادة المحاولة", Toast.LENGTH_LONG).show();
+
                 }
             });
 
@@ -220,12 +260,19 @@ public class invitatonssaved extends AppCompatActivity {
             save.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(isNetworkAvailable())
+                    {
                     String ID = Item.get(position).getID();
                     Intent intent = new Intent(invitatonssaved.this, invititioncretion.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("ID", ID);
                     intent.putExtras(bundle);
                     startActivity(intent);
+                    }
+
+                    else
+                        Toast.makeText(invitatonssaved.this, "أنت غير متصل بالشبكة, الرجاء الاتصال بالشبكة وإعادة المحاولة", Toast.LENGTH_LONG).show();
+
                 }
             });
 
@@ -234,34 +281,41 @@ public class invitatonssaved extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //if i want to delete an invitation
+                    if(isNetworkAvailable())
+                    {
                     String ID = Item.get(position).getID();
 
-                    mAPIService = ApiUtils.getAPIService();
-                    mAPIService.deleteInvitation(ID).enqueue(new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, Response<String> response) {
-                            Log.d(TAG, "post response");
-                            Log.d(TAG, response.code() + "");
-                            if (response.isSuccessful()) {
-                                Log.d(TAG, response.body() + "");
+                        mAPIService = ApiUtils.getAPIService();
+                        mAPIService.deleteInvitation(ID).enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                Log.d(TAG, "post response");
+                                Log.d(TAG, response.code() + "");
+                                if (response.isSuccessful()) {
+                                    Log.d(TAG, response.body() + "");
 
-                                if (response.body().equals("no")) {
-                                    Toast.makeText(invitatonssaved.this, "Invitation not deleted.", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(invitatonssaved.this, "Invitation deleted.", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(invitatonssaved.this, invitatonssaved.class);
-                                    startActivity(intent);
-                                    finish();
+                                    if (response.body().equals("no")) {
+                                        Toast.makeText(invitatonssaved.this, "Invitation not deleted.", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(invitatonssaved.this, "Invitation deleted.", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(invitatonssaved.this, invitatonssaved.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
 
-                            Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
-                        }
-                    });
+                                Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
+                            }
+                        });
+
+                }
+                    else
+                        Toast.makeText(invitatonssaved.this, "أنت غير متصل بالشبكة, الرجاء الاتصال بالشبكة وإعادة المحاولة", Toast.LENGTH_LONG).show();
+
                 }
             });
 
