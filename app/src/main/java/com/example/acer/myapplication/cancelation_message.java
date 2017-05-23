@@ -88,6 +88,15 @@ public class cancelation_message extends AppCompatActivity {
             result=result.replace('"',' ');
             result=result.replace(']',' ');
             result=result.replace('[',' ');
+            result=result.replace("Job meeting","اجتماع عمل ");
+            result=result.replace("Friends gathering","اجتماع اصدقاء ");
+            result=result.replace("Children party"," حفلة اطفال ");
+            result=result.replace("Graduation party"," حفلة نجاح ");
+            result=result.replace("invitationTopic","عنوان الرسالة");
+            result=result.replace("null","لا توجد رسالة اعتذار");
+            result=result.replace("Apologies Message","رسالة الاعتذار");
+            result=result.replace("Date of the event","اليوم");
+            result=result.replace("Time of the event","الوقت");
             result=result.replace("emergencies","اعتذر عن الاجتماع لظروف طارئة");
             result=result.replace("personalReasons","اعتذر عن الاجتماع لظروف خاصة");
             result=result.replace("healthIssues","اعتذر عن الاجتماع لظروف صحية");
@@ -113,7 +122,7 @@ public class cancelation_message extends AppCompatActivity {
             e.printStackTrace();
         }
     }else
-        { Toast.makeText(cancelation_message.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
+        { Toast.makeText(cancelation_message.this,"حدث خطأ في الإتصال!",Toast.LENGTH_SHORT).show();}}
 
 
     public void Back (View view)

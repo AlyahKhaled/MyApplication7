@@ -1,13 +1,16 @@
 package com.example.acer.myapplication;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -212,7 +215,7 @@ public class sentInveDetales extends AppCompatActivity {
             i = i + 3;
         }
 //================================ now fill the list view with the names============================
-
+         if(!Suggestions.isEmpty()){notification();}
         presentTextView.setText("الحاضرين : " + Present.size());
         AppsentTextView.setText("الغير حاضريـن" + Appsents.size());
         suggestionTextView.setText("الإقتراحــات" + Suggestions.size());
@@ -245,6 +248,21 @@ public class sentInveDetales extends AppCompatActivity {
     {
         Intent intent = new Intent(sentInveDetales.this,profileuser.class);
         startActivity(intent);
+    }
+
+    public void notification(){
+
+
+        NotificationCompat.Builder notification=(NotificationCompat.Builder)new NotificationCompat.Builder(this)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setSmallIcon(R.drawable.zwarahlogo)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.zwarahlogo))
+                .setContentTitle("Notification")
+                .setContentText("You have a apologize ");
+
+        NotificationManager NotificationManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        NotificationManager.notify(1,notification.build());
     }
 
 

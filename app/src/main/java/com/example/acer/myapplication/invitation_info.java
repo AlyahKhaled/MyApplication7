@@ -102,6 +102,12 @@ public class invitation_info extends AppCompatActivity {
                 result=result.replace('"',' ');
                 result=result.replace(']',' ');
                 result=result.replace('[',' ');
+                result=result.replace("Invitation Name","اسم الدعوة");
+                result=result.replace("Inviter UserName","اسم الداعي");
+                result=result.replace("Date of the event","اليوم");
+                result=result.replace("Time of the event","الوقت");
+                result=result.replace("additional Information","معلومات اضافية");
+                result=result.replace("Place Name","اسم المكان");
                 result=result.replace("null","لا توجد معلومات اضافية ");
                 result=result.replace("Be on time"," تعالوا في الوقت ");
                 result=result.replace("No Kids allowed","  يمنع اصطحاب الاطفال ");
@@ -213,7 +219,7 @@ public class invitation_info extends AppCompatActivity {
         });
 
    }else
-        { Toast.makeText(invitation_info.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
+        { Toast.makeText(invitation_info.this,"حدث خطأ في الإتصال!",Toast.LENGTH_SHORT).show();}}
 
     //============================================================================================================== To go Back
 

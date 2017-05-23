@@ -13,6 +13,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        manifestPlaceholders = [manifestApplicationId         : "${applicationId}",
+                                pushbots_app_id               : "PUSHBOTS_APP_ID",
+                                pushbots_loglevel             : "DEBUG",
+                                google_sender_id              : "808673202881"]
+
     }
     buildTypes {
         release {
@@ -30,6 +35,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+
+
     compile files('libs/GenAsync.1.2.jar')
     compile files('libs/MD5Simply.jar')
     compile 'com.android.support:appcompat-v7:25.3.1'

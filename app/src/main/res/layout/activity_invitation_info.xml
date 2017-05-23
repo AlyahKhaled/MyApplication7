@@ -98,12 +98,13 @@
 
     <Button
         android:id="@+id/button2"
-        android:onClick="map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="see the location"
-        android:layout_marginBottom="81dp"
+        android:layout_width="80sp"
+        android:layout_height="40sp"
         android:layout_above="@+id/ignor"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="81dp"
+        android:background="@drawable/second"
+        android:onClick="map"
+        android:text="الموقع" />
 
 </RelativeLayout>
