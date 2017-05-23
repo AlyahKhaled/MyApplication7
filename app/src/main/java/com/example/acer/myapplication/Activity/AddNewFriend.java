@@ -1,6 +1,7 @@
 package com.example.acer.myapplication.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,9 @@ import com.example.acer.myapplication.Retrofit.APIService;
 import com.example.acer.myapplication.Retrofit.ApiUtils;
 import com.example.acer.myapplication.Retrofit.Friend;
 import com.example.acer.myapplication.Retrofit.FriendListResponse;
+import com.example.acer.myapplication.invitationOptiens;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -171,7 +175,8 @@ public class AddNewFriend extends AppCompatActivity implements View.OnClickListe
                         Log.d(TAG, response.code() + "");
                         if (response.isSuccessful()) {
                             Log.d(TAG,response.body()+"");
-                            if (response.body() != null) {
+                            List list = response.body().getFriends();
+                            if (response.body().getFriends() != null) {
                                 if (response.body().getFriends().size() > 0) {
                                     Boolean exist = false;
                                     for (Friend f :
@@ -191,6 +196,8 @@ public class AddNewFriend extends AppCompatActivity implements View.OnClickListe
                                             Toast.makeText(AddNewFriend.this, "لا يمكنك إضافة نفسك.", Toast.LENGTH_SHORT).show();
                                         }
                                         else{
+                                            System.out.print("********************************************************************************************************************");
+                                            System.out.print("thhis is the names"+ username+FriendUsername);
                                             mAPIService = ApiUtils.getAPIService();
                                             mAPIService.addFriend(username, FriendUsername).enqueue(new Callback<String>() {
                                                 @Override
@@ -201,12 +208,14 @@ public class AddNewFriend extends AppCompatActivity implements View.OnClickListe
                                                         Log.d(TAG, response.body() + "");
 
                                                         if (response.body().equals("no")) {
-                                                            Toast.makeText(AddNewFriend.this, "عذرا اسم المستخدم غير صحيح", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(AddNewFriend.this, "لا يوجد أصدقاء", Toast.LENGTH_SHORT).show();
                                                         } else {
                                                             editTextSearch.setText("");
                                                             ((TextView) findViewById(R.id.textView5)).setText("");
                                                             Toast.makeText(AddNewFriend.this, "تم عملية إرسال الإضافة بنجاح", Toast.LENGTH_SHORT).show();
 
+                                                            Intent intent = new Intent(getApplicationContext(), invitationOptiens.class);
+                                                            startActivity(intent);
                                                         }
                                                     }
                                                 }
@@ -219,6 +228,8 @@ public class AddNewFriend extends AppCompatActivity implements View.OnClickListe
                                         }
                                     }
                                 }
+                            }else{
+                                Toast.makeText(AddNewFriend.this, "Sorry, There is no friends", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
