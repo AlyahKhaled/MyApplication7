@@ -277,7 +277,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(type.contains("User")){
             Intent in = new Intent(LoginActivity.this, registerUser.class);
             startActivity(in);}else if(type.contains("Admin")){
-            Toast.makeText(LoginActivity.this, "يجب أن تكون مستخدم كي تنشيئ مستخدم جديد ", Toast.LENGTH_LONG).show();}
+            Toast.makeText(LoginActivity.this, "يجب أن تكون مستخدم كي تدخل صفحة التسجيل ", Toast.LENGTH_LONG).show();}
 
     }}
 

@@ -330,6 +330,9 @@ public class editProfile extends AppCompatActivity {
             } else {
                 String msg = "لا يوجد تعديلات ";
                 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                Intent in = new Intent(editProfile.this, profileuser.class);
+                startActivity(in);
+
             }
         }
     }
