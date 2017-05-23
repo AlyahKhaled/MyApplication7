@@ -121,7 +121,7 @@ public class coordenation extends AppCompatActivity {
 //==============================================================================================================
 
     } else
-        { Toast.makeText(coordenation.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
+        { Toast.makeText(coordenation.this,"لا يوجد اتصال بالشبكة",Toast.LENGTH_SHORT).show();}}
 
     //=========================== to see the map
     public void map (View view)
@@ -130,7 +130,7 @@ public class coordenation extends AppCompatActivity {
 
         Intent intent = new Intent(coordenation.this, MapsActivity.class);
         startActivity(intent);}
-        else {Toast.makeText(coordenation.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
+        else {Toast.makeText(coordenation.this,"لا يوجد اتصال بالشبكة",Toast.LENGTH_SHORT).show();}
     }
 
     //=========================== to go Back
