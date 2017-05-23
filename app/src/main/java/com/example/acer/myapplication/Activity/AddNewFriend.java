@@ -2,6 +2,8 @@ package com.example.acer.myapplication.Activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,6 +18,7 @@ import com.example.acer.myapplication.R;
 import com.example.acer.myapplication.Retrofit.APIService;
 import com.example.acer.myapplication.Retrofit.ApiUtils;
 import com.example.acer.myapplication.Retrofit.FriendListResponse;
+import com.example.acer.myapplication.invitatonssaved;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,30 +68,35 @@ public class AddNewFriend extends AppCompatActivity implements View.OnClickListe
                     }
                     else{
 
-                        mAPIService = ApiUtils.getAPIService();
-                        mAPIService.searchAFriend(name).enqueue(new Callback<FriendListResponse>() {
-                            @Override
-                            public void onResponse(Call<FriendListResponse> call, retrofit2.Response<FriendListResponse> response) {
-                                Log.d(TAG, "post response");
-                                Log.d(TAG, response.code() + "");
-                                if (response.isSuccessful()) {
-                                    Log.d(TAG,response.body()+"");
+                        if(isNetworkAvailable()) {
+                            mAPIService = ApiUtils.getAPIService();
+                            mAPIService.searchAFriend(name).enqueue(new Callback<FriendListResponse>() {
+                                @Override
+                                public void onResponse(Call<FriendListResponse> call, retrofit2.Response<FriendListResponse> response) {
+                                    Log.d(TAG, "post response");
+                                    Log.d(TAG, response.code() + "");
+                                    if (response.isSuccessful()) {
+                                        Log.d(TAG, response.body() + "");
 
-                                    if(response.body().getFriends().size() == 0) {
-                                        Toast.makeText(AddNewFriend.this,"اسم المستخدم غير صحيح.",Toast.LENGTH_SHORT).show();
-                                    }
-                                    else{
-                                        FriendUsername = response.body().getFriends().get(0).getUserName();
-                                        ((TextView)findViewById(R.id.textView5)).setText(response.body().getFriends().get(0).getUserName());
+                                        if (response.body().getFriends().size() == 0) {
+                                            Toast.makeText(AddNewFriend.this, "اسم المستخدم غير صحيح.", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            FriendUsername = response.body().getFriends().get(0).getUserName();
+                                            ((TextView) findViewById(R.id.textView5)).setText(response.body().getFriends().get(0).getUserName());
+                                        }
                                     }
                                 }
-                            }
-                            @Override
-                            public void onFailure(Call<FriendListResponse> call, Throwable t) {
 
-                                Log.e(TAG, "Unable to submit post to API. "+t.getMessage());
-                            }
-                        });
+                                @Override
+                                public void onFailure(Call<FriendListResponse> call, Throwable t) {
+
+                                    Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
+                                }
+                            });
+
+                        }
+                        else
+                            Toast.makeText(AddNewFriend.this, "أنت غير متصل بالشبكة, الرجاء الاتصال بالشبكة وإعادة المحاولة", Toast.LENGTH_LONG).show();
 
                     }
                 }
@@ -107,37 +115,49 @@ public class AddNewFriend extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(AddNewFriend.this, "اسم المستخدم لا يمكن أن يكون فارغ.", Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    if(isNetworkAvailable()) {
+                        mAPIService = ApiUtils.getAPIService();
+                        mAPIService.searchAFriend(name).enqueue(new Callback<FriendListResponse>() {
+                            @Override
+                            public void onResponse(Call<FriendListResponse> call, retrofit2.Response<FriendListResponse> response) {
+                                Log.d(TAG, "post response");
+                                Log.d(TAG, response.code() + "");
+                                if (response.isSuccessful()) {
+                                    Log.d(TAG, response.body() + "");
 
-                    mAPIService = ApiUtils.getAPIService();
-                    mAPIService.searchAFriend(name).enqueue(new Callback<FriendListResponse>() {
-                        @Override
-                        public void onResponse(Call<FriendListResponse> call, retrofit2.Response<FriendListResponse> response) {
-                            Log.d(TAG, "post response");
-                            Log.d(TAG, response.code() + "");
-                            if (response.isSuccessful()) {
-                                Log.d(TAG,response.body()+"");
-
-                                if(response.body().getFriends().size() == 0) {
-                                    Toast.makeText(AddNewFriend.this,"اسم المستخدم غير صحيح",Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                    FriendUsername = response.body().getFriends().get(0).getUserName();
-                                    ((TextView)findViewById(R.id.textView5)).setText(response.body().getFriends().get(0).getUserName());
+                                    if (response.body().getFriends().size() == 0) {
+                                        Toast.makeText(AddNewFriend.this, "اسم المستخدم غير صحيح", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        FriendUsername = response.body().getFriends().get(0).getUserName();
+                                        ((TextView) findViewById(R.id.textView5)).setText(response.body().getFriends().get(0).getUserName());
+                                    }
                                 }
                             }
-                        }
-                        @Override
-                        public void onFailure(Call<FriendListResponse> call, Throwable t) {
 
-                            Log.e(TAG, "Unable to submit post to API. "+t.getMessage());
-                        }
-                    });
+                            @Override
+                            public void onFailure(Call<FriendListResponse> call, Throwable t) {
+
+                                Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
+                            }
+                        });
+                    }
+                    else
+                        Toast.makeText(AddNewFriend.this, "أنت غير متصل بالشبكة, الرجاء الاتصال بالشبكة وإعادة المحاولة", Toast.LENGTH_LONG).show();
+
 
                 }
 
             }
         });
 
+    }
+
+    //check if there is network before an action
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     @Override
@@ -157,30 +177,36 @@ public class AddNewFriend extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(AddNewFriend.this, "لا يمكنك إضافة نفسك.", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    mAPIService = ApiUtils.getAPIService();
-                    mAPIService.addFriend(username, FriendUsername).enqueue(new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                            Log.d(TAG, "post response");
-                            Log.d(TAG, response.code() + "");
-                            if (response.isSuccessful()) {
-                                Log.d(TAG, response.body() + "");
+                    if(isNetworkAvailable()) {
+                        mAPIService = ApiUtils.getAPIService();
+                        mAPIService.addFriend(username, FriendUsername).enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                                Log.d(TAG, "post response");
+                                Log.d(TAG, response.code() + "");
+                                if (response.isSuccessful()) {
+                                    Log.d(TAG, response.body() + "");
 
-                                if (response.body().equals("no")) {
-                                    Toast.makeText(AddNewFriend.this, "لا يوجد أصدقاء", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    editTextSearch.setText("");
-                                    ((TextView) findViewById(R.id.textView5)).setText("");
-                                    Toast.makeText(AddNewFriend.this, "تم عملية إرسال الإضافة بنجاح", Toast.LENGTH_SHORT).show();
+                                    if (response.body().equals("no")) {
+                                        Toast.makeText(AddNewFriend.this, "لا يوجد أصدقاء", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        editTextSearch.setText("");
+                                        ((TextView) findViewById(R.id.textView5)).setText("");
+                                        Toast.makeText(AddNewFriend.this, "تم عملية إرسال الإضافة بنجاح", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
-                        }
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
 
-                            Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
-                        }
-                    });
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+
+                                Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
+                            }
+                        });
+                    }
+                    else
+                        Toast.makeText(AddNewFriend.this, "أنت غير متصل بالشبكة, الرجاء الاتصال بالشبكة وإعادة المحاولة", Toast.LENGTH_LONG).show();
+
                 }
 
                 break;
