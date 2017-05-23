@@ -68,8 +68,7 @@ public class friendslist extends AppCompatActivity implements View.OnClickListen
                 Log.d(TAG, response.code() + "");
                 if (response.isSuccessful()) {
                     Log.d(TAG,response.body()+"");
-
-                    try {
+                    if (response.body() != null) {
                         if (response.body().getFriends().size() == 0) {
                             Toast.makeText(friendslist.this, "لم يتم العثور على أي أصدقاء.", Toast.LENGTH_SHORT).show();
                         } else {
@@ -83,9 +82,8 @@ public class friendslist extends AppCompatActivity implements View.OnClickListen
                             final ListView listViewFriendList = (ListView) findViewById(R.id.list);
                             listViewFriendList.setAdapter(myCustomAdapter);
                         }
-                    }
-                    catch(Exception e){
-                        e.printStackTrace();
+                    }else{
+                        Toast.makeText(friendslist.this, "لم يتم العثور على أي أصدقاء.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -121,7 +119,7 @@ public class friendslist extends AppCompatActivity implements View.OnClickListen
             case R.id.button22:
 
                 //if it is a new invitation
-                if(getIntent().getStringExtra("path").equals("new")) {
+                if(getIntent().getStringExtra("path").equals("new")){
 
                     //put all the guests in one string to send it one time.(splitted with (,))
                     String guests = "";
@@ -133,52 +131,50 @@ public class friendslist extends AppCompatActivity implements View.OnClickListen
                         guests = guests.substring(0, guests.length() - 1);
 
                         Log.d(TAG, guests);
-                    } catch (Exception e) {
                     }
+                    catch(Exception e){}
 
                     //get the info that came with the intent
-                    Double latitude = getIntent().getDoubleExtra("latitude", 0);
-                    Double longitude = getIntent().getDoubleExtra("longitude", 0);
+                    Double latitude = getIntent().getDoubleExtra("latitude",0);
+                    Double longitude = getIntent().getDoubleExtra("longitude",0);
                     String InvitationName = getIntent().getStringExtra("InvitationName");
                     String AdditionalInfo = getIntent().getStringExtra("AdditionalInfo");
                     String DateTxt = getIntent().getStringExtra("DateTxt");
                     String TimeTxt = getIntent().getStringExtra("TimeTxt");
                     String PlaceName = getIntent().getStringExtra("PlaceName");
                     String InviterName = getIntent().getStringExtra("InviterName");
+                    if (!guests.equals("")) {
+                        //ad an invitation
+                        mAPIService = ApiUtils.getAPIService();
+                        mAPIService.addInvitation(PlaceName, latitude + "", longitude + "", DateTxt, TimeTxt, AdditionalInfo, InvitationName, InviterName, guests).enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                                Log.d(TAG, "post response");
+                                Log.d(TAG, response.code() + "");
+                                if (response.isSuccessful()) {
+                                    Log.d(TAG, response.body() + "");
 
-                    if (guests.length() == 0)
-                        Toast.makeText(friendslist.this, "الرجاء اختيار صديق", Toast.LENGTH_SHORT).show();
-
-                    else{
-
-                    //ad an invitation
-                    mAPIService = ApiUtils.getAPIService();
-                    mAPIService.addInvitation(PlaceName, latitude + "", longitude + "", DateTxt, TimeTxt, AdditionalInfo, InvitationName, InviterName, guests).enqueue(new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                            Log.d(TAG, "post response");
-                            Log.d(TAG, response.code() + "");
-                            if (response.isSuccessful()) {
-                                Log.d(TAG, response.body() + "");
-
-                                if (response.body().equals("no")) {
-                                    Toast.makeText(friendslist.this, "لم يتم إرسال الرسالة, لا يوجد لديك أي أصدقاء.", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(friendslist.this, "تم ارسال الدعوة.", Toast.LENGTH_SHORT).show();
-                                    finish();
+                                    if (response.body().equals("no")) {
+                                        Toast.makeText(friendslist.this, "لم يتم إرسال الرسالة, لا يوجد لديك أي أصدقاء.", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(friendslist.this, "تم ارسال الدعوة.", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(getApplicationContext(), invitationOptiens.class);
+                                        startActivity(intent);
+                                    }
                                 }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
 
-                            Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
-                        }
-                    });
+                                Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
+                            }
+                        });
+                    }else{
+                        Toast.makeText(friendslist.this, "لم يتم إختيار أصدقاء.", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                }
-                else {
+                else{
                     //else if it was already saved and need only to insert guests
                     String ID = getIntent().getStringExtra("ID");
 
@@ -191,39 +187,37 @@ public class friendslist extends AppCompatActivity implements View.OnClickListen
                         guests = guests.substring(0, guests.length() - 1);
 
                         Log.d(TAG, guests);
-                    } catch (Exception e) {
                     }
+                    catch(Exception e){}
+                    if (!guests.equals("")) {
+                        mAPIService = ApiUtils.getAPIService();
+                        mAPIService.addOnlyInvitation(ID, guests).enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                                Log.d(TAG, "post response");
+                                Log.d(TAG, response.code() + "");
+                                if (response.isSuccessful()) {
+                                    Log.d(TAG, response.body() + "");
 
-                    if (guests.length() == 0)
-                        Toast.makeText(friendslist.this, "الرجاء اختيار صديق", Toast.LENGTH_SHORT).show();
-
-                    else{
-                    mAPIService = ApiUtils.getAPIService();
-                    mAPIService.addOnlyInvitation(ID, guests).enqueue(new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                            Log.d(TAG, "post response");
-                            Log.d(TAG, response.code() + "");
-                            if (response.isSuccessful()) {
-                                Log.d(TAG, response.body() + "");
-
-                                if (response.body().equals("no")) {
-                                    Toast.makeText(friendslist.this, "لم يتم إرسال الدعوة", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(friendslist.this, "تم إرسال الدعوة.", Toast.LENGTH_SHORT).show();
-                                    finish();
+                                    if (response.body().equals("no")) {
+                                        Toast.makeText(friendslist.this, "لم يتم إرسال الدعوة, لا يوجد لديك أصدقاء.", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(friendslist.this, "تم إرسال الدعوة.", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(getApplicationContext(), invitationOptiens.class);
+                                        startActivity(intent);
+                                    }
                                 }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
 
-                            Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
-                        }
-                    });
-
-                }
+                                Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
+                            }
+                        });
+                    }else{
+                        Toast.makeText(friendslist.this, "لم يتم إختيار أصدقاء.", Toast.LENGTH_SHORT).show();
+                    }
 
                 }
 

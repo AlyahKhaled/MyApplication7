@@ -10,45 +10,44 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        >
+        android:layout_alignParentTop="true">
 
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:onClick="Back"
-                    android:text=""
-                    android:background="@drawable/arow"
+                    android:id="@+id/textView30"
                     android:layout_width="40sp"
                     android:layout_height="match_parent"
-                    android:id="@+id/textView30"
-                    android:layout_weight="0.74" />
+                    android:layout_weight="0.74"
+                    android:background="@drawable/arow"
+                    android:onClick="Back"
+                    android:text="" />
 
                 <TextView
-                    android:text=""
+                    android:id="@+id/textView34"
                     android:layout_width="200sp"
                     android:layout_height="50sp"
                     android:background="@drawable/zwara_word"
-                    android:id="@+id/textView34" />
+                    android:text="" />
 
                 <TextView
 
-                    android:text=""
-                    android:layout_width="40sp"
-                    android:background="@drawable/person"
-                    android:layout_height="match_parent"
                     android:id="@+id/textView29"
+                    android:layout_width="40sp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:onClick="openprofile"/>
+                    android:background="@drawable/person"
+                    android:onClick="openprofile"
+                    android:text="" />
             </LinearLayout>
 
             <TextView
@@ -62,27 +61,24 @@
                 android:textSize="20sp" />
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:weightSum="1">
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <Spinner
+                    android:id="@+id/spinner_invitation_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/invitaion_name_array" />
 
-                <EditText
-                    android:id="@+id/editText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:drawableRight="@drawable/inv_name"
-                    android:ems="20"
-                    android:hint="اسم الدعوة:"
-                    android:inputType="textPersonName"
-                    android:selectAllOnFocus="false"
-                    android:singleLine="false"
-                    android:textColor="#A49279"
-                    android:textSize="20sp"
-                    android:textStyle="normal|bold"
-
-
-                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="اسم الدعوة "
+                    android:textColor="#7a5a23"
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <EditText
@@ -148,20 +144,44 @@
                 android:text="تحديد التاريخ"
                 android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
-            <EditText
-                android:id="@+id/editText3"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="66dp"
-                android:drawableRight="@drawable/place"
-                android:ems="10"
-                android:hint="اسم المكان:"
-                android:inputType="textPersonName"
-                android:textColor="#7a5a23"
-                android:textSize="20sp"
-                android:textStyle="normal|bold"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
+                <RadioGroup
+                    android:id="@+id/radio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
-                />
+                    <RadioButton
+                        android:id="@+id/radio_btn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="المنزل" />
+
+                    <RadioButton
+                        android:id="@+id/radio_btn2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="خارج المنزل" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="اسم المكان"
+                    android:textColor="#7a5a23"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView38"
@@ -181,31 +201,45 @@
                 android:text="الذهاب إلى الخريطة"
                 android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
-
-            <EditText
-                android:id="@+id/editText4"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:ems="10"
-                android:hint="معلومات إضافية"
-                android:inputType="textPersonName"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
-                android:textStyle="normal|bold" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:weightSum="2">
+
+                <Spinner
+                    android:id="@+id/spinner_additional_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/additional_info_array"></Spinner>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="معلومات اضافية"
+                    android:textColor="#7a5a23" />
+
+            </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="356dp"
                 android:layout_height="match_parent"
+                android:orientation="horizontal"
                 android:weightSum="1">
 
                 <Button
-                    android:onClick="list"
-                    android:text=""
-                    android:background="@drawable/send_botn"
+                    android:id="@+id/button3"
                     android:layout_width="110dp"
                     android:layout_height="54dp"
-                    android:id="@+id/button3" />
+                    android:background="@drawable/send_botn"
+                    android:onClick="list"
+                    android:text="" />
 
                 <Button
                     android:id="@+id/button4"

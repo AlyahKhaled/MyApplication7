@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.acer.myapplication.Activity.MyFriendList;
+import com.example.acer.myapplication.MyUtil;
 import com.example.acer.myapplication.R;
 import com.example.acer.myapplication.Retrofit.APIService;
 import com.example.acer.myapplication.Retrofit.ApiUtils;
@@ -76,6 +77,11 @@ public class FriendListAdapter extends ArrayAdapter<Friend> {
             public void onClick(View v) {
                 final String username = pref.getString("UserName", ""); // 5 after intilisatien
                 final String friendname = data.get(position).getUserName();
+
+                if (!MyUtil.isNetworkAvailable(getContext())) {
+                    Toast.makeText(context, " خطأ فى الوصول الى الشبكة ", Toast.LENGTH_LONG).show();
+                    return;
+                }
 
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override

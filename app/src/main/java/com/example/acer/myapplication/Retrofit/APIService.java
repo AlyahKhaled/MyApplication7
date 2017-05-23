@@ -46,6 +46,10 @@ public interface APIService {
     @FormUrlEncoded
     Call<String> deleteInvitation(@Field("ID") String ID);
 
+    @POST("/zwarhapp/deleteinvitations.php")
+    @FormUrlEncoded
+    Call<String> deleteInvitations(@Field("Uname") String Uname);
+
     @POST("/zwara/deletFriend.php")
     @FormUrlEncoded
     Call<String> deleteFriend(@Field("UserName") String UserName,

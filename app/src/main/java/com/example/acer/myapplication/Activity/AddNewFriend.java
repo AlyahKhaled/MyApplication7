@@ -1,7 +1,6 @@
 package com.example.acer.myapplication.Activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,18 +12,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.acer.myapplication.MyUtil;
 import com.example.acer.myapplication.R;
 import com.example.acer.myapplication.Retrofit.APIService;
 import com.example.acer.myapplication.Retrofit.ApiUtils;
+import com.example.acer.myapplication.Retrofit.Friend;
 import com.example.acer.myapplication.Retrofit.FriendListResponse;
-import com.example.acer.myapplication.invitationOptiens;
-import com.example.acer.myapplication.invitatonssaved;
-import com.example.acer.myapplication.profileuser;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 
-
+//import com.example.dalal.gpnew.pref.UserInfo;
 
 public class AddNewFriend extends AppCompatActivity implements View.OnClickListener {
     ImageView ivBackPress,imageView5;
@@ -79,7 +77,7 @@ public class AddNewFriend extends AppCompatActivity implements View.OnClickListe
                                     Log.d(TAG,response.body()+"");
 
                                     if(response.body().getFriends().size() == 0) {
-                                        Toast.makeText(AddNewFriend.this,"عذراً, هذا المستخدم غير موجود.",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(AddNewFriend.this,"عذراً, لا يوجد لديك أي صديق.",Toast.LENGTH_SHORT).show();
                                     }
                                     else{
                                         FriendUsername = response.body().getFriends().get(0).getUserName();
@@ -146,57 +144,97 @@ public class AddNewFriend extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+
+
+
         switch (v.getId()){
             case R.id.imageViewBack:
                 finish();
                 break;
             case R.id.imageView5:
 
-                String username= pref.getString("UserName", "");
+                final String username= pref.getString("UserName", "");
 
-                if(FriendUsername.equals("none")) {
-                    Toast.makeText(AddNewFriend.this, "ابحث عن صديق أولاً لللإضافة.", Toast.LENGTH_SHORT).show();
+                if (!MyUtil.isNetworkAvailable(getApplicationContext())) {
+                    Toast.makeText(AddNewFriend.this, " خطأ فى الوصول الى الشبكة ", Toast.LENGTH_LONG).show();
+                    return;
                 }
-                else if(FriendUsername.equals(username)) {
-                    Toast.makeText(AddNewFriend.this, "لا يمكنك إضافة نفسك.", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    mAPIService = ApiUtils.getAPIService();
-                    mAPIService.addFriend(username, FriendUsername).enqueue(new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                            Log.d(TAG, "post response");
-                            Log.d(TAG, response.code() + "");
-                            if (response.isSuccessful()) {
-                                Log.d(TAG, response.body() + "");
 
-                                if (response.body().equals("no")) {
-                                    Toast.makeText(AddNewFriend.this, "لا يوجد أصدقاء", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    editTextSearch.setText("");
-                                    ((TextView) findViewById(R.id.textView5)).setText("");
-                                    Toast.makeText(AddNewFriend.this, "تم عملية إرسال الإضافة بنجاح", Toast.LENGTH_SHORT).show();
 
-                                    Intent intent = new Intent(getApplicationContext(), invitationOptiens.class);
-                                                    startActivity(intent);
+
+                //retrive the friends
+                mAPIService = ApiUtils.getAPIService();
+                mAPIService.getFriendList(username).enqueue(new Callback<FriendListResponse>() {
+                    @Override
+                    public void onResponse(Call<FriendListResponse> call, retrofit2.Response<FriendListResponse> response) {
+                        Log.d(TAG, "post response");
+                        Log.d(TAG, response.code() + "");
+                        if (response.isSuccessful()) {
+                            Log.d(TAG,response.body()+"");
+                            if (response.body() != null) {
+                                if (response.body().getFriends().size() > 0) {
+                                    Boolean exist = false;
+                                    for (Friend f :
+                                            response.body().getFriends()) {
+                                        if (f.getUserName().equals(FriendUsername)){
+                                            exist = true;
+                                            break;
+                                        }
+                                    }
+                                    if(exist == true) {
+                                        Toast.makeText(AddNewFriend.this, "صديق بالفعل، لا يمكن الإضافة مرة أخرى.", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        if(FriendUsername.equals("none")) {
+                                            Toast.makeText(AddNewFriend.this, "ابحث عن صديق أولاً لللإضافة.", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else if(FriendUsername.equals(username)) {
+                                            Toast.makeText(AddNewFriend.this, "لا يمكنك إضافة نفسك.", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else{
+                                            mAPIService = ApiUtils.getAPIService();
+                                            mAPIService.addFriend(username, FriendUsername).enqueue(new Callback<String>() {
+                                                @Override
+                                                public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                                                    Log.d(TAG, "post response");
+                                                    Log.d(TAG, response.code() + "");
+                                                    if (response.isSuccessful()) {
+                                                        Log.d(TAG, response.body() + "");
+
+                                                        if (response.body().equals("no")) {
+                                                            Toast.makeText(AddNewFriend.this, "عذرا اسم المستخدم غير صحيح", Toast.LENGTH_SHORT).show();
+                                                        } else {
+                                                            editTextSearch.setText("");
+                                                            ((TextView) findViewById(R.id.textView5)).setText("");
+                                                            Toast.makeText(AddNewFriend.this, "تم عملية إرسال الإضافة بنجاح", Toast.LENGTH_SHORT).show();
+
+                                                        }
+                                                    }
+                                                }
+                                                @Override
+                                                public void onFailure(Call<String> call, Throwable t) {
+
+                                                    Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
+                                                }
+                                            });
+                                        }
+                                    }
                                 }
                             }
                         }
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
+                    }
+                    @Override
+                    public void onFailure(Call<FriendListResponse> call, Throwable t) {
 
-                            Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
-                        }
-                    });
-                }
+                        Log.e(TAG, "Unable to submit post to API. "+t.getMessage());
+                    }
+                });
+
+
+
+
 
                 break;
 
         }
-    }
-
-    public void openprofile(View v){
-        Intent intent = new Intent(AddNewFriend.this,profileuser.class);
-        startActivity(intent);
     }
 }

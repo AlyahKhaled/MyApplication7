@@ -18,8 +18,6 @@ import com.example.acer.myapplication.Retrofit.APIService;
 import com.example.acer.myapplication.Retrofit.ApiUtils;
 import com.example.acer.myapplication.Retrofit.Friend;
 import com.example.acer.myapplication.Retrofit.FriendListResponse;
-import com.example.acer.myapplication.invitatonssaved;
-import com.example.acer.myapplication.profileuser;
 
 import java.util.List;
 
@@ -111,10 +109,5 @@ public class MyFriendList extends AppCompatActivity implements View.OnClickListe
                 break;
 
         }
-    }
-
-    public void openprofile(View v){
-        Intent intent = new Intent(MyFriendList.this,profileuser.class);
-        startActivity(intent);
     }
 }

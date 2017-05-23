@@ -8,6 +8,13 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -23,13 +30,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.AddNewFriend"/>
         <activity android:name=".LoginSharedPreferences" />
         <activity android:name=".homeuser" />
         <activity android:name=".profileuser" />
         <activity android:name=".admin" />
         <activity android:name=".admienprofile" />
-        <activity android:name=".invitatonssaved" />
-        <activity android:name=".friendslist" />
         <activity android:name=".cancelation_message" />
         <activity android:name=".apologization_not" />
         <activity android:name=".editProfile" />
@@ -60,6 +66,15 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
+
+        <activity
+            android:name=".MainMapsActivity"
+            android:label="@string/title_activity_main_maps" />
+        <activity android:name=".addfrind" />
+        <activity android:name=".friendslist" />
+        <activity android:name=".invitatonssaved" />
+        <activity android:name=".invititioncretion" />
+        <activity android:name=".Activity.MyFriendList"></activity>
 
     </application>
 

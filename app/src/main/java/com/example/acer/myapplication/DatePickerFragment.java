@@ -11,7 +11,7 @@ import java.util.Calendar;
 
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
-
+    public static String passingDate;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
 
@@ -36,6 +36,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         TextView DateText=(TextView) getActivity().findViewById(R.id.Datetext);
 
         DateText.setText("التاريخ الذي تم اختياره:" + year+ "-" + month + "-" + dayOfMonth);
-
+        passingDate = year+ "-" + month + "-" + dayOfMonth;
+        invititioncretion.isEditDate = false;
     }
 }

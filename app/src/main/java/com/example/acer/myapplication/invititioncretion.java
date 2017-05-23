@@ -17,7 +17,9 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,10 @@ import com.example.acer.myapplication.Retrofit.APIService;
 import com.example.acer.myapplication.Retrofit.ApiUtils;
 import com.example.acer.myapplication.Retrofit.InvitationInfo;
 import com.example.acer.myapplication.Utility.GPSTracker;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,11 +42,12 @@ import retrofit2.Callback;
 public class invititioncretion extends AppCompatActivity {
 
     //initialization
+
+    public static boolean isEditDate;
+    public static boolean isEditTime;
+
     public static double latitude=0;
     public static double longitude=0;
-    public static EditText InvitationNametxt;
-    public static EditText PlaceNametxt;
-    public static EditText AdditionalInfotxt;
     public static TextView Time;
     public static TextView Date;
     public static String PlaceName;
@@ -60,6 +67,11 @@ public class invititioncretion extends AppCompatActivity {
 
     GPSTracker gpsTracker;
 
+    private Spinner mSpinnerInvitationName = null;
+    private Spinner mSpinnerAdditionalText = null;
+    private RadioGroup mRadioGroup;
+    private RadioButton mRadioButton;
+
     public void openprofile(View v){
         Intent intent = new Intent(invititioncretion.this,profileuser.class);
         startActivity(intent);
@@ -70,6 +82,7 @@ public class invititioncretion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invititioncretion);
 
+        PlaceName = "";
         pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE); // 2 creat file
 
         Log.d(TAG, pref.getString("UserName", ""));// 3
@@ -77,17 +90,19 @@ public class invititioncretion extends AppCompatActivity {
 
         gpsTracker=new GPSTracker(this);
 
-        InvitationNametxt= (EditText) findViewById(R.id.editText);
-        PlaceNametxt= (EditText) findViewById(R.id.editText3);
-        AdditionalInfotxt= (EditText) findViewById(R.id.editText4);
+        mSpinnerInvitationName = (Spinner)findViewById(R.id.spinner_invitation_name);
+        mRadioGroup = (RadioGroup) findViewById(R.id.radio_group);
+        mRadioGroup.clearCheck();
+        mSpinnerAdditionalText= (Spinner) findViewById(R.id.spinner_additional_text);
         Time= (TextView) findViewById(R.id.timeText);
         Date= (TextView) findViewById(R.id.Datetext);
 
-        if(isNetworkAvailable())
-        {
         //code for update the invitation
         if(getIntent().hasExtra("ID")){
             id = getIntent().getStringExtra("ID");
+
+            isEditDate = true;
+            //isEditTime = true;
 
             mAPIService = ApiUtils.getAPIService();
             mAPIService.getInvitationInfo(id).enqueue(new Callback<InvitationInfo>() {
@@ -96,12 +111,44 @@ public class invititioncretion extends AppCompatActivity {
                     Log.d(TAG, "post response");
                     Log.d(TAG, response.code() + "");
                     if (response.isSuccessful()) {
-                        Log.d(TAG,response.body()+"");
+                        Log.d("AppInfo",response.body()+"");
 
-                        InvitationNametxt.setText(response.body().getInvitationTopic());
-                        PlaceNametxt.setText(response.body().getPlaceName());
-                        AdditionalInfotxt.setText(response.body().getAdditionalInformation());
-                        Time.setText(response.body().getTime());
+                        PlaceName = response.body().getPlaceName();
+                        if (PlaceName.equals("Home")){
+                            RadioButton btn = (RadioButton) findViewById(R.id.radio_btn1);
+                            btn.setChecked(true);
+                        }else{
+                            RadioButton btn = (RadioButton) findViewById(R.id.radio_btn2);
+                            btn.setChecked(true);
+                        }
+
+                        id = response.body().getID();
+                        venueID = response.body().getVenueID();
+
+                        String str = response.body().getInvitationTopic();
+                        String str1 = response.body().getAdditionalInformation();
+
+                        mSpinnerInvitationName.setSelection(getSpinnerInvitationIndex(response.body().getInvitationTopic(),
+                                getResources().getStringArray(R.array.invitaion_name_array)));
+                        //PlaceNametxt.setText(response.body().getPlaceName());
+                        mSpinnerAdditionalText.setSelection(getSpinnerAdditionalIndex(response.body().getAdditionalInformation(),
+                                getResources().getStringArray(R.array.additional_info_array)));
+
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+                        Date date = null;
+                        try
+                        {
+                            date = simpleDateFormat.parse(response.body().getTime());
+                        }
+                        catch (ParseException ex)
+                        {
+                            System.out.println("Exception "+ex);
+                        }
+                        if (date != null) {
+                            Time.setText(simpleDateFormat.format(date));
+                        } else {
+                            Time.setText(response.body().getTime());
+                        }
                         Date.setText(response.body().getDate());
 
                         latitude = Double.parseDouble(response.body().getLatitude());
@@ -129,12 +176,11 @@ public class invititioncretion extends AppCompatActivity {
                     int result= GetInfo();
                     if(result==0)
                     {
-
                         String username=pref.getString("UserName", ""); // 5 after intilisatien
 
                         Log.d(TAG,DateTxt);
                         Log.d(TAG,TimeTxt);
-
+                        Log.d("DEBUG","Place name: wile seneding:"+PlaceName);
                         mAPIService = ApiUtils.getAPIService();
                         mAPIService.updateInvitation(PlaceName,latitude+"",longitude+"",DateTxt,TimeTxt,AdditionalInfo,InvitationName,username,venueID,id).enqueue(new Callback<String>() {
                             @Override
@@ -166,9 +212,6 @@ public class invititioncretion extends AppCompatActivity {
                 }
             });
         }
-        }
-        else
-            Toast.makeText(this, "أنت غير متصل بالشبكة, الرجاء الاتصال بالشبكة وإعادة المحاولة", Toast.LENGTH_LONG).show();
 
     }
 
@@ -232,98 +275,106 @@ public class invititioncretion extends AppCompatActivity {
     public int GetInfo()
     {
 
-        if(latitude == 0 && longitude ==0)
+        if(latitude == 0 && longitude == 0)
         {
             Toast.makeText(getApplicationContext(),
                     "يجب اختيار المكان!", Toast.LENGTH_SHORT)
                     .show();
             return 1;
         }
-        InvitationName=InvitationNametxt.getText().toString();
-        if(InvitationName.equals(""))
+        InvitationName = getInvitationName(mSpinnerInvitationName.getSelectedItem().toString());
+        if(InvitationName == null || InvitationName.length() == 0)
         {
             Toast.makeText(getApplicationContext(),
                     "يجب اختيار اسم الدعوة!", Toast.LENGTH_SHORT)
                     .show();
             return 1;
         }
-        else
-        {
-            if(InvitationName.length()>20)
-            {
-                Toast.makeText(getApplicationContext(),
-                        "يجب ان يكون طول اسم الدعوة أقل من أو يساوي 20 حرفاً !", Toast.LENGTH_SHORT)
-                        .show();
-                return 1;
-            }
-        }
 
-        PlaceName=PlaceNametxt.getText().toString();
-        if(PlaceName.equals(""))
+        int selectedId = mRadioGroup.getCheckedRadioButtonId();
+
+        // find the radiobutton by returned id
+        mRadioButton = (RadioButton) findViewById(selectedId);
+
+        if (mRadioButton != null)
+            PlaceName = getPlaceName(mRadioButton.getText().toString());
+
+        if(PlaceName == null || PlaceName.length() == 0)
         {
             Toast.makeText(getApplicationContext(),
                     "يجب اختيار اسم المكان!", Toast.LENGTH_SHORT)
                     .show();
             return 1;
         }
-        else
-        {
-            if(PlaceName.length()>15)
-            {
-                Toast.makeText(getApplicationContext(),
-                        "يجب ان يكون طول اسم المكان أقل من أو يساوي 15 حرفاً !", Toast.LENGTH_SHORT)
-                        .show();
-                return 1;
-            }
+        Log.d("DEBUG","Place name:"+PlaceName);
+
+        /*
+        if (isEditTime){
+            Toast.makeText(getApplicationContext(),
+                    "يجب اختيار الوقت!", Toast.LENGTH_SHORT)
+                    .show();
+            return 1;
+
         }
 
+        if (isEditDate){
+            Toast.makeText(getApplicationContext(),
+                    "يجب اختيار التاريخ!", Toast.LENGTH_SHORT)
+                    .show();
+            return 1;
+
+        }*/
+
         TimeInfo=Time.getText().toString();
+
         int TxtPosition= TimeInfo.indexOf(":");
-        TimeTxt=TimeInfo.substring(TxtPosition+1);
-        if(TimeTxt.equals(""))
+        TimeTxt=TimePickerFragment.passingTime;
+        //TimeTxt=Time.getText().toString();
+        Log.d("DEBUG","Time:"+TimeTxt);
+        Log.d("DEBUG","Time Info:"+TimeInfo);
+        if(TimeTxt == null || TimeTxt.length() == 0)
         {
             Toast.makeText(getApplicationContext(),
                     "يجب اختيار الوقت!", Toast.LENGTH_SHORT)
                     .show();
             return 1;
         }
-        DateInfo=Date.getText().toString();
-        int TxtPosition1= DateInfo.indexOf(":");
-        DateTxt=DateInfo.substring(TxtPosition1+1);
-        if(DateTxt.equals(""))
-        {
-            Toast.makeText(getApplicationContext(),
-                    "يجب اختيار التاريخ!", Toast.LENGTH_SHORT)
-                    .show();
-            return 1;
-        }
-        AdditionalInfo=AdditionalInfotxt.getText().toString();
-        if(AdditionalInfo.equals(""))
-        {
+        //DateInfo=Date.getText().toString();
+        if (!isEditDate) {
+            DateInfo = DatePickerFragment.passingDate;
 
-            AdditionalInfo="لا يوجد معلومات إضافية.";
-
-        }
-        else
-        {
-            if(AdditionalInfo.length()>200)
-            {
+            if (DateInfo == null || DateInfo.length() == 0) {
                 Toast.makeText(getApplicationContext(),
-                        "يجب ان يكون طول اسم المعلومات الإضافية أقل من أو يساوي 200 حرفاً !", Toast.LENGTH_SHORT)
+                        "يجب اختيار التاريخ!", Toast.LENGTH_SHORT)
                         .show();
                 return 1;
             }
+
+            //int TxtPosition1= DateInfo.indexOf(":");
+            DateTxt = DateInfo;//.substring(TxtPosition1+1);
+        }else{
+            DateTxt = Date.getText().toString();
+        }
+
+        AdditionalInfo=getAdditionalTextName(mSpinnerAdditionalText.getSelectedItem().toString());
+        if(AdditionalInfo == null || AdditionalInfo.equals(""))
+        {
+
+//            AdditionalInfo="لا يوجد معلومات إضافية.)";
+            AdditionalInfo="No additional info ";
+           // Toast.makeText(getApplicationContext(),"الرجاء اختيار معلومات اضافيه", Toast.LENGTH_SHORT)
+             //       .show();
+
+            //return 1;
         }
 
 
         return 0;
     }
 
-    // A method that go to friend list page and send the modt important information with the intent
+    // A methodb that go to friend list page and send the modt important information with the intent
     public  void list (View view)
     {
-        if(isNetworkAvailable())
-        {
         int result= GetInfo();
         if(result==0) {
             String username=pref.getString("UserName", ""); // 5 after intilisatien
@@ -335,6 +386,7 @@ public class invititioncretion extends AppCompatActivity {
             bundle.putString("AdditionalInfo",AdditionalInfo);
             bundle.putString("DateTxt",DateTxt);
             bundle.putString("TimeTxt",TimeTxt);
+            Log.d("DEBUG","Place name:"+PlaceName);
             bundle.putString("PlaceName",PlaceName);
             bundle.putString("InviterName",username);
             //define that it is a new invitation
@@ -343,58 +395,15 @@ public class invititioncretion extends AppCompatActivity {
             startActivity(intent);
         }
 
-        }
-        else
-            Toast.makeText(this, "أنت غير متصل بالشبكة, الرجاء الاتصال بالشبكة وإعادة المحاولة", Toast.LENGTH_LONG).show();
+
     }
+
 
     //a method to get the information and save it in the data base
     public void SaveInvitation(View view)
     {
+        showDialog();
 
-
-
-        if(isNetworkAvailable())
-        {
-            int result = GetInfo();
-            if (result == 0) {
-
-                String username=pref.getString("UserName", ""); // 5 after intilisatien
-
-                Log.d(TAG, DateTxt);
-                Log.d(TAG, TimeTxt);
-
-                mAPIService = ApiUtils.getAPIService();
-                mAPIService.SaveInvitation(PlaceName, latitude + "", longitude + "", DateTxt, TimeTxt, AdditionalInfo, InvitationName, username).enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                        Log.d(TAG, "post response");
-                        Log.d(TAG, response.code() + "");
-                        if (response.isSuccessful()) {
-                            Log.d(TAG, response.body() + "");
-
-                            if (response.body().equals("no")) {
-                                Toast.makeText(invititioncretion.this, "الدعوة لم يتم حفظها, الرجاء المحاولة مرة أخرى.", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(invititioncretion.this, "تم حفظ الدعوة.", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-
-                        Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
-                    }
-                });
-
-            }
-
-
-        }
-        else
-            Toast.makeText(this, "أنت غير متصل بالشبكة, الرجاء الاتصال بالشبكة وإعادة المحاولة", Toast.LENGTH_LONG).show();
 
     }
 
@@ -457,4 +466,170 @@ public class invititioncretion extends AppCompatActivity {
         }
     }
 
+    private int getSpinnerInvitationIndex(String invitationName, String[] stringArray) {
+        for(int i=0; i< stringArray.length; i++) {
+            if (getInvitationName(stringArray[i]).equals(invitationName)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    private int getSpinnerAdditionalIndex(String invitationName, String[] stringArray) {
+        for(int i=0; i< stringArray.length; i++) {
+            if (getAdditionalTextName(stringArray[i]).equals(invitationName)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    private String getInvitationName(String arabicName) {
+
+        String invitationName = "";
+        switch (arabicName) {
+            case "حفلة معايدة" :
+                invitationName = "Celebration party";
+                break;
+            case "اجتماع أصدقاء" :
+                invitationName = "Friends gathering";
+                break;
+            case "اجتماع عمل" :
+                invitationName = "Job meeting";
+                break;
+            case "حفلة أطفال" :
+                invitationName = "Children party";
+                break;
+            case "حفلة نجاح" :
+                invitationName = "Graduation party";
+                break;
+        }
+        return invitationName;
+    }
+
+    private String getPlaceName(String arabicName) {
+        Log.d("DEBUG","Arrabic Name:"+arabicName);
+        String placeName = "";
+        switch (arabicName) {
+            case "المنزل" :
+                placeName = "Home";
+                break;
+            case "خارج المنزل" :
+                placeName = "Outside";
+                break;
+            default:Log.d("DEBUG","Novalue match");
+                break;
+        }
+        return placeName;
+    }
+
+    private String getAdditionalTextName(String arabicName) {
+        String additionalTextName = "";
+        switch (arabicName) {
+            case "لا يوجد معلومات إضافية" :
+                additionalTextName = "No additional information";
+                break;
+            case "الحضور على الوقت" :
+                additionalTextName = "Be on time";
+                break;
+            case "يمنع إصطحاب الاطفال" :
+                additionalTextName = "No kids allowed";
+                break;
+            case "يمكنك إحضار مرافق" :
+                additionalTextName = "Allowed to bring friends";
+                break;
+            default: Log.d("DEBUG","No match found");
+        }
+        return additionalTextName;
+    }
+
+    public void showDialog() {
+        Log.d("DEBUG","Dialog intiated");
+        AlertDialog.Builder builder = new AlertDialog.Builder(invititioncretion.this);
+        builder.setCancelable(false);
+        builder.setMessage("هل انت متاكد؟ ");
+        builder.create();
+        builder.setPositiveButton( "نعم", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                saveInvitationMethod();
+            }
+        });
+        builder.setNegativeButton( "لا", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.show();
+
+    }
+//    private void showDialog() {
+//        AlertDialog.Builder builder1 = new AlertDialog.Builder(getApplicationContext());
+//        builder1.setMessage("هل انت متاكد؟ ");
+//        builder1.setCancelable(true);
+//        builder1.create();
+//        builder1.setPositiveButton(
+//                "نعم",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                       //SaveInvitation();
+//                        saveInvitationMethod();
+//                    }
+//                });
+//
+//        builder1.setNegativeButton(
+//                "لا",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+////                        dialog.cancel();
+//                    }
+//                });
+//
+//        builder1.show();
+//    }
+
+    private void saveInvitationMethod() {
+
+        if(isNetworkAvailable())
+        {
+            int result = GetInfo();
+            if (result == 0) {
+
+                String username=pref.getString("UserName", ""); // 5 after intilisatien
+
+                Log.d(TAG, DateTxt);
+                Log.d(TAG, TimeTxt);
+
+                mAPIService = ApiUtils.getAPIService();
+                Log.d("DEBUG","Place name: wile seneding:"+PlaceName);
+                mAPIService.SaveInvitation(PlaceName, latitude + "", longitude + "", DateTxt, TimeTxt, AdditionalInfo, InvitationName, username).enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                        Log.d(TAG, "Save post response");
+                        Log.d(TAG, response.code() + "");
+                        if (response.isSuccessful()) {
+                            Log.d(TAG, response.body() + "");
+
+                            if (response.body().equals("no")) {
+                                Toast.makeText(invititioncretion.this, "الدعوة لم يتم حفظها, الرجاء المحاولة مرة أخرى.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(invititioncretion.this, "تم حفظ الدعوة.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+
+                        Log.e(TAG, "Unable to submit post to API. " + t.getMessage());
+                    }
+                });
+
+            }
+
+
+        }
+        else
+            Toast.makeText(this, "أنت غير متصل بالشبكة, الرجاء الاتصال بالشبكة وإعادة المحاولة", Toast.LENGTH_LONG).show();
+    }
 }

@@ -17,6 +17,7 @@ public class Invitation implements Serializable
     @SerializedName("ID")
     @Expose
     private String ID;
+
     private final static long serialVersionUID = 7986813810534394219L;
 
     public String getInviterUserName() {

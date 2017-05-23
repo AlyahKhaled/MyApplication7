@@ -1,76 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_invitatonssaved"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_invitatonssaved">
-
-    <ImageView
-        android:layout_width="1100sp"
-        android:layout_height="50sp"
-        android:background="@drawable/picture3"
-        tools:layout_editor_absoluteY="172dp"
-        tools:layout_editor_absoluteX="0dp"
-        android:id="@+id/imageView10"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+    android:orientation="vertical">
 
 
-    <TextView
-        android:text="@string/graduation_ceremony"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:textColor="#7a5a23"
-        android:layout_marginTop="16dp"
-        android:layout_alignTop="@+id/imageView10"
-        android:layout_alignRight="@+id/imageView10"
-        android:layout_marginRight="20dp"/>
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="1100sp"
+            android:layout_height="50sp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/picture3"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="172dp" />
 
 
-    <ImageButton
-        android:onClick="frindslist"
-        tools:layout_editor_absoluteY="185dp"
-        tools:layout_editor_absoluteX="1dp"
-        android:id="@+id/imageButton12"
-        android:scaleType="fitXY"
-        android:layout_width="65dp"
-        android:layout_height="55dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/send"
-        android:layout_alignTop="@+id/imageButton8"
-        android:layout_alignBottom="@+id/imageButton8" />
-
-    <ImageButton
-        android:layout_width="65dp"
-        tools:layout_editor_absoluteY="185dp"
-        tools:layout_editor_absoluteX="71dp"
-        android:id="@+id/imageButton8"
-        android:scaleType="fitXY"
-        android:layout_height="55dp"
-        android:background="@drawable/edit"
-        android:layout_alignTop="@+id/imageButton7"
-        android:layout_toRightOf="@+id/imageButton12"
-        android:layout_toEndOf="@+id/imageButton12"
-        android:layout_alignBottom="@+id/imageView10"
-        />
-
-    <ImageButton
-        tools:layout_editor_absoluteY="185dp"
-        tools:layout_editor_absoluteX="142dp"
-        android:id="@+id/imageButton7"
-        android:scaleType="fitXY"
-        android:layout_width="65dp"
-        android:layout_height="55dp"
-        android:background="@drawable/cancel"
-        android:layout_toRightOf="@+id/imageButton8"
-        android:layout_toEndOf="@+id/imageButton8"
-        android:layout_alignBottom="@+id/imageView10"
-        android:layout_alignTop="@+id/imageView10" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/imageView10"
+            android:layout_alignTop="@+id/imageView10"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/graduation_ceremony"
+            android:textColor="#7a5a23" />
 
 
+        <ImageButton
+            android:id="@+id/imageButton12"
+            android:layout_width="65dp"
+            android:layout_height="55dp"
+            android:layout_alignBottom="@+id/imageButton8"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/imageButton8"
+            android:background="@drawable/send"
+            android:onClick="frindslist"
+            android:scaleType="fitXY"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="185dp" />
+
+        <ImageButton
+            android:id="@+id/imageButton8"
+            android:layout_width="65dp"
+            android:layout_height="55dp"
+            android:layout_alignBottom="@+id/imageView10"
+            android:layout_alignTop="@+id/imageButton7"
+            android:layout_toEndOf="@+id/imageButton12"
+            android:layout_toRightOf="@+id/imageButton12"
+            android:background="@drawable/edit"
+            android:scaleType="fitXY"
+            tools:layout_editor_absoluteX="71dp"
+            tools:layout_editor_absoluteY="185dp" />
+
+        <ImageButton
+            android:id="@+id/imageButton7"
+            android:layout_width="65dp"
+            android:layout_height="55dp"
+            android:layout_alignBottom="@+id/imageView10"
+            android:layout_alignTop="@+id/imageView10"
+            android:layout_toEndOf="@+id/imageButton8"
+            android:layout_toRightOf="@+id/imageButton8"
+            android:background="@drawable/cancel"
+            android:scaleType="fitXY"
+            tools:layout_editor_absoluteX="142dp"
+            tools:layout_editor_absoluteY="185dp" />
 </RelativeLayout>
 

@@ -42,7 +42,7 @@
 
     <ImageButton
         android:id="@+id/imageButton6"
-        android:onClick="friends"
+        android:onClick="friendsList"
         android:elevation="0dp"
         android:scaleType="fitXY"
         android:layout_height="215dp"

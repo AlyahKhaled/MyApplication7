@@ -58,7 +58,7 @@ public class homeuser extends AppCompatActivity implements View.OnClickListener 
         startActivity(intent);
    }
 
-    public void friends(View view) {
+    public void friendsList(View view) {
 
         //Intent intent = new Intent(homeuser.this, frind.class);
         Intent intent = new Intent(homeuser.this, MyFriendList.class);

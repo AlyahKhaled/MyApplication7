@@ -16,6 +16,8 @@ import java.util.Calendar;
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener{
 
+    public static String passingTime;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
 
@@ -42,7 +44,8 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         Date=formatter.format(time);
 
         //Display time on TextView
+        passingTime=""+Date;
         textView.setText("الوقت المختار هو:" + Date);
-
+        invititioncretion.isEditTime = false;
     }
 }
