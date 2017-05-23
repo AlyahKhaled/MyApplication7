@@ -127,7 +127,7 @@ public class FriendListAdapter extends ArrayAdapter<Friend> {
                 };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("برجاء تأكيد حذف الصديق؟").setPositiveButton("Yes", dialogClickListener)
+                builder.setMessage("الرجاء تأكيد حذف الصديق؟").setPositiveButton("Yes", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
             }
 
