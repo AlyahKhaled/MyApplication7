@@ -12,12 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kosalgeek.android.md5simply.MD5;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
+import java.io.InputStream;
 import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -34,6 +36,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     RadioButton rb;
     String type,Na , Pa;
     boolean valid=true;
+    public InputStream is ;
+
+    String UserName;
+
+    String line = null;
+    String result = null;
+    String [] arr ;
+
     connectionDetector cd ;
 
 
@@ -113,6 +123,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }else
         { Toast.makeText(LoginActivity.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
+
+
     }
 
     @Override

@@ -121,31 +121,28 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_marginBottom="10dp"
         android:layout_above="@+id/imageView7"
-        android:layout_alignStart="@+id/logoutBtn1" />
+        android:layout_alignStart="@+id/logoutBtn1"
+        android:layout_marginBottom="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_below="@+id/textView11"
         android:layout_alignStart="@+id/textView11"
-        android:layout_marginTop="12dp" />
+        android:layout_below="@+id/textView11"
+        android:layout_marginTop="12dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_alignTop="@+id/imageView12"
         android:layout_alignStart="@+id/textView12"
-        android:layout_marginTop="13dp" />
+        android:layout_alignTop="@+id/imageView12"
+        android:layout_marginTop="13dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 </RelativeLayout>
 
