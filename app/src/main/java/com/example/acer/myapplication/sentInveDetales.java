@@ -215,7 +215,7 @@ public class sentInveDetales extends AppCompatActivity {
             i = i + 3;
         }
 //================================ now fill the list view with the names============================
-         //if(!Suggestions.get(0).equals(null)){notification();}
+
 
         presentTextView.setText("الحاضرين : " + Present.size());
         AppsentTextView.setText("الغير حاضريـن" + Appsents.size());
@@ -249,21 +249,6 @@ public class sentInveDetales extends AppCompatActivity {
     {
         Intent intent = new Intent(sentInveDetales.this,profileuser.class);
         startActivity(intent);
-    }
-
-    public void notification(){
-
-
-        NotificationCompat.Builder notification=(NotificationCompat.Builder)new NotificationCompat.Builder(this)
-                .setDefaults(NotificationCompat.DEFAULT_ALL)
-                .setSmallIcon(R.drawable.zwarahlogo)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.zwarahlogo))
-                .setContentTitle("Notification")
-                .setContentText("لديك اقتراح جديد ");
-
-        NotificationManager NotificationManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        NotificationManager.notify(1,notification.build());
     }
 
 

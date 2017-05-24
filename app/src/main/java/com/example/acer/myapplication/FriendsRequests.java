@@ -195,7 +195,7 @@ public class FriendsRequests extends AppCompatActivity {
                             HttpResponse response = httpClient.execute(httpPost);
                             HttpEntity entity = response.getEntity();
                             is = entity.getContent();
-                            String msg ="you and "+selectedFromList+" become friends";
+                            String msg ="انت و "+selectedFromList+" اصبحتم أصدقاء";
                             Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
                         }   catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
