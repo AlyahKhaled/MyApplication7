@@ -62,7 +62,7 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
 
         logoutBtn = (ImageButton) findViewById(R.id.logoutBtn1);
          delete = (ImageButton) findViewById(R.id.imageButton);
-        logoutBtn.setOnClickListener(this);
+
 
         UserName = pref.getString("UserName", "");
 
@@ -181,8 +181,10 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
     }
 
     public void editP(View view){
+        if (cd.icConnected()) {
         Intent in = new Intent(profileuser.this, editProfile.class);
-        startActivity(in);
+        startActivity(in);}else
+        { Toast.makeText(profileuser.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
     }
 
 
