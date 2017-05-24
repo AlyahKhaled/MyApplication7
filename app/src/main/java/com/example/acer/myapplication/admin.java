@@ -30,7 +30,7 @@ public class admin extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton profileBtn;
 
-    connectionDetector cd ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +42,9 @@ public class admin extends AppCompatActivity implements View.OnClickListener {
         Log.d(TAG, pref.getString("UserName", ""));
         Log.d(TAG, pref.getString("PassWord", ""));
 
-        cd = new connectionDetector(this);
 
-        if (cd.icConnected()) {
         profileBtn.setOnClickListener(this);
-        }else
-        { Toast.makeText(admin.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
+
     }
 
 

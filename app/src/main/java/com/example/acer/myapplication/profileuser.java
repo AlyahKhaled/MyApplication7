@@ -44,6 +44,7 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
     String line = null;
     String result = null;
     String [] arr ;
+    connectionDetector cd ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,11 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
 
         UserName = pref.getString("UserName", "");
 
+        cd = new connectionDetector(this);
+
+
+        if (cd.icConnected()) {
+
         logoutBtn.setOnClickListener(this);
 
 
@@ -72,7 +78,6 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
 
         StrictMode.ThreadPolicy policy = new  StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
 
 
 
@@ -135,7 +140,8 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
 
 
 
-
+        }else
+        { Toast.makeText(profileuser.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
     }
 
 
@@ -183,7 +189,7 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
 public void deleteAccount(View view){
 
 
-
+    if (cd.icConnected()) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(profileuser.this);
             builder.setMessage("هل أنت متأكد تريد حذف حسابك نهائيا ؟");
@@ -231,7 +237,8 @@ public void deleteAccount(View view){
             alert.show();
         }
 
-
-}
+else
+        { Toast.makeText(profileuser.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
+}}
 
 

@@ -49,6 +49,8 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
     String line=null;
     String result=null;
 
+    connectionDetector cd ;
+
     public InputStream is ;
     Spinner spinner;
     String[] quest = {"ماهو اسم معلمك المفضل؟ ", "ماهو اسم صديقك المفضل ؟", "ماهو اسم مدينتك المفضلة؟"};
@@ -64,6 +66,8 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
         editText12 = (EditText) findViewById(R.id.editText12);
         button3 = (Button) findViewById(R.id.button3);
         button = (Button) findViewById(R.id.button);
+        cd = new connectionDetector(this);
+
         button3.setOnClickListener(this);
         spinner.setOnItemSelectedListener(this);
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,quest);
@@ -99,6 +103,7 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
         UserName = editText10.getText().toString();
         ans= editText12.getText().toString();
 
+            if (cd.icConnected()) {
             if(UserName.isEmpty()) {
                 editText10.setError("ادخل اسم الستخدم ");
                 Toast.makeText(forgetpasswored.this, " فشل التحقق من المستخدم ", Toast.LENGTH_LONG).show();
@@ -180,7 +185,8 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
 
 
             task1.execute("http://zwarh.net/zwarhapp/Alyah/city.php");
-        }}
+        }}}else
+            { Toast.makeText(forgetpasswored.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
     }
 
     @Override
@@ -190,7 +196,7 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
         newPass = editText11.getText().toString();
 
 
-
+        if (cd.icConnected()) {
         if(flag){
 
             if(newPass.isEmpty()) {
@@ -248,7 +254,8 @@ public class forgetpasswored extends AppCompatActivity implements AdapterView.On
         else{
             String msg = "تحقق من اجابتك اولا ";
             Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-        }
+        }}else
+    { Toast.makeText(forgetpasswored.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
     }
 
     public void Back(View view){
