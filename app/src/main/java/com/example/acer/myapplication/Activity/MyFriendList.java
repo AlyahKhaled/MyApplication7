@@ -18,6 +18,7 @@ import com.example.acer.myapplication.Retrofit.APIService;
 import com.example.acer.myapplication.Retrofit.ApiUtils;
 import com.example.acer.myapplication.Retrofit.Friend;
 import com.example.acer.myapplication.Retrofit.FriendListResponse;
+import com.example.acer.myapplication.profileuser;
 
 import java.util.List;
 
@@ -89,9 +90,15 @@ public class MyFriendList extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public void openprofile() {
+        Intent intent=new Intent(MyFriendList.this,profileuser.class);
+        startActivity(intent);
+
+    }
+
     private void setViews() {
         ivAddFriend = (ImageView) findViewById(R.id.imageViewAddFriend);
-        ivBackPress= (ImageButton) findViewById(R.id.imageButton2);
+        ivBackPress= (ImageButton) findViewById(R.id.imageButton3);
         imageButton2 = (ImageButton) findViewById(R.id.imageButton2);
 
     }
