@@ -278,8 +278,22 @@ public class invitatonssaved extends AppCompatActivity {
 
             ImageButton delete = (ImageButton) view.findViewById(R.id.imageButton7);
             delete.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View v) {
+
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(invitatonssaved.this);
+                    builder.setMessage("هل انت متاكد انك تريد رفض هذه الدعوة");
+                    builder.setPositiveButton("لا", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do nothing
+                        }
+                    });
+
+                    builder.setNegativeButton("نعم", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
                     //if i want to delete an invitation
                     if(isNetworkAvailable())
                     {
@@ -295,9 +309,9 @@ public class invitatonssaved extends AppCompatActivity {
                                     Log.d(TAG, response.body() + "");
 
                                     if (response.body().equals("no")) {
-                                        Toast.makeText(invitatonssaved.this, "Invitation not deleted.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(invitatonssaved.this, "لم يتم حذف الدعوة.", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        Toast.makeText(invitatonssaved.this, "Invitation deleted.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(invitatonssaved.this, "تم حذف الدعوة.", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(invitatonssaved.this, invitatonssaved.class);
                                         startActivity(intent);
                                         finish();
@@ -316,7 +330,17 @@ public class invitatonssaved extends AppCompatActivity {
                     else
                         Toast.makeText(invitatonssaved.this, "أنت غير متصل بالشبكة, الرجاء الاتصال بالشبكة وإعادة المحاولة", Toast.LENGTH_LONG).show();
 
+
+                            //do things
+                        }
+                    });
+
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
+
+
+
             });
 
             return view;

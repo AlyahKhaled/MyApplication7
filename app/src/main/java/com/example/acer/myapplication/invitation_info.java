@@ -228,6 +228,8 @@ public class invitation_info extends AppCompatActivity {
         onBackPressed();
     }
 
+
+
 // to go to the profile
     public void profile (View view)
     {

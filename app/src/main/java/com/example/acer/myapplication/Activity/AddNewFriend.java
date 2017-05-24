@@ -1,6 +1,7 @@
 package com.example.acer.myapplication.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -19,6 +20,7 @@ import com.example.acer.myapplication.Retrofit.APIService;
 import com.example.acer.myapplication.Retrofit.ApiUtils;
 import com.example.acer.myapplication.Retrofit.FriendListResponse;
 import com.example.acer.myapplication.invitatonssaved;
+import com.example.acer.myapplication.profileuser;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -150,6 +152,11 @@ public class AddNewFriend extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+    }
+
+    public void openprofile(View v) {
+        Intent intent = new Intent(AddNewFriend.this, profileuser.class);
+        startActivity(intent);
     }
 
     //check if there is network before an action

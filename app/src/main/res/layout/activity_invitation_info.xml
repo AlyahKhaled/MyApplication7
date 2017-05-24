@@ -46,6 +46,7 @@
 
 
     <ImageButton
+        android:onClick="profile"
         android:layout_width="80dp"
         android:layout_height="71dp"
         tools:layout_editor_absoluteY="71dp"

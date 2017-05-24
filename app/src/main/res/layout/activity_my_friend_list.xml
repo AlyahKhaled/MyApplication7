@@ -36,11 +36,9 @@
         android:id="@+id/imageButton3"
         android:scaleType="fitXY"
         android:background="@drawable/pers"
+        android:onClick="openprofile"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/imageView"
-        android:onClick="openprofile"/>
+        android:layout_alignParentEnd="true" />
 
 
     <RelativeLayout
