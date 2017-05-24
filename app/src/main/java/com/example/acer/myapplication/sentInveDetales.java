@@ -65,7 +65,7 @@ public class sentInveDetales extends AppCompatActivity {
     public String inMorning   ;
     public String inEvning    ;
     public String inWeakend   ;
-    public String ChangePlace ;
+    public String ChangePlace ;//heel
     //============================================end===============================================
 
 

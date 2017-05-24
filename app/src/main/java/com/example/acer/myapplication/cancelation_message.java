@@ -85,7 +85,7 @@ public class cancelation_message extends AppCompatActivity {
                 sb.append(line+"\n");
 
             result=sb.toString();
-            result=result.replace('"',' ');
+            result=result.replace('"',' ');//hello
             result=result.replace(']',' ');
             result=result.replace('[',' ');
             result=result.replace("Job meeting","اجتماع عمل ");
