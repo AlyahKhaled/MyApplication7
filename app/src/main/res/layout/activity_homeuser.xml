@@ -83,6 +83,7 @@
     <ImageButton
         android:id="@+id/imageButton11"
         android:scaleType="fitXY"
+        android:onClick="rest"
         android:layout_height="255dp"
         android:background="@drawable/book"
         android:layout_width="192dp"

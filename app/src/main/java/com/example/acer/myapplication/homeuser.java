@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.acer.myapplication.Activity.MyFriendList;
 
@@ -68,6 +69,9 @@ public class homeuser extends AppCompatActivity implements View.OnClickListener 
         startActivity(intent);
     }
 
+    public void rest(View view) {
 
+        Toast.makeText(homeuser.this, "هذه الخدمة قيد التحضير ", Toast.LENGTH_LONG).show();
+    }
 
 }
