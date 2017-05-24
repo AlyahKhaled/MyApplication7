@@ -88,5 +88,15 @@
         android:layout_marginTop="29dp"
         android:layout_above="@+id/button22"/>
 
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView36"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:text="لا يوجد لديك أصدقاء"
+        android:visibility="gone" />
+
 
 </RelativeLayout>

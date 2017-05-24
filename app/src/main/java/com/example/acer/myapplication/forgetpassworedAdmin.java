@@ -49,6 +49,7 @@ public class forgetpassworedAdmin extends AppCompatActivity implements AdapterVi
     String line=null;
     String result=null;
 
+    connectionDetector cd ;
 
     public InputStream is ;
     Spinner spinner;
@@ -65,7 +66,7 @@ public class forgetpassworedAdmin extends AppCompatActivity implements AdapterVi
         editText12 = (EditText) findViewById(R.id.editText12);
         button3 = (Button) findViewById(R.id.button3);
         button = (Button) findViewById(R.id.button);
-
+        cd = new connectionDetector(this);
 
             button3.setOnClickListener(this);
             spinner.setOnItemSelectedListener(this);
@@ -97,6 +98,10 @@ public class forgetpassworedAdmin extends AppCompatActivity implements AdapterVi
             UserName = editText10.getText().toString();
             ans= editText12.getText().toString();
 
+
+
+
+            if (cd.icConnected()) {
             if(UserName.isEmpty()) {
                 editText10.setError("ادخل اسم الستخدم ");
                 Toast.makeText(forgetpassworedAdmin.this, " فشل التحقق من المستخدم ", Toast.LENGTH_LONG).show();
@@ -130,7 +135,9 @@ public class forgetpassworedAdmin extends AppCompatActivity implements AdapterVi
 
                 task1.execute("http://zwarh.net/zwarhapp/Alyah/friend.php");
 
-            }}
+            }}}else
+                { Toast.makeText(forgetpassworedAdmin.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
+
         }
     @Override
     //==============================================================================================================
@@ -138,7 +145,7 @@ public class forgetpassworedAdmin extends AppCompatActivity implements AdapterVi
 
         newPass = editText11.getText().toString();
 
-
+        if (cd.icConnected()) {
         if(flag){
 
             if(newPass.isEmpty()) {
@@ -198,7 +205,8 @@ public class forgetpassworedAdmin extends AppCompatActivity implements AdapterVi
             String msg = "تحقق من اجابتك اولا ";
             Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 
-    }}
+    }}else
+        { Toast.makeText(forgetpassworedAdmin.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
 
     public void Back(View view){
         Intent in = new Intent(forgetpassworedAdmin.this, LoginActivity.class);

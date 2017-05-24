@@ -75,7 +75,7 @@ public class editProfileAdmin extends AppCompatActivity {
 
 
         if (cd.icConnected()) {
-        ///////////////////////////////////////////////////
+
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwarhapp/Alyah/retriveNameAdmin.php?UserName="+UserName);
@@ -139,6 +139,10 @@ public class editProfileAdmin extends AppCompatActivity {
 
         Namee =nameUs.getText().toString();
 
+
+
+
+        if (cd.icConnected()) {
         if(Namee.isEmpty()||Namee.length()>20) {
             nameUs.setError("ادخل اسمك ");
             Toast.makeText(editProfileAdmin.this, " فشل التعديل ", Toast.LENGTH_LONG).show();
@@ -230,7 +234,8 @@ public class editProfileAdmin extends AppCompatActivity {
                 startActivity(in);
             }
         }
-    }
+    } else
+    { Toast.makeText(editProfileAdmin.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
 }
 
 

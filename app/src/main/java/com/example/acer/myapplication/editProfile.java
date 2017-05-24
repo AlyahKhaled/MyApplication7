@@ -68,6 +68,7 @@ public class editProfile extends AppCompatActivity {
     String line = null;
     String result = null;
 
+    connectionDetector cd ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +89,10 @@ public class editProfile extends AppCompatActivity {
         Log.d(TAG, pref.getString("PassWord", ""));
 
         UserName = pref.getString("UserName", "");
+        cd = new connectionDetector(this);
 
+
+        if (cd.icConnected()) {
 
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -131,7 +135,8 @@ public class editProfile extends AppCompatActivity {
 
         }  catch (IOException e) {
             e.printStackTrace();
-        }
+        }}else
+            { Toast.makeText(editProfile.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
 
 
 
@@ -195,7 +200,7 @@ public class editProfile extends AppCompatActivity {
 
 
         Namee =nameUs.getText().toString();
-
+        if (cd.icConnected()) {
         if(Namee.isEmpty()||Namee.length()>20) {
             nameUs.setError("ادخل اسمك ");
             Toast.makeText(editProfile.this, " فشل التعديل ", Toast.LENGTH_LONG).show();
@@ -335,7 +340,8 @@ public class editProfile extends AppCompatActivity {
 
             }
         }
-    }
+    }else
+    { Toast.makeText(editProfile.this,"Network connection problems",Toast.LENGTH_SHORT).show();} }
 }
 
 

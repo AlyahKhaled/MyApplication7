@@ -30,7 +30,7 @@ public class admin extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton profileBtn;
 
-    connectionDetector cd ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +42,9 @@ public class admin extends AppCompatActivity implements View.OnClickListener {
         Log.d(TAG, pref.getString("UserName", ""));
         Log.d(TAG, pref.getString("PassWord", ""));
 
-        cd = new connectionDetector(this);
 
-        if (cd.icConnected()) {
         profileBtn.setOnClickListener(this);
-        }else
-        { Toast.makeText(admin.this,"Network connection problems",Toast.LENGTH_SHORT).show();}
+
     }
 
 
@@ -73,8 +70,70 @@ public class admin extends AppCompatActivity implements View.OnClickListener {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+//new
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost("http://zwarh.net/zwara/IsThereCanceledInvitaton.php");
+            HttpResponse response = httpClient.execute(httpPost);
+            HttpEntity entity = response.getEntity();
+
+
+            is = entity.getContent();
+
+
+        } catch (Exception e) {
+            System.out.print("exception 1 caught");
+        }
 
         try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+
+            StringBuilder sb = new StringBuilder();
+            while ((line = reader.readLine()) != null)
+                sb.append(line);
+
+            result = sb.toString();
+            if (result.contains("yes")) {
+
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost("http://zwarh.net/zwara/DeleteCanceledInvitaton.php");
+                    HttpResponse response = httpClient.execute(httpPost);
+                    HttpEntity entity = response.getEntity();
+
+
+                    is = entity.getContent();
+
+
+                } catch (Exception e) {
+                    System.out.print("exception 1 caught");
+                }
+                try {
+                    BufferedReader reader1 = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+
+                    StringBuilder sb1 = new StringBuilder();
+                    while ((line = reader1.readLine()) != null)
+                        sb1.append(line);
+
+                    result = sb1.toString();
+                    if (result.contains("yes")) {
+                        Toast.makeText(admin.this, "تم حذف الدعوات منتهية الصلاحية بنجاح", Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(admin.this, "لم يتم حذف الدعوات منتهية الصلاحية, الرجاء حاول مرة أخرى", Toast.LENGTH_SHORT).show();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            } else
+                Toast.makeText(admin.this, "لا يوجد دعوات لحذفها", Toast.LENGTH_SHORT).show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //end new
+       /* try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://zwarh.net/zwara/DeleteCanceledInvitaton.php");
             HttpResponse response = httpClient.execute(httpPost);
@@ -102,7 +161,7 @@ public class admin extends AppCompatActivity implements View.OnClickListener {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 
