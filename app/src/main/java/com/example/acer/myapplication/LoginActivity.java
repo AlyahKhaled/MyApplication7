@@ -54,7 +54,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (cd.icConnected()) {
             btnLogin.setOnClickListener(this);
             pref = getSharedPreferences("login.conf", Context.MODE_PRIVATE);
-
+            editor = pref.edit();
+            editor.clear();
+            editor.commit();
 
             String username = pref.getString("UserName", "");
             String password = pref.getString("PassWord", "");
@@ -117,7 +119,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
 
 
-        if (cd.icConnected()) {
+
         int radId = rg.getCheckedRadioButtonId();
         rb=(RadioButton) findViewById(radId);
 
@@ -234,32 +236,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
 
-    }else
-    { Toast.makeText(LoginActivity.this,"Network connection problems",Toast.LENGTH_SHORT).show();}}
+    }
 
 
 
 
 
-   public void forgetPass(View view){
-       int radId = rg.getCheckedRadioButtonId();
-       rb=(RadioButton) findViewById(radId);
+    public void forgetPass(View view){
+        int radId = rg.getCheckedRadioButtonId();
+        rb=(RadioButton) findViewById(radId);
 
-       if (radId == -1)
-       {
-           Toast.makeText(LoginActivity.this, " اختر نوع الدخول الى زوارة لتغيير كلمة المرور ", Toast.LENGTH_LONG).show();
+        if (radId == -1)
+        {
+            Toast.makeText(LoginActivity.this, " اختر نوع الدخول الى زوارة لتغيير كلمة المرور ", Toast.LENGTH_LONG).show();
 
-       }
-       else {
-           type= (String) rb.getText();
-           if (type.contains("User")) {
-               Intent in = new Intent(LoginActivity.this, forgetpasswored.class);
-               startActivity(in);
-           } else if (type.contains("Admin")) {
-               Intent in = new Intent(LoginActivity.this, forgetpassworedAdmin.class);
-               startActivity(in);
-           }
-       }
+        }
+        else {
+            type= (String) rb.getText();
+            if (type.contains("User")) {
+                Intent in = new Intent(LoginActivity.this, forgetpasswored.class);
+                startActivity(in);
+            } else if (type.contains("Admin")) {
+                Intent in = new Intent(LoginActivity.this, forgetpassworedAdmin.class);
+                startActivity(in);
+            }
+        }
     }
 
 
@@ -273,11 +274,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         }else {
             type= (String) rb.getText();
-        if(type.contains("User")){
-            Intent in = new Intent(LoginActivity.this, registerUser.class);
-            startActivity(in);}else if(type.contains("Admin")){
-            Toast.makeText(LoginActivity.this, "يجب أن تكون مستخدم كي تدخل صفحة التسجيل ", Toast.LENGTH_LONG).show();}
+            if(type.contains("User")){
+                Intent in = new Intent(LoginActivity.this, registerUser.class);
+                startActivity(in);}else if(type.contains("Admin")){
+                Toast.makeText(LoginActivity.this, "يجب أن تكون مستخدم كي تدخل صفحة التسجيل ", Toast.LENGTH_LONG).show();}
 
-    }}
+        }}
 
 }
+

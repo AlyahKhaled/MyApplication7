@@ -122,7 +122,7 @@ public class profileuser extends AppCompatActivity implements View.OnClickListen
 
             usN.setText(username);
             Na.setText(name);
-            if (!(berthday.contains("null"))){
+            if (!(berthday.contains("nul"))){
             Bir.setText(berthday);}else{Bir.setVisibility(View.INVISIBLE);}
 
 
