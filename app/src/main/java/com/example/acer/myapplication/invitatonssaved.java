@@ -284,7 +284,7 @@ public class invitatonssaved extends AppCompatActivity {
 
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(invitatonssaved.this);
-                    builder.setMessage("هل انت متاكد انك تريد رفض هذه الدعوة");
+                    builder.setMessage("هل انت متاكد انك تريد حذف هذه الدعوة");
                     builder.setPositiveButton("لا", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             //do nothing

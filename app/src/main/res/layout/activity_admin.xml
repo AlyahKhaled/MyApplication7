@@ -27,17 +27,19 @@
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
     <Button
         android:id="@+id/deleteExpiredInvButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button18"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
-        android:background="?android:attr/colorPressedHighlight"
-        android:padding="10dp"
+        android:layout_marginTop="33dp"
+        android:background="?android:attr/colorEdgeEffect"
         android:onClick="deleteExpiredInvitations"
-        android:text="حذف الدعوات المنتهية" />
+        android:padding="10dp"
+        android:text="حذف الدعوات المنتهية"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
 
     <ImageButton
 

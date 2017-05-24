@@ -72,8 +72,10 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:background="?android:attr/colorEdgeEffect"
         android:onClick="deleteAllInv"
-        android:text="حدف الدعوات المحفوظة" />
+        android:text="حدف الدعوات المحفوظة"
+        android:textColor="@android:color/background_light" />
 
     <TextView
         android:id="@+id/textView14"

@@ -17,7 +17,7 @@
         android:layout_alignBottom="@+id/imageView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/button10" />
+        android:layout_toStartOf="@+id/textView19" />
 
     <ImageView
         android:layout_width="227dp"
@@ -57,15 +57,15 @@
 
     <Button
         android:id="@+id/button10"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/send"
         android:onClick="canselInv"
+        android:scaleType="fitXY"
+        android:text=" "
         android:textColor="#7e5815"
         android:textSize="25dp"
         android:textStyle="bold"
-        android:drawableBottom="@drawable/send_botn"
-        android:layout_width="230dp"
-        android:layout_height="90dp"
-        android:background="@android:color/transparent"
-        android:text=" "
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 

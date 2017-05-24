@@ -17,10 +17,7 @@
         android:id="@+id/button20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="21dp"
+        android:layout_marginBottom="62dp"
         android:layout_marginLeft="26dp"
         android:background="?android:attr/colorPressedHighlight"
         android:onClick="OnButtonClick"
@@ -28,7 +25,10 @@
         android:paddingRight="10dp"
         android:text="الحفظ والعودة"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="29dp" />
 
     <Button
         android:id="@+id/button21"

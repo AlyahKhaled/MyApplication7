@@ -104,20 +104,18 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_marginBottom="20dp"
         android:layout_above="@+id/imageView7"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_alignTop="@+id/imageView7"
         android:layout_alignStart="@+id/textView11"
-        android:layout_marginTop="21dp" />
+        android:layout_alignTop="@+id/imageView7"
+        android:layout_marginTop="21dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 </RelativeLayout>

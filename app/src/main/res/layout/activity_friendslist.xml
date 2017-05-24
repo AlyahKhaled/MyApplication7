@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/textView35"
-        android:background="?android:attr/colorPressedHighlight"
+        android:background="?android:attr/colorEdgeEffect"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="إرسال الدعوة"
