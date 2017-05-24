@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -70,11 +71,19 @@
         android:layout_below="@+id/textView34"
         android:layout_marginTop="32dp"
         android:ems="10"
-        android:hint="بحــث"
-        android:textColorHint="#916a26"
+        android:hint="إبحث عن المستخدم اللذي تريد حذفه"
         android:inputType="textPersonName"
         android:textColor="#916a26"
+        android:textColorHint="#916a26"
         tools:layout_editor_absoluteX="173dp"
         tools:layout_editor_absoluteY="238dp" />
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/pasket_copy"
+        android:layout_alignTop="@+id/textSearch"
+        android:layout_toStartOf="@+id/textSearch" />
 
 </RelativeLayout>
