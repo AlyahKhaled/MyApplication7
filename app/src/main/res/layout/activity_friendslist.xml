@@ -68,11 +68,11 @@
 
     <Button
         android:id="@+id/button22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/textView35"
-        android:background="?android:attr/colorEdgeEffect"
+        android:background="@drawable/pb"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="إرسال الدعوة"

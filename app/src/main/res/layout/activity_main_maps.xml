@@ -15,11 +15,12 @@
 
     <Button
         android:id="@+id/button20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/pb"
         android:layout_marginBottom="62dp"
         android:layout_marginLeft="26dp"
-        android:background="?android:attr/colorPressedHighlight"
+
         android:onClick="OnButtonClick"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -32,14 +33,14 @@
 
     <Button
         android:id="@+id/button21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/pb"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/button20"
         android:layout_marginEnd="13dp"
         android:layout_marginRight="13dp"
-        android:background="?android:attr/colorPressedHighlight"
         android:onClick="OnButtonClickReturn"
         android:text="العودة"
         android:textColor="@color/common_google_signin_btn_text_dark_default"

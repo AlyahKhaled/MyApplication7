@@ -61,44 +61,47 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#FFEEB44E"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:layout_alignEnd="@+id/cancelBu"
+        android:layout_alignStart="@+id/cancelBu"
+        android:layout_below="@+id/cancelBu"
+        android:layout_marginTop="31dp"
+        android:background="@drawable/pb"
         android:onClick="frie"
         android:text="طلبات الصداقة"
-        android:textStyle="bold"
-        android:layout_marginTop="31dp"
-        android:layout_below="@+id/cancelBu"
-        android:layout_alignStart="@+id/cancelBu"
-        android:layout_alignEnd="@+id/cancelBu" />
+        android:textColor="#ffff"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title" />
 
     <Button
         android:id="@+id/cancelBu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
         android:layout_alignEnd="@+id/button6"
         android:layout_alignLeft="@+id/button6"
         android:layout_alignRight="@+id/button6"
         android:layout_alignStart="@+id/button6"
         android:layout_centerVertical="true"
-        android:background="#FFEEB44E"
+        android:background="@drawable/pb"
         android:onClick="apo"
         android:text="رسائل الاعتذار"
-        android:textStyle="bold" />
+        android:textColor="#ffff"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title" />
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#FFEEB44E"
+        android:layout_width="70dp"
+        android:layout_height="60dp"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/pb"
+        android:textColor="#ffff"
         android:onClick="inv"
         android:text="دعوات الاصدقاء"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/textView2"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_alignEnd="@+id/textView2" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
 
 </RelativeLayout>

@@ -70,7 +70,7 @@
     <Button
         android:id="@+id/editB"
         android:onClick="dat"
-        android:layout_width="200dp"
+        android:layout_width="170dp"
         android:layout_height="60dp"
         android:layout_marginBottom="49dp"
         android:width="260dp"
@@ -78,7 +78,7 @@
         android:textColor="#ffffff"
         android:textSize="30dp"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/imageButton8" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textView9"
