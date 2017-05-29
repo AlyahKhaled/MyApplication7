@@ -238,7 +238,7 @@ public class invitations extends AppCompatActivity {
                                     HttpResponse response = httpClient.execute(httpPost);
                                     HttpEntity entity = response.getEntity();
                                     is = entity.getContent();
-                                    display(ID1);
+                                    //display(ID1);
                                     String msg = " تم المسح بنجاح :) ";
                                     Items.remove(Items.get(ID2));
                                     notifyDataSetChanged();

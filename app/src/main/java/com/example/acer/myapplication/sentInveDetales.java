@@ -116,7 +116,7 @@ public class sentInveDetales extends AppCompatActivity {
       inMorning   ="هل يمكن أن نجتمع صباحا"  ;
       inEvning    ="هل يمكن أن نجتمع مساء" ;
       inWeakend   ="هل يمكن تأجيل الإجتماع لنهاية الأسبوع" ;
-      ChangePlace ="هل يمكن تغير مكان الإجتماع " ;
+      ChangePlace ="هل يمكن أن تغير مكان الإجتماع " ;
 
      }
 

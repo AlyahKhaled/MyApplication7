@@ -113,7 +113,7 @@ public class invitation_info extends AppCompatActivity {
                 result=result.replace("Be on time"," تعالوا في الوقت ");
                 result=result.replace("No kids allowed","يمنع اصطحاب الاطفال ");
                 result=result.replace("Job meeting","   اجتماع عمل ");
-                result=result.replace("Allowed to bring friends "," يمكنك احضتر مرافق ");
+                result=result.replace("Allowed to bring friends "," يمكنك ان تحضر مرافق ");
                 result=result.replace("Celebration party","  حفلة معايدة ");
                 result=result.replace("Friends gathering","   اجتماع اصدقاء ");
                 result=result.replace("Children party","     حفلة اطفال ");

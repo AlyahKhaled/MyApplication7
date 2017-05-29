@@ -62,7 +62,7 @@ public class sugg extends AppCompatActivity {
                  sug = sugg.getSelectedItem().toString();
                  if(sug.equals(arraySpinner[0])){sug="inMorning";}
                  else if(sug.equals(arraySpinner[1])){sug="inEvning";}
-                 else if(sug.equals(arraySpinner[2])){sug="inWeakened";}
+                 else if(sug.equals(arraySpinner[2])){sug="inWeakend";}
                  else if(sug.equals(arraySpinner[3])){sug="ChangePlace";}
 
                     List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
